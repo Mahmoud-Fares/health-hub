@@ -20,6 +20,9 @@ const BookAppointmentPage = lazy(
    () => import('@/app/pages/book-appointment-page')
 );
 const PaymentPage = lazy(() => import('@/app/pages/payment-page'));
+const DoctorSchedulePage = lazy(
+   () => import('@/app/pages/doctor-schedule-page')
+);
 
 const NotFound = lazy(() => import('@/app/pages/not-found'));
 
@@ -68,6 +71,10 @@ export const router = createBrowserRouter([
          {
             path: '/payment/:bookingId',
             element: <PaymentPage />,
+         },
+         {
+            path: '/doctor/schedule',
+            element: <DoctorSchedulePage />,
          },
       ],
    },
