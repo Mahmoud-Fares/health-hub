@@ -16,6 +16,9 @@ const ClientProfilePage = lazy(() => import('@/app/pages/client-profile-page'));
 const DoctorProfilePage = lazy(() => import('@/app/pages/doctor-profile-page'));
 const SettingsPage = lazy(() => import('@/app/pages/settings'));
 const FindDoctorsPage = lazy(() => import('@/app/pages/find-doctors-page'));
+const BookAppointmentPage = lazy(
+   () => import('@/app/pages/book-appointment-page')
+);
 
 const NotFound = lazy(() => import('@/app/pages/not-found'));
 
@@ -56,6 +59,10 @@ export const router = createBrowserRouter([
          {
             path: '/find-doctors',
             element: <FindDoctorsPage />,
+         },
+         {
+            path: '/book-appointment/:slug',
+            element: <BookAppointmentPage />,
          },
       ],
    },
