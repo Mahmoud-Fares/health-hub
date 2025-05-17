@@ -1,4 +1,4 @@
-import { ChevronLeft, Mail, UserRound } from 'lucide-react';
+import { Mail, UserRound } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 
@@ -57,17 +57,7 @@ const ClientProfilePage = () => {
    return (
       <PageWithSidebar>
          <div className='min-h-[calc(100vh-4rem)] bg-background p-4 md:p-8'>
-            <div className='container mx-auto max-w-3xl'>
-               <div className='mb-6'>
-                  <Button
-                     variant='ghost'
-                     onClick={() => navigate(-1)}
-                     className='gap-1'
-                  >
-                     <ChevronLeft className='h-4 w-4' /> Back
-                  </Button>
-               </div>
-
+            <div className='container mx-auto'>
                <Card>
                   <CardHeader>
                      <div className='flex flex-col space-y-4 md:flex-row md:items-center md:space-x-4 md:space-y-0'>

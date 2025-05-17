@@ -14,6 +14,7 @@ const SignUpPage = lazy(() => import('@/app/pages/signup'));
 const Home = lazy(() => import('@/app/pages/home'));
 const ClientProfilePage = lazy(() => import('@/app/pages/client-profile-page'));
 const DoctorProfilePage = lazy(() => import('@/app/pages/doctor-profile-page'));
+const SettingsPage = lazy(() => import('@/app/pages/settings'));
 
 const NotFound = lazy(() => import('@/app/pages/not-found'));
 
@@ -46,6 +47,10 @@ export const router = createBrowserRouter([
          {
             path: '/client/:slug',
             element: <ClientProfilePage />,
+         },
+         {
+            path: '/settings',
+            element: <SettingsPage />,
          },
       ],
    },

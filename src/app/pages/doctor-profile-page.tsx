@@ -64,7 +64,7 @@ const DoctorProfilePage = () => {
    return (
       <PageWithSidebar>
          <div className='p-4 md:p-8'>
-            <div className='mx-auto max-w-5xl'>
+            <div className='mx-auto'>
                <Card className='mb-6'>
                   <CardHeader className='pb-0'>
                      <div className='flex flex-col md:flex-row md:items-center md:justify-between'>
