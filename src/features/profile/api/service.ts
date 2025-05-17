@@ -1,4 +1,5 @@
 import { api } from '@/shared/lib';
+import { ApiResponse } from '@/shared/types/api';
 
 export interface DoctorProfile {
    id: number;
@@ -42,12 +43,6 @@ export interface ClientProfile {
    blood_type: string | null;
    weight: number | null;
    height: number | null;
-}
-
-export interface ApiResponse<T> {
-   status: number;
-   msg: string;
-   data: T;
 }
 
 export interface ValidationError {

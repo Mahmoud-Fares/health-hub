@@ -15,6 +15,7 @@ const Home = lazy(() => import('@/app/pages/home'));
 const ClientProfilePage = lazy(() => import('@/app/pages/client-profile-page'));
 const DoctorProfilePage = lazy(() => import('@/app/pages/doctor-profile-page'));
 const SettingsPage = lazy(() => import('@/app/pages/settings'));
+const FindDoctorsPage = lazy(() => import('@/app/pages/find-doctors-page'));
 
 const NotFound = lazy(() => import('@/app/pages/not-found'));
 
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
          {
             path: '/settings',
             element: <SettingsPage />,
+         },
+         {
+            path: '/find-doctors',
+            element: <FindDoctorsPage />,
          },
       ],
    },
