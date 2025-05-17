@@ -32,7 +32,7 @@ export const useBookAppointment = () => {
       },
       onSuccess: (data) => {
          toast.success('Appointment booked successfully!');
-         navigate('my-appointments');
+         navigate(`/payment/${data.data.appointment_id}`);
          return data;
       },
       onError: (error: any) => {

@@ -19,6 +19,7 @@ const FindDoctorsPage = lazy(() => import('@/app/pages/find-doctors-page'));
 const BookAppointmentPage = lazy(
    () => import('@/app/pages/book-appointment-page')
 );
+const PaymentPage = lazy(() => import('@/app/pages/payment-page'));
 
 const NotFound = lazy(() => import('@/app/pages/not-found'));
 
@@ -63,6 +64,10 @@ export const router = createBrowserRouter([
          {
             path: '/book-appointment/:slug',
             element: <BookAppointmentPage />,
+         },
+         {
+            path: '/payment/:bookingId',
+            element: <PaymentPage />,
          },
       ],
    },
