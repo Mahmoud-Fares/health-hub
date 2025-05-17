@@ -27,7 +27,10 @@
             "src/shared/components/**",
             "src/shared/hooks/**",
             "src/shared/lib/**",
-            "src/shared/types/**"
+            "src/shared/types/**",
+            "src/shared/*",
+            "src/shared/**",
+            "src/shared/**/**"
          ],
          "allowImportsFrom": ["{sharedImports}"],
          "errorMessage": "🔥 Shared folders can't import items from the `features` or `app` folders. 🔥"

@@ -6,11 +6,13 @@ import { Card, CardContent } from '@/shared/components/ui/card';
 
 import { useAuth } from '@/features/auth';
 
+import PageWithNoSidebar from '@/app/layouts/page-with-no-sidebar';
+
 export default function Home() {
    const { isAuthenticated } = useAuth();
 
    return (
-      <>
+      <PageWithNoSidebar>
          {/* Hero Section */}
          <section className='bg-gradient-to-b from-background to-secondary/20 py-20 md:py-32'>
             <div className='container flex flex-col items-center text-center'>
@@ -200,7 +202,7 @@ export default function Home() {
                </div>
             </div>
          </section>
-      </>
+      </PageWithNoSidebar>
    );
 }
 

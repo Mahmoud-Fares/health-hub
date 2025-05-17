@@ -7,7 +7,7 @@ import { useAuth } from '@/features/auth';
 export default function AuthLayout() {
    const { isAuthenticated } = useAuth();
 
-   if (isAuthenticated) <Navigate to='/' replace />;
+   if (isAuthenticated) return <Navigate to='/' replace />;
 
    return (
       <div className='flex min-h-screen animate-fade-in flex-col justify-center py-12 sm:px-6 lg:px-8'>

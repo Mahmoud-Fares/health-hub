@@ -12,6 +12,8 @@ const LoginPage = lazy(() => import('@/app/pages/login'));
 const SignUpPage = lazy(() => import('@/app/pages/signup'));
 
 const Home = lazy(() => import('@/app/pages/home'));
+const ClientProfilePage = lazy(() => import('@/app/pages/client-profile-page'));
+const DoctorProfilePage = lazy(() => import('@/app/pages/doctor-profile-page'));
 
 const NotFound = lazy(() => import('@/app/pages/not-found'));
 
@@ -36,7 +38,16 @@ export const router = createBrowserRouter([
       path: '/',
       element: <ProtectedLayout />,
       errorElement: <ErrorBoundary />,
-      children: [],
+      children: [
+         {
+            path: '/doctor/:slug',
+            element: <DoctorProfilePage />,
+         },
+         {
+            path: '/client/:slug',
+            element: <ClientProfilePage />,
+         },
+      ],
    },
    // Auth routes group
    {
