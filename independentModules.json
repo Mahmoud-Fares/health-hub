@@ -46,7 +46,10 @@
          "src/shared/components/**",
          "src/shared/hooks/**",
          "src/shared/lib/**",
-         "src/shared/types/**"
+         "src/shared/types/**",
+         "src/shared/*",
+         "src/shared/**",
+         "src/shared/**/***"
       ],
       "featurePublicApis": ["src/features/*/index.ts"]
    }
