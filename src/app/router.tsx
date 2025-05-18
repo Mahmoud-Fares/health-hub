@@ -26,6 +26,9 @@ const DoctorSchedulePage = lazy(
 const MyAppointmentsPage = lazy(
    () => import('@/app/pages/my-appointments-page')
 );
+const AppointmentBookingsPage = lazy(
+   () => import('@/app/pages/appointment-bookings-page')
+);
 
 const NotFound = lazy(() => import('@/app/pages/not-found'));
 
@@ -82,6 +85,10 @@ export const router = createBrowserRouter([
          {
             path: '/my-appointments',
             element: <MyAppointmentsPage />,
+         },
+         {
+            path: '/appointment-bookings/:appointmentId/:date',
+            element: <AppointmentBookingsPage />,
          },
       ],
    },
