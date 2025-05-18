@@ -1,6 +1,5 @@
-import { useState } from 'react';
-
-import { useParams } from 'react-router-dom';
+import { CheckCircle, Clock, CreditCard } from 'lucide-react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 
 import { Button } from '@/shared/components/ui/button';
@@ -12,118 +11,142 @@ import {
    CardHeader,
    CardTitle,
 } from '@/shared/components/ui/card';
-import { Input } from '@/shared/components/ui/input';
-import { Label } from '@/shared/components/ui/label';
+import { Separator } from '@/shared/components/ui/separator';
 
-import { useConfirmPayment } from '@/features/booking/api/booking-hooks';
-
-import PageWithNoSidebar from '@/app/layouts/page-with-no-sidebar';
+import { useConfirmBooking } from '@/features/booking/api/booking-hooks';
+import {
+   useConfirmedBookings,
+   usePendingBookings,
+   useServedBookings,
+} from '@/features/booking/api/client-bookings-hooks';
 
 const PaymentPage = () => {
    const { bookingId } = useParams<{ bookingId: string }>();
-   const [transactionId, setTransactionId] = useState('');
-   const [isLoading, setIsLoading] = useState(false);
+   const navigate = useNavigate();
+   const { mutate: confirmBooking, isPending } = useConfirmBooking();
 
-   const { mutate: confirmPayment } = useConfirmPayment();
+   const { refetch: refetchConfirmed } = useConfirmedBookings();
+   const { refetch: refetchPending } = usePendingBookings();
+   const { refetch: refetchServed } = useServedBookings();
 
-   const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-
-      if (!transactionId.trim()) {
-         toast.error('Please enter a transaction ID');
-         return;
-      }
-
-      if (!bookingId) {
-         toast.error('Booking ID is missing');
-         return;
-      }
-
-      setIsLoading(true);
-      confirmPayment(
-         { bookingId },
-         {
+   const handleConfirmPayment = () => {
+      if (bookingId) {
+         confirmBooking(parseInt(bookingId), {
             onSuccess: () => {
-               toast.success('Payment confirmed successfully');
-               // Redirect to appointments page after successful payment
-               window.location.href = '/my-appointments';
+               refetchPending();
+               refetchConfirmed();
+               refetchServed();
+
+               toast.success('Payment Successful', {
+                  description:
+                     'Your appointment has been confirmed. Thank you for your payment.',
+               });
+
+               // Redirect to the appointments page after successful payment
+               setTimeout(() => {
+                  navigate('/my-appointments');
+               }, 1500);
             },
-            onError: (error) => {
-               toast.error('Failed to confirm payment');
-               console.error('Payment error:', error);
-               setIsLoading(false);
-            },
-         }
-      );
+         });
+      }
+   };
+
+   const handlePayLater = () => {
+      toast.info('Payment Deferred', {
+         description:
+            'Your booking remains in pending state. You can pay later from your appointments page.',
+      });
+      navigate('/my-appointments');
    };
 
    return (
-      <PageWithNoSidebar>
-         <div className='container max-w-lg py-12'>
-            <Card>
-               <CardHeader>
-                  <CardTitle>Payment Confirmation</CardTitle>
-                  <CardDescription>
-                     Please complete your payment to confirm your appointment
-                  </CardDescription>
+      <div className='min-h-screen p-4 md:p-8'>
+         <div className='mx-auto max-w-2xl'>
+            <Card className='shadow-md'>
+               <CardHeader className='bg-gradient-to-r from-primary/10 to-primary/5 pb-6 text-center'>
+                  <CardTitle className='text-2xl'>
+                     Complete Your Booking
+                  </CardTitle>
+                  <CardDescription>Booking ID: {bookingId}</CardDescription>
                </CardHeader>
 
-               <form onSubmit={handleSubmit}>
-                  <CardContent className='space-y-4'>
-                     <div className='space-y-2'>
-                        <Label htmlFor='booking-id'>Booking ID</Label>
-                        <Input id='booking-id' value={bookingId} disabled />
+               <CardContent className='space-y-6 pt-6'>
+                  <div className='rounded-lg bg-primary/5 p-4'>
+                     <div className='mb-2 flex items-center text-primary'>
+                        <Clock className='mr-2 h-5 w-5' />
+                        <h3 className='font-medium'>Booking Status: Pending</h3>
                      </div>
+                     <p className='text-sm text-muted-foreground'>
+                        Your appointment is currently in a pending state. To
+                        confirm it, please proceed with payment.
+                     </p>
+                  </div>
 
-                     <div className='space-y-2'>
-                        <Label htmlFor='transaction-id'>Transaction ID</Label>
-                        <Input
-                           id='transaction-id'
-                           placeholder='Enter your transaction ID'
-                           value={transactionId}
-                           onChange={(e) => setTransactionId(e.target.value)}
-                           required
-                        />
-                        <p className='text-sm text-muted-foreground'>
-                           Please enter the transaction ID from your payment
-                           receipt
-                        </p>
+                  <Separator />
+
+                  <div>
+                     <h3 className='mb-4 flex items-center font-medium'>
+                        <CreditCard className='mr-2 h-5 w-5 text-primary' />
+                        Payment Options
+                     </h3>
+
+                     <div className='space-y-4'>
+                        <div className='rounded-md border border-primary/20 bg-primary/5 p-4'>
+                           <div className='flex items-start space-x-3'>
+                              <CheckCircle className='mt-1 h-5 w-5 text-primary' />
+                              <div>
+                                 <h4 className='font-medium'>Pay Now</h4>
+                                 <p className='text-sm text-muted-foreground'>
+                                    Confirm your appointment immediately by
+                                    completing the payment now.
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+
+                        <div className='rounded-md border p-4'>
+                           <div className='flex items-start space-x-3'>
+                              <Clock className='mt-1 h-5 w-5' />
+                              <div>
+                                 <h4 className='font-medium'>Pay Later</h4>
+                                 <p className='text-sm text-muted-foreground'>
+                                    Keep your booking in a pending state and pay
+                                    at a later time from your appointments page.
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
                      </div>
+                  </div>
+               </CardContent>
 
-                     <div className='rounded-md bg-muted p-4'>
-                        <h3 className='mb-2 font-medium'>
-                           Payment Instructions:
-                        </h3>
-                        <ul className='space-y-2 text-sm'>
-                           <li>
-                              1. Make a payment to the following account:
-                              123-456-789
-                           </li>
-                           <li>
-                              2. Use your booking ID ({bookingId}) as the
-                              payment reference
-                           </li>
-                           <li>
-                              3. Enter the transaction ID received after payment
-                           </li>
-                           <li>4. Submit the form to confirm your booking</li>
-                        </ul>
-                     </div>
-                  </CardContent>
+               <CardFooter className='flex flex-col space-y-3 p-6 sm:flex-row sm:justify-between sm:space-y-0'>
+                  <Button
+                     variant='outline'
+                     onClick={handlePayLater}
+                     className='w-full sm:w-auto'
+                  >
+                     Pay Later
+                  </Button>
 
-                  <CardFooter>
-                     <Button
-                        type='submit'
-                        disabled={isLoading}
-                        className='w-full'
-                     >
-                        {isLoading ? 'Processing...' : 'Confirm Payment'}
-                     </Button>
-                  </CardFooter>
-               </form>
+                  <Button
+                     onClick={handleConfirmPayment}
+                     disabled={isPending}
+                     className='w-full sm:w-auto'
+                  >
+                     {isPending ? (
+                        <div className='h-4 w-4 animate-spin rounded-full border-b-2 border-t-2 border-white'></div>
+                     ) : (
+                        <>
+                           <CreditCard className='mr-2 h-4 w-4' /> Complete
+                           Payment
+                        </>
+                     )}
+                  </Button>
+               </CardFooter>
             </Card>
          </div>
-      </PageWithNoSidebar>
+      </div>
    );
 };
 

@@ -23,6 +23,9 @@ const PaymentPage = lazy(() => import('@/app/pages/payment-page'));
 const DoctorSchedulePage = lazy(
    () => import('@/app/pages/doctor-schedule-page')
 );
+const MyAppointmentsPage = lazy(
+   () => import('@/app/pages/my-appointments-page')
+);
 
 const NotFound = lazy(() => import('@/app/pages/not-found'));
 
@@ -75,6 +78,10 @@ export const router = createBrowserRouter([
          {
             path: '/doctor/schedule',
             element: <DoctorSchedulePage />,
+         },
+         {
+            path: '/my-appointments',
+            element: <MyAppointmentsPage />,
          },
       ],
    },

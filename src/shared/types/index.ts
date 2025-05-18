@@ -54,10 +54,8 @@ export interface ClientBooking {
    doctor_id: number;
    client_id: number;
    status: 'pending' | 'confirmed' | 'served' | 'cancelled';
-   slot_start_time: string | null;
-   slot_end_time: string | null;
-   session_start_time?: string;
-   session_end_time?: string;
+   'slot_start_time||session_start_time'?: string;
+   'slot_end_time||session_end_time'?: string;
    google_meet_link?: string | null;
    booking_time: string;
    appointment: {

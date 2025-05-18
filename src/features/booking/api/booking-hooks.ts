@@ -44,10 +44,29 @@ export const useBookAppointment = () => {
    });
 };
 
+export const useConfirmBooking = () => {
+   const navigate = useNavigate();
+
+   return useMutation({
+      mutationFn: (bookingId: number) =>
+         bookingService.confirmBooking(bookingId),
+      onSuccess: () => {
+         toast.success('Booking confirmed successfully');
+
+         navigate('/my-appointments');
+      },
+      onError: (error: Error) => {
+         toast.error('Error', {
+            description: error.message || 'Failed to confirm booking',
+         });
+      },
+   });
+};
+
 export const useCancelBooking = () => {
    return useMutation({
-      mutationFn: (bookingId: string) => {
-         return bookingService.cancelBooking(Number(bookingId));
+      mutationFn: (bookingId: number) => {
+         return bookingService.cancelBooking(bookingId);
       },
       onSuccess: () => {
          toast.success('Booking cancelled successfully');
