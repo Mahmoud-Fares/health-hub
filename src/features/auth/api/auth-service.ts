@@ -122,7 +122,7 @@ const authService = {
             id: doctorData.id,
             name: doctorData.name,
             email: doctorData.email,
-            role: 'doctor',
+            role: 'doctor', // todo: change to role after backend updated to return it
             slug: doctorData.slug,
             phone: doctorData.phone,
             gender: doctorData.gender,

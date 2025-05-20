@@ -18,7 +18,7 @@ export default function ProfileAvatar({
    return (
       <Avatar className={cn('h-16 w-16', className)}>
          <AvatarImage src={profile.image} alt={profile.name} />
-         <AvatarFallback>
+         <AvatarFallback className={className}>
             {profile.name
                .split(' ')
                .map((n: string) => n[0].toUpperCase())

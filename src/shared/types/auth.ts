@@ -6,7 +6,7 @@ type User = {
    name: string;
    email: string;
    image?: string;
-   age?: number | null;
+   age?: number;
    role: 'client' | 'doctor';
    gender?: string;
    token: string;
@@ -30,8 +30,8 @@ export type Doctor = User & {
    specialization: string[];
 };
 
-export type DoctorWithAppointments = Doctor & {
+export type DoctorProfile = Doctor & {
    appointments: DoctorAppointment[];
 };
 
-export type AuthUser = Patient | DoctorWithAppointments;
+export type AuthUser = Patient | DoctorProfile;
