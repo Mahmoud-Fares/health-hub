@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet, ScrollRestoration } from 'react-router-dom';
 
 import { BackToHomeButton } from '@/shared/components/back-to-home';
 
@@ -10,18 +10,22 @@ export default function AuthLayout() {
    if (isAuthenticated) return <Navigate to='/' replace />;
 
    return (
-      <div className='flex min-h-screen animate-fade-in flex-col justify-center py-12 sm:px-6 lg:px-8'>
-         <div className='sm:mx-auto sm:w-full sm:max-w-md'>
-            <BackToHomeButton className='mb-6' />
+      <>
+         <ScrollRestoration />
 
-            <h2 className='gradient-text mt-6 animate-fade-in text-center text-3xl font-extrabold'>
-               Healthcare
-            </h2>
-         </div>
+         <div className='flex min-h-screen animate-fade-in flex-col justify-center py-12 sm:px-6 lg:px-8'>
+            <div className='sm:mx-auto sm:w-full sm:max-w-md'>
+               <BackToHomeButton className='mb-6' />
 
-         <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'>
-            <Outlet />
+               <h2 className='gradient-text mt-6 animate-fade-in text-center text-3xl font-extrabold'>
+                  Healthcare
+               </h2>
+            </div>
+
+            <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'>
+               <Outlet />
+            </div>
          </div>
-      </div>
+      </>
    );
 }

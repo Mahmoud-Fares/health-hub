@@ -1,11 +1,9 @@
-import { LogOut, Settings, User } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 
-import {
-   Avatar,
-   AvatarFallback,
-   AvatarImage,
-} from '@/shared/components/ui/avatar';
+import { LogOut, LucideProps, Settings, User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
+import ProfileAvatar from '@/shared/components/profile-avatar';
 import { Button } from '@/shared/components/ui/button';
 import {
    DropdownMenu,
@@ -23,31 +21,39 @@ import { useLogout } from '@/features/auth/api/auth-hooks';
 export function UserNav() {
    const { currentUser } = useAuth();
    const { mutate: logout } = useLogout();
+   const navigate = useNavigate();
 
-   const userInitials = currentUser?.name
-      ? currentUser.name
-           .split(' ')
-           .map((n: string) => n[0])
-           .join('')
-           .toUpperCase()
-           .substring(0, 2)
-      : 'U';
+   if (!currentUser) return null;
 
-   const handleLogout = () => {
-      logout();
-   };
+   const profileLink = `/${currentUser?.role === 'client' ? 'client' : 'doctor'}/${currentUser.slug}`;
+
+   const USER_MENU_ITEMS = [
+      [
+         {
+            label: 'Profile',
+            icon: User,
+            action: () => navigate(profileLink),
+         },
+         {
+            label: 'Settings',
+            icon: Settings,
+            action: () => navigate('/settings'),
+         },
+      ],
+      [
+         {
+            label: 'Log out',
+            icon: LogOut,
+            action: logout,
+         },
+      ],
+   ];
 
    return (
       <DropdownMenu>
          <DropdownMenuTrigger asChild>
-            <Button variant='ghost' className='relative h-8 w-8 rounded-full'>
-               <Avatar className='h-8 w-8'>
-                  <AvatarImage
-                     src={currentUser?.image}
-                     alt={currentUser?.name || 'User'}
-                  />
-                  <AvatarFallback>{userInitials}</AvatarFallback>
-               </Avatar>
+            <Button variant='ghost' className='relative size-9 rounded-full'>
+               <ProfileAvatar profile={currentUser} className='size-9' />
             </Button>
          </DropdownMenuTrigger>
 
@@ -62,45 +68,49 @@ export function UserNav() {
                   </p>
                </div>
             </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-               {currentUser?.role === 'doctor' && currentUser?.slug && (
-                  <DropdownMenuItem asChild>
-                     <Link
-                        to={`/doctor/${currentUser.slug}`}
-                        className='w-full cursor-pointer'
-                     >
-                        <User className='mr-2 h-4 w-4' />
-                        <span>My Profile</span>
-                     </Link>
-                  </DropdownMenuItem>
-               )}
 
-               {currentUser?.role === 'client' && currentUser?.slug && (
-                  <DropdownMenuItem asChild>
-                     <Link
-                        to={`/client/${currentUser.slug}`}
-                        className='w-full cursor-pointer'
-                     >
-                        <User className='mr-2 h-4 w-4' />
-                        <span>My Profile</span>
-                     </Link>
-                  </DropdownMenuItem>
-               )}
-
-               <DropdownMenuItem asChild>
-                  <Link to='/settings' className='w-full cursor-pointer'>
-                     <Settings className='mr-2 h-4 w-4' />
-                     <span>Settings</span>
-                  </Link>
-               </DropdownMenuItem>
-            </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleLogout} className='cursor-pointer'>
-               <LogOut className='mr-2 h-4 w-4' />
-               <span>Log out</span>
-            </DropdownMenuItem>
+
+            {USER_MENU_ITEMS.map((group, index) => (
+               <React.Fragment key={`group-${index}`}>
+                  <MenuGroup items={group} />
+
+                  {index < USER_MENU_ITEMS.length - 1 && (
+                     <DropdownMenuSeparator />
+                  )}
+               </React.Fragment>
+            ))}
          </DropdownMenuContent>
       </DropdownMenu>
    );
 }
+
+type MenuItem = {
+   label: string;
+   action: () => void;
+   icon: React.ForwardRefExoticComponent<
+      Omit<LucideProps, 'ref'> & React.RefAttributes<SVGSVGElement>
+   >;
+};
+
+const MenuGroup = ({ items }: { items: MenuItem[] }) => {
+   return (
+      <DropdownMenuGroup>
+         {items.map((item) => (
+            <DropdownMenuItem
+               key={item.label}
+               onClick={item.action}
+               className='cursor-pointer'
+            >
+               <item.icon
+                  size={16}
+                  strokeWidth={2}
+                  className='opacity-60'
+                  aria-hidden='true'
+               />
+               <span>{item.label}</span>
+            </DropdownMenuItem>
+         ))}
+      </DropdownMenuGroup>
+   );
+};

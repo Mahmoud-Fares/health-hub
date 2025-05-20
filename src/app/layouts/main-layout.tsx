@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
 
 import { useUI } from '@/shared/hooks/use-ui';
 
@@ -15,16 +15,20 @@ export default function MainLayout({ children }: Props) {
    const { showSidebar } = useUI();
 
    return (
-      <div className='flex min-h-screen flex-col'>
-         <Header />
+      <>
+         <ScrollRestoration />
 
-         <div className='flex flex-1'>
-            {showSidebar && <Sidebar />}
+         <div className='flex min-h-screen flex-col'>
+            <Header />
 
-            <MainContent>{children ?? <Outlet />}</MainContent>
+            <div className='flex flex-1'>
+               {showSidebar && <Sidebar />}
+
+               <MainContent>{children ?? <Outlet />}</MainContent>
+            </div>
+
+            <Footer />
          </div>
-
-         <Footer />
-      </div>
+      </>
    );
 }

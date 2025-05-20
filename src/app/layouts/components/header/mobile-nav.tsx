@@ -3,38 +3,35 @@ import { Link } from 'react-router-dom';
 
 import { Button } from '@/shared/components/ui/button';
 
+import { SignedIn } from '@/features/auth/components/view-controllers/signed-in';
+import { SignedOut } from '@/features/auth/components/view-controllers/signed-out';
+
+import { NavLink } from './nav-link';
+import { navigationLinks } from './navigation-links';
+
 interface MobileNavProps {
-   isAuthenticated: boolean;
    onClose: () => void;
 }
 
-export const MobileNav = ({ isAuthenticated, onClose }: MobileNavProps) => {
+export const MobileNav = ({ onClose }: MobileNavProps) => {
    return (
       <nav className='flex flex-col space-y-3'>
-         <Link
-            to='/'
-            className='text-sm font-medium text-foreground/60 transition-colors hover:text-foreground'
-            onClick={onClose}
-         >
-            Home
-         </Link>
-         <Link
-            to='/find-doctors'
-            className='text-sm font-medium text-foreground/60 transition-colors hover:text-foreground'
-            onClick={onClose}
-         >
-            Find Doctors
-         </Link>
-         {isAuthenticated && (
-            <Link
-               to='/my-appointments'
-               className='text-sm font-medium text-foreground/60 transition-colors hover:text-foreground'
-               onClick={onClose}
-            >
-               My Appointments
-            </Link>
+         {navigationLinks.map((link) =>
+            link.showAlways ? (
+               <NavLink
+                  key={link.to}
+                  to={link.to}
+                  label={link.label}
+                  onClick={onClose}
+               />
+            ) : (
+               <SignedIn key={link.to}>
+                  <NavLink to={link.to} label={link.label} onClick={onClose} />
+               </SignedIn>
+            )
          )}
-         {!isAuthenticated && (
+
+         <SignedOut>
             <div className='flex flex-col space-y-2 border-t pt-2'>
                <Link to='/login' onClick={onClose}>
                   <Button variant='outline' className='w-full justify-start'>
@@ -45,7 +42,7 @@ export const MobileNav = ({ isAuthenticated, onClose }: MobileNavProps) => {
                   <Button className='w-full justify-start'>Sign Up</Button>
                </Link>
             </div>
-         )}
+         </SignedOut>
       </nav>
    );
 };
