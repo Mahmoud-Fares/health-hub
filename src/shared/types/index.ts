@@ -1,17 +1,10 @@
-// Auth types
-export interface LoginPayload {
-   email: string;
-   password: string;
-}
+export type { ApiResponse } from './api';
 
-export interface RegisterPayload {
-   name: string;
-   email: string;
-   password: string;
-   password_confirmation: string;
-   role: string;
-   phone: string;
-}
+// Auth types
+export type { AuthUser, Doctor, Patient } from './auth';
+
+// Appointment types
+export type { DoctorAppointment } from './appointment';
 
 // Booking types
 export interface AvailableSlot {
@@ -135,16 +128,19 @@ export interface AppointmentBookingsResponse {
 }
 
 // these were in the feature/doctor/api/schedule-service.ts file
-export interface DoctorAppointment {
-   id: number;
-   doctor_name: string;
-   date: string;
-   start_time: string;
-   end_time: string;
-   session_duration: string;
-   is_available: number | boolean;
-   max_patients: number;
-}
+//
+// this is moved to the shared/types/appointment.ts file
+// export interface DoctorAppointment {
+//    id: number;
+//    doctor_name: string;
+//    date: string;
+//    day: string;
+//    start_time: string;
+//    end_time: string;
+//    session_duration: string;
+//    is_available: number | boolean;
+//    max_patients: number;
+// }
 
 export interface AppointmentPayload {
    date: string;

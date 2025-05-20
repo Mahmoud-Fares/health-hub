@@ -21,18 +21,20 @@ import {
    SelectValue,
 } from '@/shared/components/ui/select';
 import { Textarea } from '@/shared/components/ui/textarea';
+import { Patient } from '@/shared/types';
 
-import { useAuth } from '@/features/auth';
+import { useUpdateProfile } from '@/features/settings/api/hooks';
+import { ClientUpdatePayload } from '@/features/settings/api/service';
 
-import { useUpdateProfile } from '../api/hooks';
-import { ClientUpdatePayload } from '../api/service';
-
-interface ClientProfileProps {
+type ClientProfileProps = {
+   currentUser: Patient;
    activeTab: string;
-}
+};
 
-export const ClientProfileSettings = ({ activeTab }: ClientProfileProps) => {
-   const { currentUser } = useAuth();
+export const ClientProfileSettings = ({
+   activeTab,
+   currentUser,
+}: ClientProfileProps) => {
    const { mutate: updateProfile, isPending } = useUpdateProfile();
 
    const personalForm = useForm<{

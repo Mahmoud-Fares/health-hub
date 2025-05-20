@@ -1,33 +1,11 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export interface User {
-   id?: number;
-   name: string;
-   email: string;
-   role: string;
-   token: string;
-   slug: string;
-   image?: string;
-   phone?: string;
-   age?: number | null;
-   gender?: string;
-   specialization?: string[];
-   fees?: string;
-   bio?: string | null;
-   clinicaddress?: string | null;
-   clinicgovernate?: string | null;
-   clinicname?: string | null;
-   notes?: string | null;
-   medical_history?: string | null;
-   blood_type?: string | null;
-   weight?: number | null;
-   height?: number | null;
-}
+import { AuthUser } from '@/shared/types';
 
 interface AuthState {
-   currentUser: User | null;
-   setCurrentUser: (user: User | null) => void;
+   currentUser: AuthUser | null;
+   setCurrentUser: (user: AuthUser | null) => void;
    logout: () => void;
    isAuthenticated: boolean;
 }

@@ -16,19 +16,21 @@ import {
 import { Input } from '@/shared/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group';
 import { Textarea } from '@/shared/components/ui/textarea';
+import { Doctor } from '@/shared/types';
 
-import { useAuth } from '@/features/auth';
 import { useUpdateProfile } from '@/features/settings/api/hooks';
 import { DoctorUpdatePayload } from '@/features/settings/api/service';
+import { SpecialtySection } from '@/features/settings/components/doctor-profile-settings/specialty-section';
 
-import { SpecialtySection } from './specialty-section';
-
-interface DoctorProfileProps {
+type DoctorProfileProps = {
+   currentUser: Doctor;
    activeTab: string;
-}
+};
 
-export function DoctorProfileSettings({ activeTab }: DoctorProfileProps) {
-   const { currentUser } = useAuth();
+export function DoctorProfileSettings({
+   activeTab,
+   currentUser,
+}: DoctorProfileProps) {
    const [specialties, setSpecialties] = useState<string[]>(
       currentUser?.specialization || []
    );

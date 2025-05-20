@@ -1,8 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { toast } from 'sonner';
-import { z } from 'zod';
 
 import { Button } from '@/shared/components/ui/button';
 import {
@@ -25,44 +23,19 @@ import { Input } from '@/shared/components/ui/input';
 import { PasswordField } from '@/shared/components/ui/password-field';
 
 import { useLogin } from '@/features/auth/api/auth-hooks';
-import { LoginPayload } from '@/features/auth/api/auth-service';
-
-const loginSchema = z.object({
-   email: z.string().email({ message: 'Please enter a valid email address' }),
-   password: z
-      .string()
-      .min(6, { message: 'Password must be at least 6 characters' }),
-});
-
-type LoginFormValues = z.infer<typeof loginSchema>;
+import { loginSchema } from '@/features/auth/schema';
+import { LoginPayload } from '@/features/auth/types';
 
 export default function LoginForm() {
    const { mutate: login, isPending } = useLogin();
 
-   const form = useForm<LoginFormValues>({
+   const form = useForm<LoginPayload>({
       resolver: zodResolver(loginSchema),
       defaultValues: {
          email: 'patient@email.com',
          password: 'password',
       },
    });
-
-   const onSubmit = (values: LoginFormValues) => {
-      const loginData: LoginPayload = {
-         email: values.email,
-         password: values.password,
-      };
-
-      login(loginData, {
-         onError: (error) => {
-            toast.error('Login failed', {
-               description:
-                  error.message ||
-                  'Please check your credentials and try again',
-            });
-         },
-      });
-   };
 
    return (
       <Card className='mx-auto w-full max-w-md animate-fade-in'>
@@ -75,7 +48,7 @@ export default function LoginForm() {
          <CardContent>
             <Form {...form}>
                <form
-                  onSubmit={form.handleSubmit(onSubmit)}
+                  onSubmit={form.handleSubmit((values) => login(values))}
                   className='space-y-6'
                >
                   <FormField

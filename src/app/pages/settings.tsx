@@ -8,17 +8,18 @@ import {
 } from '@/shared/components/ui/tabs';
 
 import { useAuth } from '@/features/auth';
+import { isDoctor, isPatient } from '@/features/auth/utils';
 import { ClientProfileSettings } from '@/features/settings/components/client-profile-settings';
 import { DoctorProfileSettings } from '@/features/settings/components/doctor-profile-settings';
 import { PreferencesSettings } from '@/features/settings/components/preferences-settings';
 
 import PageWithSidebar from '@/app/layouts/page-with-sidebar';
 
+// todo: update the current user in the auth store after saving any changes
+
 const SettingsPage = () => {
    const { currentUser } = useAuth();
    const [activeTab, setActiveTab] = useState('personal');
-
-   const isDoctor = currentUser?.role === 'doctor';
 
    return (
       <PageWithSidebar>
@@ -38,14 +39,16 @@ const SettingsPage = () => {
                <TabsList className='w-full sm:w-auto'>
                   <TabsTrigger value='personal'>Personal Info</TabsTrigger>
 
-                  {isDoctor ? (
+                  {isDoctor(currentUser!) && (
                      <>
                         <TabsTrigger value='professional'>
                            Professional
                         </TabsTrigger>
                         <TabsTrigger value='clinic'>Clinic</TabsTrigger>
                      </>
-                  ) : (
+                  )}
+
+                  {isPatient(currentUser!) && (
                      <TabsTrigger value='health'>Health Info</TabsTrigger>
                   )}
 
@@ -53,28 +56,45 @@ const SettingsPage = () => {
                </TabsList>
 
                <div className='space-y-6'>
-                  {isDoctor ? (
+                  {isDoctor(currentUser!) && (
                      <>
                         <TabsContent value='personal' className='space-y-6'>
-                           <DoctorProfileSettings activeTab='personal' />
+                           <DoctorProfileSettings
+                              activeTab='personal'
+                              currentUser={currentUser}
+                           />
                         </TabsContent>
 
                         <TabsContent value='professional' className='space-y-6'>
-                           <DoctorProfileSettings activeTab='professional' />
+                           <DoctorProfileSettings
+                              activeTab='professional'
+                              currentUser={currentUser}
+                           />
                         </TabsContent>
 
                         <TabsContent value='clinic' className='space-y-6'>
-                           <DoctorProfileSettings activeTab='clinic' />
+                           <DoctorProfileSettings
+                              activeTab='clinic'
+                              currentUser={currentUser}
+                           />
                         </TabsContent>
                      </>
-                  ) : (
+                  )}
+
+                  {isPatient(currentUser!) && (
                      <>
                         <TabsContent value='personal' className='space-y-6'>
-                           <ClientProfileSettings activeTab='personal' />
+                           <ClientProfileSettings
+                              activeTab='personal'
+                              currentUser={currentUser}
+                           />
                         </TabsContent>
 
                         <TabsContent value='health' className='space-y-6'>
-                           <ClientProfileSettings activeTab='health' />
+                           <ClientProfileSettings
+                              activeTab='health'
+                              currentUser={currentUser}
+                           />
                         </TabsContent>
                      </>
                   )}

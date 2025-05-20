@@ -15,11 +15,11 @@ import {
    SelectValue,
 } from '@/shared/components/ui/select';
 
-import { RegisterFormValues } from './index';
+import { RegisterPayload } from '@/features/auth/types';
 
-interface RoleSelectionProps {
-   control: Control<RegisterFormValues>;
-}
+type RoleSelectionProps = {
+   control: Control<RegisterPayload>;
+};
 
 export const RoleSelection = ({ control }: RoleSelectionProps) => {
    return (

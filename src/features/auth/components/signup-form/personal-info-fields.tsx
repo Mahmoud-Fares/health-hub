@@ -10,11 +10,11 @@ import {
 import { Input } from '@/shared/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group';
 
-import { RegisterFormValues } from './index';
+import { RegisterPayload } from '@/features/auth/types';
 
-interface PersonalInfoFieldsProps {
-   control: Control<RegisterFormValues>;
-}
+type PersonalInfoFieldsProps = {
+   control: Control<RegisterPayload>;
+};
 
 export const PersonalInfoFields = ({ control }: PersonalInfoFieldsProps) => {
    return (

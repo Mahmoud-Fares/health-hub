@@ -15,7 +15,7 @@ import {
 import { useClientProfile } from '@/features/profile/api/hooks';
 import { ClientProfile } from '@/features/profile/api/service';
 
-import PageWithSidebar from '../layouts/page-with-sidebar';
+import PageWithSidebar from '@/app/layouts/page-with-sidebar';
 
 const ClientProfilePage = () => {
    const { slug } = useParams<{ slug: string }>();
