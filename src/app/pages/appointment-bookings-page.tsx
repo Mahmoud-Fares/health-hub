@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { ArrowLeft, Check, Clock } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import Spinner from '@/shared/components/spinner';
 import { Button } from '@/shared/components/ui/button';
 import {
    Card,
@@ -51,7 +52,7 @@ const AppointmentBookingsPage = () => {
 
    const renderLoadingState = () => (
       <div className='flex h-48 items-center justify-center'>
-         <div className='h-8 w-8 animate-spin rounded-full border-b-2 border-t-2 border-primary'></div>
+         <Spinner className='size-8' />
       </div>
    );
 

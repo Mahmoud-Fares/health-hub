@@ -2,6 +2,7 @@ import { CheckCircle, Clock, CreditCard } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 
+import Spinner from '@/shared/components/spinner';
 import { Button } from '@/shared/components/ui/button';
 import {
    Card,
@@ -135,7 +136,7 @@ const PaymentPage = () => {
                      className='w-full sm:w-auto'
                   >
                      {isPending ? (
-                        <div className='h-4 w-4 animate-spin rounded-full border-b-2 border-t-2 border-white'></div>
+                        <Spinner className='border-white' />
                      ) : (
                         <>
                            <CreditCard className='mr-2 h-4 w-4' /> Complete

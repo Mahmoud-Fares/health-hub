@@ -1,6 +1,7 @@
 import { Check, Clock, User } from 'lucide-react';
 import { toast } from 'sonner';
 
+import Spinner from '@/shared/components/spinner';
 import {
    Accordion,
    AccordionContent,
@@ -123,7 +124,7 @@ export const AppointmentBookingCard = ({
                               className='w-full'
                            >
                               {isPending ? (
-                                 <div className='h-4 w-4 animate-spin rounded-full border-b-2 border-t-2 border-white'></div>
+                                 <Spinner className='border-white' />
                               ) : (
                                  <>
                                     <Check className='mr-2 h-4 w-4' /> Mark as

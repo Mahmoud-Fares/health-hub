@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Calendar, Check, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+import Spinner from '@/shared/components/spinner';
 import { Button } from '@/shared/components/ui/button';
 import {
    Card,
@@ -107,7 +108,7 @@ const MyAppointmentsPage = () => {
       if (isLoading) {
          return (
             <div className='flex justify-center py-8'>
-               <div className='h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-t-transparent'></div>
+               <Spinner className='size-8' />
             </div>
          );
       }
@@ -150,7 +151,7 @@ const MyAppointmentsPage = () => {
    return (
       <PageWithSidebar>
          <div className='min-h-screen p-4 md:p-8'>
-            <div className='mx-auto max-w-5xl'>
+            <div className='mx-auto'>
                <Card className='shadow-md'>
                   <CardHeader className='bg-gradient-to-r from-primary/10 to-primary/5 pb-6'>
                      <CardTitle className='flex items-center gap-2 text-2xl'>

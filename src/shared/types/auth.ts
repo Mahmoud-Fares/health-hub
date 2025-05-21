@@ -1,7 +1,7 @@
 import { DoctorAppointment } from '.';
 
 type User = {
-   id?: number;
+   id: number;
    slug: string;
    name: string;
    email: string;

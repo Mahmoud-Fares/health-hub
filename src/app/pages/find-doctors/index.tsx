@@ -60,8 +60,8 @@ const FindDoctorsPage: React.FC = () => {
 
                {/* Loading state */}
                {isLoading && (
-                  <div className='flex justify-center py-20'>
-                     <Spinner loaderSize={16} />
+                  <div className='flex items-center justify-center py-20'>
+                     <Spinner className='size-16' />
                   </div>
                )}
 

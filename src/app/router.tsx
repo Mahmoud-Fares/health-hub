@@ -15,10 +15,8 @@ const Home = lazy(() => import('@/app/pages/home'));
 const ClientProfilePage = lazy(() => import('@/app/pages/client-profile-page'));
 const DoctorProfilePage = lazy(() => import('@/app/pages/doctor-profile-page'));
 const SettingsPage = lazy(() => import('@/app/pages/settings'));
-const FindDoctorsPage = lazy(() => import('@/app/pages/find-doctors-page'));
-const BookAppointmentPage = lazy(
-   () => import('@/app/pages/book-appointment-page')
-);
+const FindDoctorsPage = lazy(() => import('@/app/pages/find-doctors'));
+const BookAppointmentPage = lazy(() => import('@/app/pages/book-appointment'));
 const PaymentPage = lazy(() => import('@/app/pages/payment-page'));
 const DoctorSchedulePage = lazy(
    () => import('@/app/pages/doctor-schedule-page')

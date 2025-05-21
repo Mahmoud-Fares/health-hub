@@ -10,6 +10,7 @@ import {
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 
+import Spinner from '@/shared/components/spinner';
 import {
    Accordion,
    AccordionContent,
@@ -137,7 +138,7 @@ export const BookingCard = ({ booking, onCancelled }: BookingCardProps) => {
                      className='w-full sm:w-auto'
                   >
                      {isCancelPending ? (
-                        <div className='h-4 w-4 animate-spin rounded-full border-b-2 border-t-2 border-primary'></div>
+                        <Spinner />
                      ) : (
                         <>
                            <X size={16} className='mr-2' /> Cancel

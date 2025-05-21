@@ -25,7 +25,12 @@ export default function ClientProfilePage() {
    const { data: response, isLoading, error } = useClientProfile(slug);
    const client = response?.data?.user as Patient | undefined;
 
-   if (isLoading) return <Spinner className='min-h-screen' loaderSize={16} />;
+   if (isLoading)
+      return (
+         <div className='flex min-h-screen items-center justify-center'>
+            <Spinner className='size-16' />
+         </div>
+      );
 
    if (error || !client) return NoClientFound({ error });
 
