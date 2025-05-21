@@ -221,7 +221,7 @@ const DoctorSchedulePage: React.FC = () => {
 
                      {isLoading ? (
                         <div className='flex justify-center py-10'>
-                           <Spinner className='size-16' />
+                           <Spinner loaderSize={16} />;
                         </div>
                      ) : isError ? (
                         <div className='rounded-md p-4 text-red-800'>
