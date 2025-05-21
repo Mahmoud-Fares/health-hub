@@ -36,12 +36,11 @@ export const useDoctors = (page: number = 1, perPage: number = 10) => {
 
 export const useSearchDoctors = (
    name: string = '',
-   specialization: string = '',
    page: number = 1,
    perPage: number = 10
 ) => {
    return useQuery({
-      queryKey: ['search-doctors', name, specialization, page, perPage],
+      queryKey: ['search-doctors', name, page, perPage],
       queryFn: () => doctorService.searchDoctorsByName(name, page),
       meta: {
          onError: (error: Error) => {

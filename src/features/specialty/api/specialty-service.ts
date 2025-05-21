@@ -2,6 +2,7 @@ import { api } from '@/shared/lib';
 import { ApiResponse } from '@/shared/types/api';
 
 export interface Specialty {
+   id: number;
    name: string;
 }
 

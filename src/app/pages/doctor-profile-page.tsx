@@ -18,7 +18,7 @@ export default function DoctorProfilePage() {
    const { data: response, isLoading, error } = useDoctorProfile(slug);
    const doctor = response?.data;
 
-   if (isLoading) return <Spinner className='min-h-screen' />;
+   if (isLoading) return <Spinner className='size-16 min-h-screen' />;
 
    if (error || !doctor) return NoDoctorFound({ error });
 
