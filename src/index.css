@@ -106,6 +106,6 @@
 
 @layer utilities {
    .gradient-text {
-      @apply from-brand-blue to-brand-purple bg-gradient-to-r bg-clip-text text-transparent;
+      @apply bg-gradient-to-r from-brand-blue to-brand-purple bg-clip-text text-transparent;
    }
 }

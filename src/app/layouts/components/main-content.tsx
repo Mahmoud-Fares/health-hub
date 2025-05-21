@@ -9,7 +9,7 @@ interface MainContentProps {
 
 export const MainContent = ({ children, className }: MainContentProps) => {
    return (
-      <main className={cn('animate-fade-in flex-1', className)}>
+      <main className={cn('flex-1 animate-fade-in', className)}>
          {children}
       </main>
    );
