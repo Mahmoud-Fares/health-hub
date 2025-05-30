@@ -8,7 +8,6 @@ import {
    X,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { toast } from 'sonner';
 
 import Spinner from '@/shared/components/spinner';
 import {
@@ -36,7 +35,6 @@ export const BookingCard = ({ booking, onCancelled }: BookingCardProps) => {
       cancelBooking(booking.id, {
          onSuccess: () => {
             if (onCancelled) onCancelled();
-            toast.success('Booking cancelled successfully');
          },
       });
    };

@@ -32,7 +32,7 @@ export const useBookAppointment = () => {
       },
       onSuccess: (data) => {
          toast.success('Appointment booked successfully!');
-         navigate(`/payment/${data.data.appointment_id}`);
+         navigate(`/payment/${data.data.id}`);
          return data;
       },
       onError: (error: any) => {
@@ -50,11 +50,7 @@ export const useConfirmBooking = () => {
    return useMutation({
       mutationFn: (bookingId: number) =>
          bookingService.confirmBooking(bookingId),
-      onSuccess: () => {
-         toast.success('Booking confirmed successfully');
-
-         navigate('/my-appointments');
-      },
+      onSuccess: () => navigate('/my-appointments'),
       onError: (error: Error) => {
          toast.error('Error', {
             description: error.message || 'Failed to confirm booking',
