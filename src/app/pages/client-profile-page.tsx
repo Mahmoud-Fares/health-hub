@@ -12,9 +12,9 @@ import { getErrorMessage } from '@/shared/lib/utils';
 import { Patient } from '@/shared/types';
 
 import { useClientProfile } from '@/features/profile/api/hooks';
-import ContactInfo from '@/features/profile/components/contact-info';
-import MedicalInfo from '@/features/profile/components/medical-info';
-import PersonalInfo from '@/features/profile/components/personal-info';
+import { ContactInfo } from '@/features/profile/components/contact-info';
+import { MedicalInfo } from '@/features/profile/components/medical-info';
+import { PersonalInfo } from '@/features/profile/components/personal-info';
 import ProfileHeader from '@/features/profile/components/profile-header';
 
 import PageWithSidebar from '@/app/layouts/page-with-sidebar';

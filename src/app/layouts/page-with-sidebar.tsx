@@ -1,17 +1,22 @@
-import { useEffect } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 import { useUI } from '@/shared/hooks/use-ui';
 
-type Props = {
-   children: React.ReactNode;
+type PageWithSidebarProps = {
+   children: ReactNode;
 };
 
-export default function PageWithSidebar({ children }: Props) {
+export default function PageWithSidebar({ children }: PageWithSidebarProps) {
    const { setShowSidebar } = useUI();
 
    useEffect(() => {
       setShowSidebar(true);
+
+      // Cleanup function to reset sidebar state when component unmounts
+      return () => {
+         setShowSidebar(false);
+      };
    }, [setShowSidebar]);
 
-   return <>{children}</>;
+   return <main role='main'>{children}</main>;
 }

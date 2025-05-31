@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { ThemeToggler } from '@/shared/components/theme-toggler';
 import { Button } from '@/shared/components/ui/button';
 
-import { SignedIn } from '@/features/auth/components/view-controllers/signed-in';
-import { SignedOut } from '@/features/auth/components/view-controllers/signed-out';
+import { SignedIn, SignedOut } from '@/features/auth';
 
 import { NavLink } from './nav-link';
 import { navigationLinks } from './navigation-links';

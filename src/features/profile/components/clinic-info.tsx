@@ -1,29 +1,97 @@
-import { Calendar } from 'lucide-react';
+import { Building, Calendar, Globe, MapPin } from 'lucide-react';
 
+import { Badge } from '@/shared/components/ui/badge';
+import {
+   Card,
+   CardContent,
+   CardHeader,
+   CardTitle,
+} from '@/shared/components/ui/card';
 import { Doctor } from '@/shared/types';
 
 type ClinicInfoProps = {
    user: Doctor;
 };
 
-const ClinicInfo = ({ user }: ClinicInfoProps) => {
+export function ClinicInfo({ user }: ClinicInfoProps) {
+   const clinicDetails = [
+      {
+         label: 'Clinic Name',
+         value: user.clinicname,
+         icon: <Building className='h-4 w-4 text-blue-500' />,
+         important: true,
+      },
+      {
+         label: 'Address',
+         value: user.clinicaddress,
+         icon: <MapPin className='h-4 w-4 text-red-500' />,
+         important: false,
+      },
+      {
+         label: 'Governate',
+         value: user.clinicgovernate,
+         icon: <Globe className='h-4 w-4 text-green-500' />,
+         important: false,
+      },
+   ];
+
    return (
-      <div className='space-y-4'>
-         <h3 className='flex items-center font-medium'>
-            <Calendar className='mr-2 h-5 w-5 text-primary' />
-            Clinic Details
-         </h3>
+      <Card className='shadow-sm transition-shadow duration-200 hover:shadow-md'>
+         <CardHeader className='pb-4'>
+            <CardTitle className='flex items-center gap-2 text-lg'>
+               <Calendar className='h-5 w-5 text-primary' />
+               Clinic Details
+            </CardTitle>
+         </CardHeader>
+         <CardContent>
+            <div className='space-y-3 md:space-y-4'>
+               {clinicDetails.map(({ label, value, icon, important }) => {
+                  const displayValue = value || 'Not specified';
+                  const isNotSpecified = !value;
 
-         <div className='grid grid-cols-2 gap-2 text-sm'>
-            <p className='text-muted-foreground'>Clinic Name:</p>
-            <p>{user.clinicname || 'Not specified'}</p>
-            <p className='text-muted-foreground'>Address:</p>
-            <p>{user.clinicaddress || 'Not specified'}</p>
-            <p className='text-muted-foreground'>Governate:</p>
-            <p>{user.clinicgovernate || 'Not specified'}</p>
-         </div>
-      </div>
+                  return (
+                     <div
+                        key={label}
+                        className={`flex flex-col gap-2 rounded-lg border p-4 transition-all duration-200 hover:shadow-sm md:flex-row md:items-center md:justify-between md:gap-4 ${
+                           important && !isNotSpecified
+                              ? 'border-blue-200 bg-blue-50 hover:bg-blue-100 dark:border-blue-800/30 dark:bg-blue-950/20'
+                              : 'border-border/50 bg-card hover:border-border'
+                        }`}
+                     >
+                        <div className='flex items-center gap-3'>
+                           {icon}
+                           <dt className='text-sm font-semibold text-foreground'>
+                              {label}
+                           </dt>
+                        </div>
+                        <dd className='flex items-center gap-2'>
+                           {!isNotSpecified ? (
+                              important ? (
+                                 <Badge
+                                    variant='default'
+                                    className='break-words font-medium'
+                                 >
+                                    {displayValue}
+                                 </Badge>
+                              ) : (
+                                 <Badge
+                                    variant='outline'
+                                    className='break-words font-medium'
+                                 >
+                                    {displayValue}
+                                 </Badge>
+                              )
+                           ) : (
+                              <span className='text-sm italic text-muted-foreground'>
+                                 {displayValue}
+                              </span>
+                           )}
+                        </dd>
+                     </div>
+                  );
+               })}
+            </div>
+         </CardContent>
+      </Card>
    );
-};
-
-export default ClinicInfo;
+}
