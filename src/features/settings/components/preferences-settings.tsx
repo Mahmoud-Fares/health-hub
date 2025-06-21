@@ -21,7 +21,7 @@ export function PreferencesSettings() {
             </CardDescription>
          </CardHeader>
          <CardContent className='space-y-4'>
-            <div className='flex items-center justify-between'>
+            <div className='flex items-center justify-between gap-2'>
                <div className='space-y-0.5'>
                   <Label htmlFor='theme-mode'>Dark mode</Label>
                   <div className='text-sm text-muted-foreground'>
@@ -37,7 +37,7 @@ export function PreferencesSettings() {
                />
             </div>
 
-            <div className='flex items-center justify-between'>
+            <div className='flex items-center justify-between gap-2'>
                <div className='space-y-0.5'>
                   <Label htmlFor='system-theme'>Use system theme</Label>
                   <div className='text-sm text-muted-foreground'>

@@ -23,12 +23,12 @@ interface DoctorProfileContentProps {
 function DoctorProfileContent({ doctor }: DoctorProfileContentProps) {
    return (
       <PageWithSidebar>
-         <div className='p-4 md:p-8'>
+         <div className='p-4 lg:p-8'>
             <Card className='mb-6'>
                <ProfileHeader user={doctor} />
 
                <CardContent className='pt-6'>
-                  <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
+                  <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
                      <PersonalInfo user={doctor} />
                      <ClinicInfo user={doctor} />
                   </div>

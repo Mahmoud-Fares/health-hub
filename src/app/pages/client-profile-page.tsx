@@ -36,26 +36,24 @@ export default function ClientProfilePage() {
 
    return (
       <PageWithSidebar>
-         <div className='min-h-[calc(100vh-4rem)] bg-background p-4 md:p-8'>
-            <div className='container mx-auto'>
-               <Card>
-                  <ProfileHeader user={client} />
+         <div className='min-h-[calc(100vh-4rem)] bg-background p-4 lg:p-8'>
+            <Card>
+               <ProfileHeader user={client} />
 
-                  <CardContent>
-                     <div className='grid grid-cols-1 gap-8 pt-6 md:grid-cols-2'>
-                        <div className='space-y-6'>
-                           <PersonalInfo user={client} />
-                           <ContactInfo
-                              email={client.email}
-                              phone={client.phone}
-                           />
-                        </div>
-
-                        <MedicalInfo user={client} />
+               <CardContent>
+                  <div className='grid grid-cols-1 gap-8 pt-6 lg:grid-cols-2'>
+                     <div className='space-y-6'>
+                        <PersonalInfo user={client} />
+                        <ContactInfo
+                           email={client.email}
+                           phone={client.phone}
+                        />
                      </div>
-                  </CardContent>
-               </Card>
-            </div>
+
+                     <MedicalInfo user={client} />
+                  </div>
+               </CardContent>
+            </Card>
          </div>
       </PageWithSidebar>
    );

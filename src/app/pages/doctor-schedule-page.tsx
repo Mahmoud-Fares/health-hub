@@ -60,14 +60,14 @@ const DoctorSchedulePage: React.FC = () => {
                </p>
             </header>
 
-            <div className='mb-8 flex flex-col gap-6 md:flex-row'>
+            <div className='mb-8 flex flex-col gap-6 lg:flex-row'>
                <DateSelector
                   selectedDate={selectedDate}
                   onDateSelect={handleDateSelect}
                   onAddNewClick={handleAddNewClick}
                />
 
-               <div className='rounded-lg dark:border md:w-2/3'>
+               <div className='rounded-lg dark:border lg:flex-1'>
                   <div className='rounded-lg p-6 shadow-md'>
                      <h2 className='mb-4 text-lg font-medium'>
                         Your Appointments
@@ -86,7 +86,7 @@ const DoctorSchedulePage: React.FC = () => {
 
             {/* Add Appointment Dialog */}
             <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-               <DialogContent className='sm:max-w-[425px]'>
+               <DialogContent className='max-w-[97%] sm:max-w-[425px]'>
                   <DialogHeader>
                      <DialogTitle>Add New Appointment</DialogTitle>
                      <DialogDescription>
@@ -113,7 +113,7 @@ const DoctorSchedulePage: React.FC = () => {
                open={isUpdateDialogOpen}
                onOpenChange={setIsUpdateDialogOpen}
             >
-               <DialogContent className='sm:max-w-[425px]'>
+               <DialogContent className='max-w-[97%] sm:max-w-[425px]'>
                   <DialogHeader>
                      <DialogTitle>Update Appointment</DialogTitle>
                      <DialogDescription>

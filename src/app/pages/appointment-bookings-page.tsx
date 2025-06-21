@@ -43,8 +43,8 @@ const AppointmentBookingsPage = () => {
    const { data: servedResponse, isLoading: isLoadingServed } =
       useServedAppointmentBookings(appointmentIdNum);
 
-   const confirmedBookings = confirmedResponse?.data?.data?.data || [];
-   const servedBookings = servedResponse?.data?.data?.data || [];
+   const confirmedBookings = confirmedResponse?.data?.data || [];
+   const servedBookings = servedResponse?.data?.data || [];
 
    const handleTabChange = (value: string) => {
       setActiveTab(value);
@@ -72,7 +72,7 @@ const AppointmentBookingsPage = () => {
          <div className='min-h-screen animate-fade-in p-4 md:p-8'>
             <Card className='shadow-md'>
                <CardHeader className='bg-gradient-to-r from-primary/10 to-primary/5 pb-6'>
-                  <div className='flex items-center justify-between'>
+                  <div className='flex flex-wrap-reverse items-center justify-between gap-3'>
                      <CardTitle className='flex items-center gap-2 text-2xl'>
                         <Clock className='h-6 w-6' />
                         Appointment Bookings

@@ -84,7 +84,7 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
                </div>
             </div>
 
-            <div className='grid grid-cols-2 gap-4'>
+            <div className='grid gap-4 sm:grid-cols-2'>
                <div className='grid gap-2'>
                   <Label htmlFor={`${formId}-start_time`}>Start Time</Label>
                   <Input
@@ -109,7 +109,7 @@ export const AppointmentForm: React.FC<AppointmentFormProps> = ({
                </div>
             </div>
 
-            <div className='grid grid-cols-2 gap-4'>
+            <div className='grid gap-4 sm:grid-cols-2'>
                <div className='grid gap-2'>
                   <Label htmlFor={`${formId}-session_duration`}>
                      Session Duration (min)

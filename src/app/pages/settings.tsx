@@ -36,7 +36,7 @@ const SettingsPage = () => {
                onValueChange={(value) => setActiveTab(value)}
                className='space-y-6'
             >
-               <TabsList className='w-full sm:w-auto'>
+               <TabsList>
                   <TabsTrigger value='personal'>Personal Info</TabsTrigger>
 
                   {isDoctor(currentUser!) && (

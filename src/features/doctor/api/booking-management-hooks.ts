@@ -59,11 +59,7 @@ export const useMarkBookingAsServed = () => {
    return useMutation({
       mutationFn: (bookingId: number) =>
          bookingManagementService.markBookingAsServed(bookingId),
-      onSuccess: (data) => {
-         toast.success('Success', {
-            description: data?.msg || 'Booking marked as served successfully',
-         });
-
+      onSuccess: () => {
          // Perform optimistic cache updates
          queryClient.invalidateQueries({
             queryKey: ['appointmentConfirmedBookings'],

@@ -4,20 +4,25 @@ import { Calendar, Plus } from 'lucide-react';
 
 import { Button } from '@/shared/components/ui/button';
 import { Calendar as CalendarComponent } from '@/shared/components/ui/calendar';
+import { cn } from '@/shared/lib/utils';
 
 interface DateSelectorProps {
    selectedDate: Date | undefined;
    onDateSelect: (date: Date | undefined) => void;
    onAddNewClick: () => void;
+   className?: string;
 }
 
 export const DateSelector: React.FC<DateSelectorProps> = ({
    selectedDate,
    onDateSelect,
    onAddNewClick,
+   className,
 }) => {
    return (
-      <div className='h-fit rounded-lg p-4 shadow-md dark:border md:w-1/3'>
+      <div
+         className={cn('h-fit rounded-lg p-4 shadow-md dark:border', className)}
+      >
          <h2 className='mb-4 flex items-center text-lg font-medium'>
             <Calendar className='mr-2 h-5 w-5' /> Select Date
          </h2>

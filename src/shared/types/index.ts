@@ -123,9 +123,7 @@ export interface AppointmentBooking {
    };
 }
 
-export interface AppointmentBookingsResponse {
-   data: PaginatedResponse<AppointmentBooking>;
-}
+export type AppointmentBookingsResponse = PaginatedResponse<AppointmentBooking>;
 
 // these were in the feature/doctor/api/schedule-service.ts file
 //
