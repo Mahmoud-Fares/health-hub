@@ -21,7 +21,9 @@ export default function MainLayout({ children, withSidebar = false }: Props) {
             <div className='flex flex-1'>
                {withSidebar && <Sidebar />}
 
-               <MainContent>{children ?? <Outlet />}</MainContent>
+               <MainContent withSidebar={withSidebar}>
+                  {children ?? <Outlet />}
+               </MainContent>
             </div>
 
             <Footer />

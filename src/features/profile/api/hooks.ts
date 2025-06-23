@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { toast } from 'sonner';
 
 import profileService from './service';
 
@@ -13,11 +12,6 @@ export const useDoctorProfile = (doctorSlug: string | undefined) => {
          return profileService.getDoctorProfile(doctorSlug);
       },
       enabled: !!doctorSlug,
-      meta: {
-         onError: (error: Error) => {
-            toast.error(error.message || 'Failed to load doctor profile');
-         },
-      },
    });
 };
 
@@ -31,10 +25,5 @@ export const useClientProfile = (clientSlug: string | undefined) => {
          return profileService.getClientProfile(clientSlug);
       },
       enabled: !!clientSlug,
-      meta: {
-         onError: (error: Error) => {
-            toast.error(error.message || 'Failed to load client profile');
-         },
-      },
    });
 };

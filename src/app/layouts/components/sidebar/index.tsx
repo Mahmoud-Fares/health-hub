@@ -29,7 +29,7 @@ const Sidebar = () => {
       ...(isDoctor && currentUser?.slug
          ? [
               {
-                 name: 'My Doctor Profile',
+                 name: 'My Profile',
                  href: `/doctor/${currentUser.slug}`,
                  icon: User,
               },
@@ -43,7 +43,7 @@ const Sidebar = () => {
       ...(isClient && currentUser?.slug
          ? [
               {
-                 name: 'My Client Profile',
+                 name: 'My Profile',
                  href: `/client/${currentUser.slug}`,
                  icon: User,
               },

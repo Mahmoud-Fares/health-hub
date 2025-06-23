@@ -23,65 +23,64 @@ export default function ClientProfilePage() {
    const { data: response, isLoading, error } = useClientProfile(slug);
    const client = response?.data?.user as Patient | undefined;
 
-   if (isLoading)
-      return (
-         <div className='flex min-h-screen items-center justify-center'>
-            <Spinner className='size-16' />
-         </div>
-      );
+   if (isLoading) return <LoadingState />;
 
    if (error || !client) return NoClientFound({ error });
 
    return (
-      <>
-         <div className='min-h-[calc(100vh-4rem)] bg-background p-4 lg:p-8'>
-            <Card className='border-none'>
-               <ProfileHeader user={client} />
+      <Card className='animate-fade-in border-none shadow-none'>
+         <ProfileHeader user={client} />
 
-               <CardContent>
-                  <div className='grid grid-cols-1 gap-8 pt-6 lg:grid-cols-2'>
-                     <div className='space-y-6'>
-                        <PersonalInfo user={client} />
-                        <ContactInfo
-                           email={client.email}
-                           phone={client.phone}
-                        />
-                     </div>
+         <CardContent>
+            <div className='grid grid-cols-1 gap-8 pt-6 lg:grid-cols-2'>
+               <div className='space-y-6'>
+                  <PersonalInfo user={client} />
+                  <ContactInfo email={client.email} phone={client.phone} />
+               </div>
 
-                     <MedicalInfo user={client} />
-                  </div>
-               </CardContent>
-            </Card>
-         </div>
-      </>
+               <MedicalInfo user={client} />
+            </div>
+         </CardContent>
+      </Card>
    );
 }
+
+const LoadingState = () => {
+   return (
+      <div
+         className='flex h-full animate-fade-in items-center justify-center'
+         role='status'
+         aria-label='Loading doctor profile'
+      >
+         <Spinner className='size-16' />
+         <span className='sr-only'>Loading client profile...</span>
+      </div>
+   );
+};
 
 const NoClientFound = ({ error }: { error: any }) => {
    const navigate = useNavigate();
 
    return (
-      <>
-         <div className='flex min-h-[calc(100vh-4rem)] items-center justify-center p-4'>
-            <Card className='w-full max-w-3xl'>
-               <CardHeader>
-                  <CardTitle className='text-center text-destructive'>
-                     Error Loading Profile
-                  </CardTitle>
-               </CardHeader>
-               <CardContent>
-                  <p className='text-center'>
-                     {getErrorMessage(error) ||
-                        'Could not load client profile. Please try again later.'}
-                  </p>
-                  <div className='mt-4 flex justify-center'>
-                     <Button variant='outline' onClick={() => navigate(-1)}>
-                        Go Back
-                     </Button>
-                  </div>
-               </CardContent>
-            </Card>
-         </div>
-      </>
+      <div className='flex animate-fade-in items-center justify-center p-4'>
+         <Card className='w-full max-w-3xl'>
+            <CardHeader>
+               <CardTitle className='text-center text-destructive'>
+                  Error Loading Profile
+               </CardTitle>
+            </CardHeader>
+            <CardContent>
+               <p className='text-center'>
+                  {getErrorMessage(error) ||
+                     'Could not load client profile. Please try again later.'}
+               </p>
+               <div className='mt-4 flex justify-center'>
+                  <Button variant='outline' onClick={() => navigate(-1)}>
+                     Go Back
+                  </Button>
+               </div>
+            </CardContent>
+         </Card>
+      </div>
    );
 };
