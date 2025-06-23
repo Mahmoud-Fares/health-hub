@@ -12,8 +12,6 @@ import { ClinicInfo } from '@/features/profile/components/clinic-info';
 import { PersonalInfo } from '@/features/profile/components/personal-info';
 import ProfileHeader from '@/features/profile/components/profile-header';
 
-import PageWithSidebar from '@/app/layouts/page-with-sidebar';
-
 import { NoDoctorFound } from './no-doctor-found';
 
 interface DoctorProfileContentProps {
@@ -22,9 +20,9 @@ interface DoctorProfileContentProps {
 
 function DoctorProfileContent({ doctor }: DoctorProfileContentProps) {
    return (
-      <PageWithSidebar>
+      <>
          <div className='p-4 lg:p-8'>
-            <Card className='mb-6'>
+            <Card className='mb-6 border-none'>
                <ProfileHeader user={doctor} />
 
                <CardContent className='pt-6'>
@@ -64,7 +62,7 @@ function DoctorProfileContent({ doctor }: DoctorProfileContentProps) {
                </CardContent>
             </Card>
          </div>
-      </PageWithSidebar>
+      </>
    );
 }
 

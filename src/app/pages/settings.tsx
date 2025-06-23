@@ -13,8 +13,6 @@ import { ClientProfileSettings } from '@/features/settings/components/client-pro
 import { DoctorProfileSettings } from '@/features/settings/components/doctor-profile-settings';
 import { PreferencesSettings } from '@/features/settings/components/preferences-settings';
 
-import PageWithSidebar from '@/app/layouts/page-with-sidebar';
-
 // todo: update the current user in the auth store after saving any changes
 
 const SettingsPage = () => {
@@ -22,7 +20,7 @@ const SettingsPage = () => {
    const [activeTab, setActiveTab] = useState('personal');
 
    return (
-      <PageWithSidebar>
+      <>
          <div className='container py-10'>
             <div className='mb-8'>
                <h1 className='text-3xl font-bold'>Account Settings</h1>
@@ -105,7 +103,7 @@ const SettingsPage = () => {
                </div>
             </Tabs>
          </div>
-      </PageWithSidebar>
+      </>
    );
 };
 

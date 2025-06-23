@@ -1,7 +1,6 @@
 import { Card } from '@/shared/components/ui/card';
 import { Separator } from '@/shared/components/ui/separator';
 
-import PageWithSidebar from '@/app/layouts/page-with-sidebar';
 import { AppointmentBookingSection } from '@/app/pages/book-appointment/components/appointment-booking-section';
 import { DoctorInfoCard } from '@/app/pages/book-appointment/components/doctor-info-card';
 import { LoadingState } from '@/app/pages/book-appointment/components/loading-state';
@@ -25,7 +24,7 @@ const BookAppointmentPage = () => {
    if (doctorError || !doctor) return <NoDoctorFound error={doctorError} />;
 
    return (
-      <PageWithSidebar>
+      <>
          <div className='p-4 md:p-8'>
             <Card className='shadow-sm'>
                <DoctorInfoCard doctor={doctor} />
@@ -42,7 +41,7 @@ const BookAppointmentPage = () => {
                />
             </Card>
          </div>
-      </PageWithSidebar>
+      </>
    );
 };
 

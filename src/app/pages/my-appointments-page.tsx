@@ -25,8 +25,6 @@ import {
    useAppointments,
 } from '@/features/booking/hooks/use-appointments';
 
-import PageWithSidebar from '@/app/layouts/page-with-sidebar';
-
 interface TabConfig {
    value: AppointmentType;
    label: string;
@@ -52,8 +50,7 @@ const TAB_CONFIGS: TabConfig[] = [
 ];
 
 const MyAppointmentsPage = () => {
-   const { handlePageChange, handleCancelledBooking, getDataByType } =
-      useAppointments();
+   const { handlePageChange, getDataByType } = useAppointments();
 
    const renderTabContent = (type: AppointmentType) => {
       const { data, isLoading, currentPage } = getDataByType(type);
@@ -65,13 +62,12 @@ const MyAppointmentsPage = () => {
             data={data}
             currentPage={currentPage}
             onPageChange={handlePageChange}
-            onCancelled={handleCancelledBooking}
          />
       );
    };
 
    return (
-      <PageWithSidebar>
+      <>
          <div className='min-h-screen p-4 md:p-8'>
             <div className='mx-auto'>
                <Card className='shadow-md'>
@@ -114,7 +110,7 @@ const MyAppointmentsPage = () => {
                </Card>
             </div>
          </div>
-      </PageWithSidebar>
+      </>
    );
 };
 

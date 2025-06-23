@@ -78,7 +78,7 @@ export function Footer() {
 
             <div className='md:col-span-3 lg:col-span-1'>
                <h4 className='mb-4 font-bold text-foreground'>Stay Updated</h4>
-               <form className='flex flex-col gap-2 sm:flex-row'>
+               <form className='flex flex-col flex-wrap gap-2 sm:flex-row'>
                   <input
                      type='email'
                      placeholder='Your email'

@@ -17,8 +17,6 @@ import { MedicalInfo } from '@/features/profile/components/medical-info';
 import { PersonalInfo } from '@/features/profile/components/personal-info';
 import ProfileHeader from '@/features/profile/components/profile-header';
 
-import PageWithSidebar from '@/app/layouts/page-with-sidebar';
-
 export default function ClientProfilePage() {
    const { slug } = useParams<{ slug: string }>();
 
@@ -35,9 +33,9 @@ export default function ClientProfilePage() {
    if (error || !client) return NoClientFound({ error });
 
    return (
-      <PageWithSidebar>
+      <>
          <div className='min-h-[calc(100vh-4rem)] bg-background p-4 lg:p-8'>
-            <Card>
+            <Card className='border-none'>
                <ProfileHeader user={client} />
 
                <CardContent>
@@ -55,7 +53,7 @@ export default function ClientProfilePage() {
                </CardContent>
             </Card>
          </div>
-      </PageWithSidebar>
+      </>
    );
 }
 
@@ -63,7 +61,7 @@ const NoClientFound = ({ error }: { error: any }) => {
    const navigate = useNavigate();
 
    return (
-      <PageWithSidebar>
+      <>
          <div className='flex min-h-[calc(100vh-4rem)] items-center justify-center p-4'>
             <Card className='w-full max-w-3xl'>
                <CardHeader>
@@ -84,6 +82,6 @@ const NoClientFound = ({ error }: { error: any }) => {
                </CardContent>
             </Card>
          </div>
-      </PageWithSidebar>
+      </>
    );
 };

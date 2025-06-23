@@ -15,28 +15,20 @@ import {
 import { Separator } from '@/shared/components/ui/separator';
 
 import { useConfirmBooking } from '@/features/booking/api/booking-hooks';
-import {
-   useConfirmedBookings,
-   usePendingBookings,
-   useServedBookings,
-} from '@/features/booking/api/client-bookings-hooks';
+import { useAppointments } from '@/features/booking/hooks/use-appointments';
 
 const PaymentPage = () => {
    const { bookingId } = useParams<{ bookingId: string }>();
    const navigate = useNavigate();
    const { mutate: confirmBooking, isPending } = useConfirmBooking();
 
-   const { refetch: refetchConfirmed } = useConfirmedBookings();
-   const { refetch: refetchPending } = usePendingBookings();
-   const { refetch: refetchServed } = useServedBookings();
+   const { handleRefreshAllBookings } = useAppointments();
 
    const handleConfirmPayment = () => {
       if (bookingId) {
          confirmBooking(parseInt(bookingId), {
             onSuccess: () => {
-               refetchPending();
-               refetchConfirmed();
-               refetchServed();
+               handleRefreshAllBookings();
 
                toast.success('Payment Successful', {
                   description:
@@ -57,6 +49,7 @@ const PaymentPage = () => {
          description:
             'Your booking remains in pending state. You can pay later from your appointments page.',
       });
+      handleRefreshAllBookings();
       navigate('/my-appointments');
    };
 

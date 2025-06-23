@@ -53,6 +53,17 @@ export const router = createBrowserRouter([
       errorElement: <ErrorBoundary />,
       children: [
          {
+            path: '/find-doctors',
+            element: <FindDoctorsPage />,
+         },
+      ],
+   },
+   {
+      path: '/',
+      element: <ProtectedLayout withSidebar />,
+      errorElement: <ErrorBoundary />,
+      children: [
+         {
             path: '/doctor/:slug',
             element: <DoctorProfilePage />,
          },
@@ -63,10 +74,6 @@ export const router = createBrowserRouter([
          {
             path: '/settings',
             element: <SettingsPage />,
-         },
-         {
-            path: '/find-doctors',
-            element: <FindDoctorsPage />,
          },
          {
             path: '/book-appointment/:slug',
@@ -90,6 +97,7 @@ export const router = createBrowserRouter([
          },
       ],
    },
+
    // Auth routes group
    {
       path: '/',

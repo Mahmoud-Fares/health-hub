@@ -37,7 +37,7 @@ export const useAppointments = () => {
       else setServedPage(page);
    };
 
-   const handleCancelledBooking = () => {
+   const handleRefreshAllBookings = () => {
       refetchPending();
       refetchConfirmed();
       refetchServed();
@@ -68,7 +68,7 @@ export const useAppointments = () => {
 
    return {
       handlePageChange,
-      handleCancelledBooking,
+      handleRefreshAllBookings,
       getDataByType,
    };
 };

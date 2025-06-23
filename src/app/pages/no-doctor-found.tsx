@@ -4,8 +4,6 @@ import { Button } from '@/shared/components/ui/button';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { getErrorMessage } from '@/shared/lib/utils';
 
-import PageWithSidebar from '@/app/layouts/page-with-sidebar';
-
 interface NoDoctorFoundProps {
    error: unknown;
 }
@@ -22,7 +20,7 @@ export function NoDoctorFound({ error }: NoDoctorFoundProps) {
       'Could not load doctor profile. Please try again later.';
 
    return (
-      <PageWithSidebar>
+      <>
          <div className='flex min-h-[calc(100vh-4rem)] items-center justify-center p-4'>
             <Card className='w-full max-w-3xl'>
                <CardContent className='pt-6'>
@@ -41,6 +39,6 @@ export function NoDoctorFound({ error }: NoDoctorFoundProps) {
                </CardContent>
             </Card>
          </div>
-      </PageWithSidebar>
+      </>
    );
 }

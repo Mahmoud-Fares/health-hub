@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { AxiosError } from 'axios';
 import { format, isValid, parse } from 'date-fns';
 
 import { AppointmentPayload, DoctorAppointment } from '@/shared/types';
@@ -32,6 +33,7 @@ export const useAppointmentManagement = () => {
       data: appointmentsResponse,
       isLoading,
       isError,
+      error,
    } = useDoctorAppointments();
    const createAppointmentMutation = useCreateAppointment();
    const updateAppointmentMutation = useUpdateAppointment();
@@ -135,7 +137,7 @@ export const useAppointmentManagement = () => {
       formData,
       appointments,
       isLoading,
-      isError,
+      isError: isError && (error as AxiosError).status !== 404,
       setIsAddDialogOpen,
       setIsUpdateDialogOpen,
       handleAddNewClick,

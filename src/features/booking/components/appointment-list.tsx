@@ -11,7 +11,6 @@ interface AppointmentListProps {
    data: any;
    currentPage: number;
    onPageChange: (type: AppointmentType, page: number) => void;
-   onCancelled: () => void;
 }
 
 export const AppointmentList = ({
@@ -20,7 +19,6 @@ export const AppointmentList = ({
    data,
    currentPage,
    onPageChange,
-   onCancelled,
 }: AppointmentListProps) => {
    if (isLoading) {
       return (
@@ -39,11 +37,7 @@ export const AppointmentList = ({
    return (
       <div className='space-y-4'>
          {bookings.map((booking: any) => (
-            <BookingCard
-               key={booking.id}
-               booking={booking}
-               onCancelled={onCancelled}
-            />
+            <BookingCard key={booking.id} booking={booking} />
          ))}
          <AppointmentPagination
             totalPages={data?.meta?.total_pages || 0}

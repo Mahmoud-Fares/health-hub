@@ -9,7 +9,7 @@ type ViewToOthersOnlyProps = {
 
 export function ViewToOthersOnly({ profile, children }: ViewToOthersOnlyProps) {
    const { currentUser } = useAuth();
-   const isCurrentUserProfile = profile.id === currentUser?.id;
+   const isCurrentUserProfile = profile.slug === currentUser?.slug;
 
    return !isCurrentUserProfile && children;
 }

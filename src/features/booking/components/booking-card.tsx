@@ -22,20 +22,21 @@ import { ClientBooking } from '@/shared/types';
 
 import { useCancelBooking } from '@/features/booking/api/booking-hooks';
 
+import { useAppointments } from '../hooks/use-appointments';
+
 interface BookingCardProps {
    booking: ClientBooking;
-   onCancelled?: () => void;
 }
 
-export const BookingCard = ({ booking, onCancelled }: BookingCardProps) => {
+export const BookingCard = ({ booking }: BookingCardProps) => {
    const { mutate: cancelBooking, isPending: isCancelPending } =
       useCancelBooking();
 
+   const { handleRefreshAllBookings } = useAppointments();
+
    const handleCancel = () => {
       cancelBooking(booking.id, {
-         onSuccess: () => {
-            if (onCancelled) onCancelled();
-         },
+         onSuccess: () => handleRefreshAllBookings(),
       });
    };
 

@@ -20,9 +20,7 @@ export const DateSelector: React.FC<DateSelectorProps> = ({
    className,
 }) => {
    return (
-      <div
-         className={cn('h-fit rounded-lg p-4 shadow-md dark:border', className)}
-      >
+      <div className={cn('h-fit rounded-lg p-4 shadow-md', className)}>
          <h2 className='mb-4 flex items-center text-lg font-medium'>
             <Calendar className='mr-2 h-5 w-5' /> Select Date
          </h2>

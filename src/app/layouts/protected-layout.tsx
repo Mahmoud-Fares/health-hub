@@ -4,13 +4,17 @@ import { useAuth } from '@/features/auth';
 
 import MainLayout from '@/app/layouts/main-layout';
 
-export default function ProtectedLayout() {
+type Props = {
+   withSidebar?: boolean;
+};
+
+export default function ProtectedLayout({ withSidebar }: Props) {
    const { isAuthenticated } = useAuth();
 
    if (!isAuthenticated) return <Navigate to='/login' replace />;
 
    return (
-      <MainLayout>
+      <MainLayout withSidebar={withSidebar}>
          <Outlet />
       </MainLayout>
    );

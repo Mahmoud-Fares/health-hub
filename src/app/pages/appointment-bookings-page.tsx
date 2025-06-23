@@ -24,8 +24,6 @@ import {
 } from '@/features/doctor/api/booking-management-hooks';
 import { AppointmentBookingCard } from '@/features/doctor/components/appointment-booking-card';
 
-import PageWithSidebar from '../layouts/page-with-sidebar';
-
 const AppointmentBookingsPage = () => {
    const navigate = useNavigate();
    const { appointmentId, date } = useParams<{
@@ -68,7 +66,7 @@ const AppointmentBookingsPage = () => {
    );
 
    return (
-      <PageWithSidebar>
+      <>
          <div className='min-h-screen animate-fade-in p-4 md:p-8'>
             <Card className='shadow-md'>
                <CardHeader className='bg-gradient-to-r from-primary/10 to-primary/5 pb-6'>
@@ -167,7 +165,7 @@ const AppointmentBookingsPage = () => {
                </CardContent>
             </Card>
          </div>
-      </PageWithSidebar>
+      </>
    );
 };
 

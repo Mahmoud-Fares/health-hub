@@ -12,7 +12,7 @@ export function ViewToCurrentUser({
    children,
 }: ViewToCurrentUserProps) {
    const { currentUser } = useAuth();
-   const isCurrentUserProfile = profile.id === currentUser?.id;
+   const isCurrentUserProfile = profile.slug === currentUser?.slug;
 
    return isCurrentUserProfile && children;
 }

@@ -14,8 +14,6 @@ import { AppointmentList } from '@/features/doctor/components/appointment-list';
 import { DateSelector } from '@/features/doctor/components/date-selector';
 import { useAppointmentManagement } from '@/features/doctor/hooks/use-appointment-management';
 
-import PageWithSidebar from '@/app/layouts/page-with-sidebar';
-
 const DoctorSchedulePage: React.FC = () => {
    const { currentUser } = useAuth();
    const {
@@ -51,7 +49,7 @@ const DoctorSchedulePage: React.FC = () => {
    }
 
    return (
-      <PageWithSidebar>
+      <>
          <div className='container mx-auto px-4 py-8'>
             <header className='mb-8'>
                <h1 className='text-3xl font-bold'>Manage Your Schedule</h1>
@@ -67,7 +65,7 @@ const DoctorSchedulePage: React.FC = () => {
                   onAddNewClick={handleAddNewClick}
                />
 
-               <div className='rounded-lg dark:border lg:flex-1'>
+               <div className='rounded-lg lg:flex-1'>
                   <div className='rounded-lg p-6 shadow-md'>
                      <h2 className='mb-4 text-lg font-medium'>
                         Your Appointments
@@ -135,7 +133,7 @@ const DoctorSchedulePage: React.FC = () => {
                </DialogContent>
             </Dialog>
          </div>
-      </PageWithSidebar>
+      </>
    );
 };
 
