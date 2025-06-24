@@ -25,11 +25,11 @@ import {
    useAppointments,
 } from '@/features/booking/hooks/use-appointments';
 
-interface TabConfig {
+type TabConfig = {
    value: AppointmentType;
    label: string;
    icon: LucideIcon;
-}
+};
 
 const TAB_CONFIGS: TabConfig[] = [
    {
@@ -49,7 +49,7 @@ const TAB_CONFIGS: TabConfig[] = [
    },
 ];
 
-const MyAppointmentsPage = () => {
+export default function MyAppointmentsPage() {
    const { handlePageChange, getDataByType } = useAppointments();
 
    const renderTabContent = (type: AppointmentType) => {
@@ -67,51 +67,43 @@ const MyAppointmentsPage = () => {
    };
 
    return (
-      <>
-         <div className='min-h-screen p-4 md:p-8'>
-            <div className='mx-auto'>
-               <Card className='shadow-md'>
-                  <CardHeader className='bg-gradient-to-r from-primary/10 to-primary/5 pb-6'>
-                     <CardTitle className='flex items-center gap-2 text-2xl'>
-                        <Calendar className='h-6 w-6' />
-                        My Appointments
-                     </CardTitle>
-                  </CardHeader>
+      <Card className='animate-fade-in overflow-hidden'>
+         <CardHeader className='bg-gradient-to-r from-primary/10 to-primary/5 pb-6'>
+            <CardTitle className='flex items-center gap-2 text-2xl'>
+               <Calendar className='h-6 w-6' />
+               My Appointments
+            </CardTitle>
+         </CardHeader>
 
-                  <CardContent className='pt-6'>
-                     <Tabs defaultValue='pending' className='w-full'>
-                        <TabsList className='mb-6 grid w-full grid-cols-3'>
-                           {TAB_CONFIGS.map(({ value, label, icon: Icon }) => (
-                              <TabsTrigger
-                                 key={value}
-                                 value={value}
-                                 className='flex gap-2'
-                              >
-                                 <Icon
-                                    size={16}
-                                    className={'hidden text-primary sm:flex'}
-                                 />
-                                 {label}
-                              </TabsTrigger>
-                           ))}
-                        </TabsList>
+         <CardContent className='pt-6'>
+            <Tabs defaultValue='pending' className='w-full'>
+               <TabsList className='mb-6 grid w-full grid-cols-3'>
+                  {TAB_CONFIGS.map(({ value, label, icon: Icon }) => (
+                     <TabsTrigger
+                        key={value}
+                        value={value}
+                        className='flex gap-2'
+                     >
+                        <Icon
+                           size={16}
+                           className={'hidden text-primary sm:flex'}
+                        />
+                        {label}
+                     </TabsTrigger>
+                  ))}
+               </TabsList>
 
-                        {TAB_CONFIGS.map(({ value }) => (
-                           <TabsContent
-                              key={value}
-                              value={value}
-                              className='animate-fade-in pt-2'
-                           >
-                              {renderTabContent(value)}
-                           </TabsContent>
-                        ))}
-                     </Tabs>
-                  </CardContent>
-               </Card>
-            </div>
-         </div>
-      </>
+               {TAB_CONFIGS.map(({ value }) => (
+                  <TabsContent
+                     key={value}
+                     value={value}
+                     className='animate-fade-in pt-2'
+                  >
+                     {renderTabContent(value)}
+                  </TabsContent>
+               ))}
+            </Tabs>
+         </CardContent>
+      </Card>
    );
-};
-
-export default MyAppointmentsPage;
+}

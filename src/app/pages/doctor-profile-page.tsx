@@ -30,10 +30,10 @@ export default function DoctorProfilePage() {
 
 function DoctorProfileContent({ doctor }: DoctorProfileContentProps) {
    return (
-      <Card className='mb-6 animate-fade-in border-none shadow-none'>
+      <Card className='animate-fade-in border-none shadow-none'>
          <ProfileHeader user={doctor} />
 
-         <CardContent className='p-0 pt-6 sm:p-6'>
+         <CardContent className='p-0 pt-6'>
             <div className='grid grid-cols-1 gap-6 lg:grid-cols-2'>
                <PersonalInfo user={doctor} />
                <ClinicInfo user={doctor} />

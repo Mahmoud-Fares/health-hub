@@ -45,7 +45,7 @@ function UserSpecialization({ specialization }: UserSpecializationProps) {
 
 export default function ProfileHeader({ user }: ProfileHeaderProps) {
    return (
-      <CardHeader className='pb-0'>
+      <CardHeader className='p-0'>
          <div className='flex flex-col md:flex-row md:items-center md:justify-between'>
             <div
                className={cn(

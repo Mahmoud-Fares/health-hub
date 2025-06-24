@@ -31,15 +31,13 @@ export default function ClientProfilePage() {
       <Card className='animate-fade-in border-none shadow-none'>
          <ProfileHeader user={client} />
 
-         <CardContent>
-            <div className='grid grid-cols-1 gap-8 pt-6 lg:grid-cols-2'>
-               <div className='space-y-6'>
-                  <PersonalInfo user={client} />
-                  <ContactInfo email={client.email} phone={client.phone} />
-               </div>
-
-               <MedicalInfo user={client} />
+         <CardContent className='grid grid-cols-1 gap-8 p-0 pt-6 lg:grid-cols-2'>
+            <div className='flex flex-col gap-4 *:flex-grow'>
+               <PersonalInfo user={client} />
+               <ContactInfo email={client.email} phone={client.phone} />
             </div>
+
+            <MedicalInfo user={client} />
          </CardContent>
       </Card>
    );
