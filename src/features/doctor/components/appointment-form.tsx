@@ -1,164 +1,247 @@
-import React from 'react';
-
 import { Calendar } from 'lucide-react';
 
 import { Button } from '@/shared/components/ui/button';
 import { Calendar as CalendarComponent } from '@/shared/components/ui/calendar';
+import {
+   Form,
+   FormControl,
+   FormField,
+   FormItem,
+   FormLabel,
+   FormMessage,
+} from '@/shared/components/ui/form';
 import { Input } from '@/shared/components/ui/input';
-import { Label } from '@/shared/components/ui/label';
 import {
    Popover,
    PopoverContent,
    PopoverTrigger,
 } from '@/shared/components/ui/popover';
 import { Switch } from '@/shared/components/ui/switch';
-import { AppointmentPayload } from '@/shared/types';
 
-interface AppointmentFormProps {
-   formData: Partial<AppointmentPayload>;
-   selectedDate: Date | undefined;
-   onInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-   onSwitchChange: (checked: boolean) => void;
-   onDateSelect: (date: Date | undefined) => void;
-   onSubmit: (e: React.FormEvent) => void;
-   onCancel: () => void;
-   submitLabel: string;
-   isSubmitting: boolean;
-   formId: string;
-}
+import { AppointmentFormValues } from '@/features/doctor/hooks/use-doctor-schedule-management';
 
-export const AppointmentForm: React.FC<AppointmentFormProps> = ({
-   formData,
-   selectedDate,
-   onInputChange,
-   onSwitchChange,
-   onDateSelect,
-   onSubmit,
-   onCancel,
-   submitLabel,
-   isSubmitting,
-   formId,
-}) => {
+import { useDoctorSchedule } from '../context/doctor-schedule-context';
+
+type Props = {
+   type: 'add' | 'edit';
+};
+
+export const AppointmentForm = ({ type }: Props) => {
+   const {
+      form,
+
+      createAppointment,
+      updateAppointment,
+
+      isCreating,
+      isUpdating,
+
+      editingId,
+      closeDialog,
+   } = useDoctorSchedule();
+
+   const isSubmitting = type === 'add' ? isCreating : isUpdating;
+   const submitLabel = type === 'add' ? 'Create' : 'Update';
+
+   const handleSubmit = (values: AppointmentFormValues) => {
+      if (type === 'add') createAppointment(values);
+      else if (editingId !== null) updateAppointment(editingId, values);
+
+      closeDialog();
+   };
+
    return (
-      <form onSubmit={onSubmit} id={formId}>
-         <div className='grid gap-4 py-4'>
-            <div className='grid gap-2'>
-               <Label htmlFor={`${formId}-date`}>Date</Label>
-               <div className='flex items-center'>
-                  <Input
-                     id={`${formId}-date`}
-                     name='date'
-                     value={formData.date}
-                     onChange={onInputChange}
-                     placeholder='YYYY-MM-DD'
-                     className='rounded-r-none'
-                     required
-                  />
-                  <Popover>
-                     <PopoverTrigger asChild>
-                        <Button
-                           type='button'
-                           variant='outline'
-                           className='rounded-l-none border-l-0 px-2'
-                        >
-                           <Calendar className='h-4 w-4' />
-                        </Button>
-                     </PopoverTrigger>
-                     <PopoverContent className='w-auto p-0'>
-                        <CalendarComponent
-                           mode='single'
-                           selected={selectedDate}
-                           onSelect={onDateSelect}
-                           initialFocus
-                           disabled={(date) => {
-                              const today = new Date();
-                              today.setHours(0, 0, 0, 0);
-                              const sevenDaysFromNow = new Date();
-                              sevenDaysFromNow.setDate(today.getDate() + 7);
-                              sevenDaysFromNow.setHours(23, 59, 59, 999);
-                              return date < today || date > sevenDaysFromNow;
-                           }}
-                        />
-                     </PopoverContent>
-                  </Popover>
-               </div>
-            </div>
-
-            <div className='grid gap-4 sm:grid-cols-2'>
-               <div className='grid gap-2'>
-                  <Label htmlFor={`${formId}-start_time`}>Start Time</Label>
-                  <Input
-                     id={`${formId}-start_time`}
-                     name='start_time'
-                     type='time'
-                     value={formData.start_time}
-                     onChange={onInputChange}
-                     required
-                  />
-               </div>
-               <div className='grid gap-2'>
-                  <Label htmlFor={`${formId}-end_time`}>End Time</Label>
-                  <Input
-                     id={`${formId}-end_time`}
-                     name='end_time'
-                     type='time'
-                     value={formData.end_time}
-                     onChange={onInputChange}
-                     required
-                  />
-               </div>
-            </div>
-
-            <div className='grid gap-4 sm:grid-cols-2'>
-               <div className='grid gap-2'>
-                  <Label htmlFor={`${formId}-session_duration`}>
-                     Session Duration (min)
-                  </Label>
-                  <Input
-                     id={`${formId}-session_duration`}
-                     name='session_duration'
-                     type='number'
-                     min={15}
-                     max={120}
-                     step={15}
-                     value={formData.session_duration}
-                     onChange={onInputChange}
-                     required
-                  />
-               </div>
-               <div className='grid gap-2'>
-                  <Label htmlFor={`${formId}-max_patients`}>Max Patients</Label>
-                  <Input
-                     id={`${formId}-max_patients`}
-                     name='max_patients'
-                     type='number'
-                     min={1}
-                     value={formData.max_patients}
-                     onChange={onInputChange}
-                     required
-                  />
-               </div>
-            </div>
-
-            <div className='flex items-center space-x-2'>
-               <Switch
-                  id={`${formId}-is_available`}
-                  checked={formData.is_available}
-                  onCheckedChange={onSwitchChange}
+      <Form {...form}>
+         <form onSubmit={form.handleSubmit(handleSubmit)}>
+            <div className='grid gap-4 py-4'>
+               <FormField
+                  control={form.control}
+                  name='date'
+                  render={({ field }) => (
+                     <FormItem>
+                        <FormLabel>Date</FormLabel>
+                        <div className='flex items-center'>
+                           <FormControl>
+                              <Input
+                                 {...field}
+                                 value={field.value || ''}
+                                 placeholder='YYYY-MM-DD'
+                                 className='rounded-r-none'
+                                 required
+                              />
+                           </FormControl>
+                           <Popover>
+                              <PopoverTrigger asChild>
+                                 <Button
+                                    type='button'
+                                    variant='outline'
+                                    className='rounded-l-none border-l-0 px-2'
+                                 >
+                                    <Calendar className='h-4 w-4' />
+                                 </Button>
+                              </PopoverTrigger>
+                              <PopoverContent className='w-auto p-0'>
+                                 <CalendarComponent
+                                    mode='single'
+                                    selected={
+                                       field.value
+                                          ? new Date(field.value)
+                                          : undefined
+                                    }
+                                    onSelect={(date) => {
+                                       if (date) {
+                                          field.onChange(
+                                             `${date.getFullYear()}-${String(
+                                                date.getMonth() + 1
+                                             ).padStart(2, '0')}-${String(
+                                                date.getDate()
+                                             ).padStart(2, '0')}`
+                                          );
+                                       }
+                                    }}
+                                    initialFocus
+                                    disabled={(date) => {
+                                       const today = new Date();
+                                       today.setHours(0, 0, 0, 0);
+                                       const sevenDaysFromNow = new Date();
+                                       sevenDaysFromNow.setDate(
+                                          today.getDate() + 7
+                                       );
+                                       sevenDaysFromNow.setHours(
+                                          23,
+                                          59,
+                                          59,
+                                          999
+                                       );
+                                       return (
+                                          date < today ||
+                                          date > sevenDaysFromNow
+                                       );
+                                    }}
+                                 />
+                              </PopoverContent>
+                           </Popover>
+                        </div>
+                        <FormMessage />
+                     </FormItem>
+                  )}
                />
-               <Label htmlFor={`${formId}-is_available`}>
-                  Available for booking
-               </Label>
+
+               <FormField
+                  control={form.control}
+                  name='start_time'
+                  render={({ field }) => (
+                     <FormItem>
+                        <FormLabel>Start Time</FormLabel>
+                        <FormControl>
+                           <Input
+                              type='time'
+                              {...field}
+                              value={field.value || ''}
+                              required
+                           />
+                        </FormControl>
+                        <FormMessage />
+                     </FormItem>
+                  )}
+               />
+
+               <FormField
+                  control={form.control}
+                  name='end_time'
+                  render={({ field }) => (
+                     <FormItem>
+                        <FormLabel>End Time</FormLabel>
+                        <FormControl>
+                           <Input
+                              type='time'
+                              {...field}
+                              value={field.value || ''}
+                              required
+                           />
+                        </FormControl>
+                        <FormMessage />
+                     </FormItem>
+                  )}
+               />
+
+               <div className='grid gap-4 sm:grid-cols-2'>
+                  <FormField
+                     control={form.control}
+                     name='session_duration'
+                     render={({ field }) => (
+                        <FormItem>
+                           <FormLabel>Session Duration (min)</FormLabel>
+                           <FormControl>
+                              <Input
+                                 type='number'
+                                 min={15}
+                                 max={120}
+                                 step={15}
+                                 {...field}
+                                 value={field.value || ''}
+                                 required
+                              />
+                           </FormControl>
+                           <FormMessage />
+                        </FormItem>
+                     )}
+                  />
+
+                  <FormField
+                     control={form.control}
+                     name='max_patients'
+                     render={({ field }) => (
+                        <FormItem>
+                           <FormLabel>Max Patients</FormLabel>
+                           <FormControl>
+                              <Input
+                                 type='number'
+                                 min={1}
+                                 {...field}
+                                 value={field.value || ''}
+                                 required
+                              />
+                           </FormControl>
+                           <FormMessage />
+                        </FormItem>
+                     )}
+                  />
+               </div>
+
+               <FormField
+                  control={form.control}
+                  name='is_available'
+                  render={({ field }) => (
+                     <FormItem className='flex flex-row items-center space-x-3 space-y-0'>
+                        <FormLabel>Available for booking</FormLabel>
+                        <FormControl>
+                           <Switch
+                              id='is_available'
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                           />
+                        </FormControl>
+                        <FormMessage />
+                     </FormItem>
+                  )}
+               />
             </div>
-         </div>
-         <div className='flex justify-end gap-2'>
-            <Button type='button' variant='outline' onClick={onCancel}>
-               Cancel
-            </Button>
-            <Button type='submit' disabled={isSubmitting}>
-               {submitLabel}
-            </Button>
-         </div>
-      </form>
+
+            <div className='flex justify-end gap-2'>
+               <Button
+                  type='button'
+                  variant='outline'
+                  onClick={() => closeDialog()}
+                  disabled={isSubmitting}
+               >
+                  Cancel
+               </Button>
+               <Button type='submit' disabled={isSubmitting}>
+                  {submitLabel}
+               </Button>
+            </div>
+         </form>
+      </Form>
    );
 };

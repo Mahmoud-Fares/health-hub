@@ -1,6 +1,4 @@
-import React from 'react';
-
-import { Edit, Trash2 } from 'lucide-react';
+import { Edit, MoreHorizontal, Trash2 } from 'lucide-react';
 
 import Spinner from '@/shared/components/spinner';
 import { Button } from '@/shared/components/ui/button';
@@ -11,25 +9,19 @@ import {
    DropdownMenuTrigger,
 } from '@/shared/components/ui/dropdown-menu';
 import { cn } from '@/shared/lib/utils';
-import { DoctorAppointment } from '@/shared/types';
 
-interface AppointmentListProps {
-   appointments: DoctorAppointment[];
-   isLoading: boolean;
-   isError: boolean;
-   onEdit: (appointment: DoctorAppointment) => void;
-   onDelete: (id: number) => void;
-   formatDate: (dateString: string) => string;
-}
+import { useDoctorSchedule } from '../context/doctor-schedule-context';
 
-export const AppointmentList: React.FC<AppointmentListProps> = ({
-   appointments,
-   isLoading,
-   isError,
-   onEdit,
-   onDelete,
-   formatDate,
-}) => {
+export const AppointmentList = () => {
+   const {
+      appointments,
+      isLoading,
+      isError,
+      openEditDialog,
+      handleDeleteAppointment,
+      formatAppointmentDate,
+   } = useDoctorSchedule();
+
    if (isLoading) {
       return (
          <div className='flex justify-center py-10'>
@@ -72,7 +64,7 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
                <div className='flex items-start justify-between'>
                   <div>
                      <h3 className='font-medium'>
-                        {formatDate(appointment.date)}
+                        {formatAppointmentDate(appointment.date)}
                      </h3>
                      <div className='mt-1 text-sm'>
                         <p>
@@ -104,33 +96,23 @@ export const AppointmentList: React.FC<AppointmentListProps> = ({
                            className='h-8 w-8 p-0'
                         >
                            <span className='sr-only'>Open menu</span>
-                           <svg
-                              width='15'
-                              height='15'
-                              viewBox='0 0 15 15'
-                              fill='none'
-                              xmlns='http://www.w3.org/2000/svg'
-                              className='h-4 w-4'
-                           >
-                              <path
-                                 d='M3.625 7.5C3.625 8.12132 3.12132 8.625 2.5 8.625C1.87868 8.625 1.375 8.12132 1.375 7.5C1.375 6.87868 1.87868 6.375 2.5 6.375C3.12132 6.375 3.625 6.87868 3.625 7.5ZM8.625 7.5C8.625 8.12132 8.12132 8.625 7.5 8.625C6.87868 8.625 6.375 8.12132 6.375 7.5C6.375 6.87868 6.87868 6.375 7.5 6.375C8.12132 6.375 8.625 6.87868 8.625 7.5ZM13.625 7.5C13.625 8.12132 13.1213 8.625 12.5 8.625C11.8787 8.625 11.375 8.12132 11.375 7.5C11.375 6.87868 11.8787 6.375 12.5 6.375C13.1213 6.375 13.625 6.87868 13.625 7.5Z'
-                                 fill='currentColor'
-                                 fillRule='evenodd'
-                                 clipRule='evenodd'
-                              ></path>
-                           </svg>
+                           <MoreHorizontal />
                         </Button>
                      </DropdownMenuTrigger>
                      <DropdownMenuContent align='end'>
                         <DropdownMenuItem
-                           onClick={() => onEdit(appointment)}
+                           onClick={() => openEditDialog(appointment)}
                            className='cursor-pointer'
                         >
-                           <Edit className='mr-2 h-4 w-4' />
-                           Edit
+                           <div className='flex items-center space-x-2'>
+                              <Edit className='mr-2 h-4 w-4' />
+                              Edit
+                           </div>
                         </DropdownMenuItem>
                         <DropdownMenuItem
-                           onClick={() => onDelete(appointment.id)}
+                           onClick={() =>
+                              handleDeleteAppointment(appointment.id)
+                           }
                            className='cursor-pointer text-red-600 focus:text-red-600'
                         >
                            <Trash2 className='mr-2 h-4 w-4' />
