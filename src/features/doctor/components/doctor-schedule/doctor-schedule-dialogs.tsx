@@ -7,12 +7,10 @@ import {
 } from '@/shared/components/ui/dialog';
 
 import { AppointmentForm } from '@/features/doctor/components/appointment-form';
-
-import { useDoctorSchedule } from '../../context/doctor-schedule-context';
+import { useDialogs } from '@/features/doctor/hooks/use-dialogs';
 
 const DoctorScheduleDialogs: React.FC = () => {
-   const { isAddDialogOpen, isEditDialogOpen, closeDialog } =
-      useDoctorSchedule();
+   const { isAddDialogOpen, isEditDialogOpen, closeDialog } = useDialogs();
 
    return (
       <>

@@ -15,8 +15,9 @@ import {
 } from '@/shared/components/ui/form';
 import { cn } from '@/shared/lib/utils';
 
+import { useDialogs } from '@/features/doctor/hooks/use-dialogs';
+
 interface DateSelectorProps {
-   onAddNewClick: () => void;
    name: string;
    className?: string;
 }
@@ -24,9 +25,9 @@ interface DateSelectorProps {
 export const DateSelector: React.FC<DateSelectorProps> = ({
    name,
    className,
-   onAddNewClick,
 }) => {
-   const { control, getValues } = useFormContext();
+   const { control } = useFormContext();
+   const { openAddDialog, form } = useDialogs();
 
    return (
       <div className={cn('h-fit rounded-lg p-4 shadow-md', className)}>
@@ -71,9 +72,8 @@ export const DateSelector: React.FC<DateSelectorProps> = ({
          />
 
          <Button
-            onClick={onAddNewClick}
+            onClick={() => openAddDialog(new Date(form.getValues('date')))}
             className='mt-4 w-full'
-            disabled={!getValues(name)}
          >
             <Plus className='mr-2 h-4 w-4' /> Add New Appointment
          </Button>

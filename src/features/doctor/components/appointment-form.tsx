@@ -18,9 +18,9 @@ import {
 } from '@/shared/components/ui/popover';
 import { Switch } from '@/shared/components/ui/switch';
 
-import { AppointmentFormValues } from '@/features/doctor/hooks/use-doctor-schedule-management';
-
-import { useDoctorSchedule } from '../context/doctor-schedule-context';
+import { useDialogs } from '@/features/doctor/hooks/use-dialogs';
+import { AppointmentFormValues } from '@/features/doctor/hooks/use-dialogs-management';
+import { useSchedule } from '@/features/doctor/hooks/use-schedule';
 
 type Props = {
    type: 'add' | 'edit';
@@ -28,17 +28,14 @@ type Props = {
 
 export const AppointmentForm = ({ type }: Props) => {
    const {
-      form,
-
       createAppointment,
       updateAppointment,
 
       isCreating,
       isUpdating,
+   } = useSchedule();
 
-      editingId,
-      closeDialog,
-   } = useDoctorSchedule();
+   const { form, editingId, closeDialog } = useDialogs();
 
    const isSubmitting = type === 'add' ? isCreating : isUpdating;
    const submitLabel = type === 'add' ? 'Create' : 'Update';
@@ -228,7 +225,8 @@ export const AppointmentForm = ({ type }: Props) => {
                />
             </div>
 
-            <div className='flex justify-end gap-2'>
+            {/* appears on the sheet only */}
+            <div className='hidden justify-end gap-2 md:flex'>
                <Button
                   type='button'
                   variant='outline'
@@ -241,6 +239,15 @@ export const AppointmentForm = ({ type }: Props) => {
                   {submitLabel}
                </Button>
             </div>
+
+            {/* appears on the drawer only */}
+            <Button
+               type='submit'
+               disabled={isSubmitting}
+               className='w-full md:hidden'
+            >
+               {submitLabel}
+            </Button>
          </form>
       </Form>
    );

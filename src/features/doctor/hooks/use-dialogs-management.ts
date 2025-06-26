@@ -1,17 +1,10 @@
 import { useState } from 'react';
 
-import { format, isValid, parse } from 'date-fns';
+import { format } from 'date-fns';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { AppointmentPayload, DoctorAppointment } from '@/shared/types';
-
-import {
-   useCreateAppointment,
-   useDeleteAppointment,
-   useDoctorAppointments,
-   useUpdateAppointment,
-} from '@/features/doctor/api/doctor-hooks';
 
 const appointmentSchema = z.object({
    date: z.string().min(1, 'Date is required'),
@@ -24,7 +17,7 @@ const appointmentSchema = z.object({
 
 export type AppointmentFormValues = z.infer<typeof appointmentSchema>;
 
-export const useDoctorScheduleManagement = () => {
+export const useDialogsManagement = () => {
    const form = useForm<AppointmentPayload>({
       defaultValues: {
          date: '',
@@ -38,19 +31,10 @@ export const useDoctorScheduleManagement = () => {
 
    const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
    const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
    const [editingId, setEditingId] = useState<number | null>(null);
-
-   const {
-      data: appointmentsResponse,
-      isLoading,
-      isError,
-      error,
-   } = useDoctorAppointments();
-   const createAppointmentMutation = useCreateAppointment();
-   const updateAppointmentMutation = useUpdateAppointment();
-   const deleteAppointmentMutation = useDeleteAppointment();
-
-   const appointments = appointmentsResponse?.data || [];
+   const [deletingId, setDeletingId] = useState<number | null>(null);
 
    const openAddDialog = (date?: Date) => {
       form.reset({
@@ -84,40 +68,18 @@ export const useDoctorScheduleManagement = () => {
       setEditingId(appointment.id);
    };
 
+   const openDeleteDialog = (appointment: DoctorAppointment) => {
+      setDeletingId(appointment.id);
+      setIsDeleteDialogOpen(true);
+   };
+
    const closeDialog = () => {
       setIsAddDialogOpen(false);
       setIsEditDialogOpen(false);
+      setIsDeleteDialogOpen(false);
+
       setEditingId(null);
-   };
-
-   const handleDeleteAppointment = (id: number) => {
-      if (window.confirm('Are you sure you want to delete this appointment?')) {
-         deleteAppointmentMutation.mutate(id);
-      }
-   };
-
-   const formatAppointmentDate = (dateString: string) => {
-      try {
-         const parsedDate = parse(dateString, 'yyyy-MM-dd', new Date());
-         if (isValid(parsedDate)) {
-            return format(parsedDate, 'MMMM d, yyyy');
-         }
-         const parsedDate2 = parse(dateString, 'yyyy-M-d', new Date());
-         if (isValid(parsedDate2)) {
-            return format(parsedDate2, 'MMMM d, yyyy');
-         }
-         return dateString;
-      } catch (error) {
-         return dateString;
-      }
-   };
-
-   const createAppointment = (values: AppointmentPayload) => {
-      createAppointmentMutation.mutate(values);
-   };
-
-   const updateAppointment = (id: number, values: AppointmentPayload) => {
-      updateAppointmentMutation.mutate({ id, data: values });
+      setDeletingId(null);
    };
 
    return {
@@ -125,22 +87,21 @@ export const useDoctorScheduleManagement = () => {
 
       isAddDialogOpen,
       isEditDialogOpen,
-      openAddDialog,
-      openEditDialog,
-      closeDialog,
+      isDeleteDialogOpen,
 
-      appointments,
-      isLoading,
-      isError: isError && (error as any)?.status !== 404,
-
-      formatAppointmentDate, // move it to a utils file
-
-      handleDeleteAppointment,
-      createAppointment,
-      updateAppointment,
-      isCreating: createAppointmentMutation.isPending,
-      isUpdating: updateAppointmentMutation.isPending,
+      setIsAddDialogOpen,
+      setIsEditDialogOpen,
+      setIsDeleteDialogOpen,
 
       editingId,
+      setEditingId,
+
+      deletingId,
+      setDeletingId,
+
+      openAddDialog,
+      openEditDialog,
+      openDeleteDialog,
+      closeDialog,
    };
 };

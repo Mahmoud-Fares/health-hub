@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { useAuth } from '@/features/auth';
+import { DeleteDialog } from '@/features/doctor/components/appointment-sheet-drawer/delete-dialog-drawer';
 import DoctorScheduleAppointments from '@/features/doctor/components/doctor-schedule/doctor-schedule-appointments';
 import DoctorScheduleDateSelector from '@/features/doctor/components/doctor-schedule/doctor-schedule-date-selector';
-import DoctorScheduleDialogs from '@/features/doctor/components/doctor-schedule/doctor-schedule-dialogs';
-import { DoctorScheduleProvider } from '@/features/doctor/context/doctor-schedule-context';
+import Providers from '@/features/doctor/context';
 
 const DoctorScheduleHeader = () => (
    <header className='mb-8'>
@@ -28,7 +28,7 @@ const DoctorSchedulePage: React.FC = () => {
    }
 
    return (
-      <DoctorScheduleProvider>
+      <Providers>
          <section className='animate-fade-in'>
             <DoctorScheduleHeader />
 
@@ -39,9 +39,11 @@ const DoctorSchedulePage: React.FC = () => {
                </div>
             </div>
 
-            <DoctorScheduleDialogs />
+            <DeleteDialog />
+
+            {/* <DoctorScheduleDialogs /> */}
          </section>
-      </DoctorScheduleProvider>
+      </Providers>
    );
 };
 
