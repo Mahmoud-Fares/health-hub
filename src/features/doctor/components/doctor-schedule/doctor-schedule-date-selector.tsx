@@ -1,47 +1,33 @@
 'use no memo';
 
-import { Plus } from 'lucide-react';
+import { Calendar, Plus } from 'lucide-react';
 
+import { CalendarField } from '@/shared/components/forms/calendar-field';
 import { Button } from '@/shared/components/ui/button';
 import { Form } from '@/shared/components/ui/form';
+import { cn } from '@/shared/lib/utils';
 
-import AppointmentSheetDrawer from '@/features/doctor/components/appointment-sheet-drawer';
-import { DateSelector } from '@/features/doctor/components/date-selector';
 import { useDialogs } from '@/features/doctor/hooks/use-dialogs';
 
-const DoctorScheduleDateSelector: React.FC = () => {
-   const { form } = useDialogs();
+export default function DoctorScheduleDateSelector() {
+   const { openAddDialog, form } = useDialogs();
 
    return (
       <Form {...form}>
-         <DateSelector name='date' />
+         <div className={cn('h-fit rounded-lg p-4 shadow-md')}>
+            <h2 className='mb-4 flex items-center text-lg font-medium'>
+               <Calendar className='mr-2 h-5 w-5' /> Select Date
+            </h2>
 
-         <AppointmentSheetDrawer event='add'>
-            <Button variant='outline' size='icon' className='sr-only'>
-               <Plus className='h-4 w-4' />
-            </Button>
-         </AppointmentSheetDrawer>
+            <CalendarField name='date' />
 
-         <AppointmentSheetDrawer
-            event='edit'
-            initialValues={{
-               date: '2025-07-02',
-               day: '',
-               doctor_name: 'Dr. Williams',
-               end_time: '12:00',
-               id: 31,
-               is_available: 1,
-               max_patients: 4,
-               session_duration: '00:30:00',
-               start_time: '10:00',
-            }}
-         >
-            <Button variant='outline' size='icon' className='sr-only'>
-               <Plus className='h-4 w-4' />
+            <Button
+               onClick={() => openAddDialog(new Date(form.getValues('date')))}
+               className='mt-4 w-full'
+            >
+               <Plus className='mr-2 h-4 w-4' /> Add New Appointment
             </Button>
-         </AppointmentSheetDrawer>
+         </div>
       </Form>
    );
-};
-
-export default DoctorScheduleDateSelector;
+}

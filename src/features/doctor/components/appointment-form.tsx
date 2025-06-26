@@ -17,6 +17,7 @@ import {
    PopoverTrigger,
 } from '@/shared/components/ui/popover';
 import { Switch } from '@/shared/components/ui/switch';
+import { useCalendarLogic } from '@/shared/hooks/use-calendar-logic';
 
 import { useDialogs } from '@/features/doctor/hooks/use-dialogs';
 import { AppointmentFormValues } from '@/features/doctor/hooks/use-dialogs-management';
@@ -36,6 +37,8 @@ export const AppointmentForm = ({ type }: Props) => {
    } = useSchedule();
 
    const { form, editingId, closeDialog } = useDialogs();
+   const { isDateDisabled, formatDateForInput, parseStringToDate } =
+      useCalendarLogic();
 
    const isSubmitting = type === 'add' ? isCreating : isUpdating;
    const submitLabel = type === 'add' ? 'Create' : 'Update';
@@ -80,41 +83,16 @@ export const AppointmentForm = ({ type }: Props) => {
                               <PopoverContent className='w-auto p-0'>
                                  <CalendarComponent
                                     mode='single'
-                                    selected={
-                                       field.value
-                                          ? new Date(field.value)
-                                          : undefined
-                                    }
+                                    selected={parseStringToDate(field.value)}
                                     onSelect={(date) => {
                                        if (date) {
                                           field.onChange(
-                                             `${date.getFullYear()}-${String(
-                                                date.getMonth() + 1
-                                             ).padStart(2, '0')}-${String(
-                                                date.getDate()
-                                             ).padStart(2, '0')}`
+                                             formatDateForInput(date)
                                           );
                                        }
                                     }}
                                     initialFocus
-                                    disabled={(date) => {
-                                       const today = new Date();
-                                       today.setHours(0, 0, 0, 0);
-                                       const sevenDaysFromNow = new Date();
-                                       sevenDaysFromNow.setDate(
-                                          today.getDate() + 7
-                                       );
-                                       sevenDaysFromNow.setHours(
-                                          23,
-                                          59,
-                                          59,
-                                          999
-                                       );
-                                       return (
-                                          date < today ||
-                                          date > sevenDaysFromNow
-                                       );
-                                    }}
+                                    disabled={isDateDisabled}
                                  />
                               </PopoverContent>
                            </Popover>

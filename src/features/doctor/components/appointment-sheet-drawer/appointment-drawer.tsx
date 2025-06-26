@@ -7,7 +7,6 @@ import {
    DrawerFooter,
    DrawerHeader,
    DrawerTitle,
-   DrawerTrigger,
 } from '@/shared/components/ui/drawer';
 
 import { AppointmentForm } from '@/features/doctor/components/appointment-form';
@@ -15,24 +14,14 @@ import { AppointmentForm } from '@/features/doctor/components/appointment-form';
 type Props = {
    open: boolean;
    setOpen: (open: boolean) => void;
-   children: React.ReactNode;
    event: 'add' | 'edit';
-   // initialValues?: DoctorAppointment;
 };
 
-export default function AppointmentDrawer({
-   open,
-   setOpen,
-   children,
-   event,
-   // initialValues,
-}: Props) {
+export default function AppointmentDrawer({ open, setOpen, event }: Props) {
    const verb = event === 'edit' ? 'Editing' : 'Adding';
 
    return (
       <Drawer open={open} onOpenChange={setOpen}>
-         <DrawerTrigger asChild>{children}</DrawerTrigger>
-
          <DrawerContent>
             <DrawerHeader className='sr-only'>
                <DrawerTitle>{verb} a Time Slot</DrawerTitle>

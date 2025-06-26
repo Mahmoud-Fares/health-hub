@@ -1,21 +1,10 @@
-import React from 'react';
-
 import { useAuth } from '@/features/auth';
-import { DeleteDialog } from '@/features/doctor/components/appointment-sheet-drawer/delete-dialog-drawer';
 import DoctorScheduleAppointments from '@/features/doctor/components/doctor-schedule/doctor-schedule-appointments';
 import DoctorScheduleDateSelector from '@/features/doctor/components/doctor-schedule/doctor-schedule-date-selector';
+import SheetDrawerTriggers from '@/features/doctor/components/doctor-schedule/sheet-drawer-triggers';
 import Providers from '@/features/doctor/context';
 
-const DoctorScheduleHeader = () => (
-   <header className='mb-8'>
-      <h1 className='text-3xl font-bold'>Manage Your Schedule</h1>
-      <p className='mt-2'>
-         Create and manage your availability for patient appointments
-      </p>
-   </header>
-);
-
-const DoctorSchedulePage: React.FC = () => {
+export default function DoctorSchedulePage() {
    const { currentUser } = useAuth();
 
    if (currentUser?.role !== 'doctor') {
@@ -38,13 +27,17 @@ const DoctorSchedulePage: React.FC = () => {
                   <DoctorScheduleAppointments />
                </div>
             </div>
-
-            <DeleteDialog />
-
-            {/* <DoctorScheduleDialogs /> */}
+            <SheetDrawerTriggers />
          </section>
       </Providers>
    );
-};
+}
 
-export default DoctorSchedulePage;
+const DoctorScheduleHeader = () => (
+   <header className='mb-8'>
+      <h1 className='text-3xl font-bold'>Manage Your Schedule</h1>
+      <p className='mt-2'>
+         Create and manage your availability for patient appointments
+      </p>
+   </header>
+);
