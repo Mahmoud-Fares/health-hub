@@ -18,7 +18,7 @@ export const MainContent = ({
          className={cn(
             'flex-1 animate-fade-in',
             withSidebar &&
-               'container p-10 lg:max-w-[850px] min-[1041px]:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1400px]',
+               'container py-8 sm:p-10 lg:max-w-[850px] min-[1041px]:max-w-[1024px] xl:max-w-[1280px] 2xl:max-w-[1400px]',
             className
          )}
       >

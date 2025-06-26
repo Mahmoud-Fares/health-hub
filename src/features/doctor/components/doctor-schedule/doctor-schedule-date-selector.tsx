@@ -14,7 +14,7 @@ export default function DoctorScheduleDateSelector() {
 
    return (
       <Form {...form}>
-         <div className={cn('h-fit rounded-lg p-4 shadow-md')}>
+         <div className={cn('h-fit rounded-lg sm:p-4 sm:shadow-md')}>
             <h2 className='mb-4 flex items-center text-lg font-medium'>
                <Calendar className='mr-2 h-5 w-5' /> Select Date
             </h2>
