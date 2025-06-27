@@ -14,4 +14,9 @@ export const navigationLinks = [
       label: 'My Appointments',
       showAlways: false,
    },
+   {
+      to: '/store',
+      label: 'Store',
+      showAlways: false,
+   },
 ] as const;

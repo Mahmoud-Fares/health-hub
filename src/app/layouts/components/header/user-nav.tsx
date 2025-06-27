@@ -50,7 +50,7 @@ export function UserNav() {
    ];
 
    return (
-      <DropdownMenu>
+      <DropdownMenu modal={false}>
          <DropdownMenuTrigger asChild>
             <Button variant='ghost' className='relative size-9 rounded-full'>
                <ProfileAvatar profile={currentUser} className='size-9' />

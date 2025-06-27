@@ -70,6 +70,11 @@ export default {
                red: '#ef4444',
                purple: '#9b87f5',
                indigo: '#6366f1',
+
+               // kareem
+               green: '#10B981',
+               dark: '#1A1F2C',
+               light: '#F1F5F9',
             },
          },
          borderRadius: {

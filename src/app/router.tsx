@@ -4,6 +4,8 @@ import { createBrowserRouter } from 'react-router-dom';
 
 import ErrorBoundary from '@/shared/components/error-boundary';
 
+import StoreProvider from '@/features/kareem/provider';
+
 const MainLayout = lazy(() => import('@/app/layouts/main-layout'));
 const ProtectedLayout = lazy(() => import('@/app/layouts/protected-layout'));
 const AuthLayout = lazy(() => import('@/app/layouts/auth-layout'));
@@ -12,6 +14,15 @@ const LoginPage = lazy(() => import('@/app/pages/login'));
 const SignUpPage = lazy(() => import('@/app/pages/signup'));
 
 const Home = lazy(() => import('@/app/pages/home'));
+const Store = lazy(() => import('@/features/kareem/pages/store'));
+const ProductsPage = lazy(() => import('@/features/kareem/pages/product-page'));
+const ProductDetailPage = lazy(
+   () => import('@/features/kareem/pages/product-details-page')
+);
+const CategoryPage = lazy(
+   () => import('@/features/kareem/pages/category-page')
+);
+const CartPage = lazy(() => import('@/features/kareem/pages/cart-page'));
 const ClientProfilePage = lazy(() => import('@/app/pages/client-profile-page'));
 const DoctorProfilePage = lazy(() => import('@/app/pages/doctor-profile-page'));
 const SettingsPage = lazy(() => import('@/app/pages/settings'));
@@ -55,6 +66,32 @@ export const router = createBrowserRouter([
          {
             path: '/find-doctors',
             element: <FindDoctorsPage />,
+         },
+         {
+            path: '/store',
+            element: <StoreProvider />,
+            children: [
+               {
+                  index: true,
+                  element: <Store />,
+               },
+               {
+                  path: 'products',
+                  element: <ProductsPage />,
+               },
+               {
+                  path: 'product/:pid',
+                  element: <ProductDetailPage />,
+               },
+               {
+                  path: 'category/:id',
+                  element: <CategoryPage />,
+               },
+               {
+                  path: 'cart',
+                  element: <CartPage />,
+               },
+            ],
          },
       ],
    },
