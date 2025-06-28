@@ -1,19 +1,17 @@
 import { useContext, useEffect, useState } from 'react';
 
 import { Spin } from 'antd';
-// import ProductGrid from "@/components/ProductGrid.js";
-
 import { BarChart3, ChevronRight, Search, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { Button } from '@/shared/components/ui/button';
 
-import Header from '@/features/kareem/components/header';
-import ProductGrid from '@/features/kareem/components/product-grid';
-import { Input } from '@/features/kareem/components/ui/input';
-import { AuthContext } from '@/features/kareem/context/auth-context';
-import { Category, Product } from '@/features/kareem/types/index';
-import onAxios from '@/features/kareem/utils';
+import Header from '@/features/store/components/header';
+import ProductGrid from '@/features/store/components/product-grid';
+import { Input } from '@/features/store/components/ui/input';
+import { AuthContext } from '@/features/store/context/auth-context';
+import { Category, Product } from '@/features/store/types/index';
+import onAxios from '@/features/store/utils';
 
 interface AuthContextType {
    dataProducts: Product[];
@@ -66,7 +64,7 @@ const Index = () => {
          <Header />
 
          {/* Hero Section */}
-         <section className='to-brand-green bg-gradient-to-r from-brand-blue py-16 text-white'>
+         <section className='bg-gradient-to-r from-brand-blue to-brand-green py-16 text-white'>
             <div className='container mx-auto px-4'>
                <div className='max-w-2xl'>
                   <h1 className='mb-4 text-4xl font-bold md:text-5xl'>
@@ -77,7 +75,7 @@ const Index = () => {
                      track, improve, and analyze your performance.
                   </p>
                   <div className='flex flex-col gap-4 sm:flex-row'>
-                     <Link to='/products'>
+                     <Link to='/store/products'>
                         <Button
                            size='lg'
                            className='bg-white text-brand-blue hover:bg-gray-100'
@@ -131,7 +129,7 @@ const Index = () => {
                            <CategoryCard
                               key={cat.id}
                               title={cat.name}
-                              link={`/category/${cat.id}`}
+                              link={`/store/category/${cat.id}`}
                            />
                         ))}
                      </>
@@ -216,38 +214,6 @@ const Index = () => {
                                  </Link>
                               </li>
                            ))}
-                           {/* <li>
-                    <Link
-                      to="/products?category=fitness-trackers"
-                      className="hover:text-brand-blue"
-                    >
-                      Fitness Trackers
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/products?category=smart-watches"
-                      className="hover:text-brand-blue"
-                    >
-                      Smart Watches
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/products?category=heart-rate-monitors"
-                      className="hover:text-brand-blue"
-                    >
-                      Heart Rate Monitors
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/products?category=scales"
-                      className="hover:text-brand-blue"
-                    >
-                      Smart Scales
-                    </Link>
-                  </li> */}
                         </ul>
                      </div>
                      <div>
@@ -329,7 +295,7 @@ interface FeatureCardProps {
 
 const FeatureCard = ({ icon, title, description }: FeatureCardProps) => (
    <div className='rounded-lg bg-white/10 p-6 backdrop-blur-sm'>
-      <div className='text-brand-green mb-4'>{icon}</div>
+      <div className='mb-4 text-brand-green'>{icon}</div>
       <h3 className='mb-2 font-bold'>{title}</h3>
       <p className='text-sm text-gray-200'>{description}</p>
    </div>

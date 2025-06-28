@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 import { Button } from '@/shared/components/ui/button';
 
-import { Checkbox } from '@/features/kareem/components/ui/checkbox';
-import { Slider } from '@/features/kareem/components/ui/slider';
-import { brands, productCategories } from '@/features/kareem/data/products';
+import { Checkbox } from '@/features/store/components/ui/checkbox';
+import { Slider } from '@/features/store/components/ui/slider';
+import { brands, productCategories } from '@/features/store/data/products';
 
 interface FilterSidebarProps {
    filters: {

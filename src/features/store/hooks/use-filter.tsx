@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 
-import { Product } from '@/features/kareem/data/products';
+import { Product } from '@/features/store/data/products';
 
 interface FilterState {
    category: string | null;

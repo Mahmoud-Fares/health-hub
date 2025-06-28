@@ -13,7 +13,7 @@ import {
 
 import { cn } from '@/shared/lib/utils';
 
-import { Label } from '@/features/kareem/components/ui/label';
+import { Label } from '@/features/store/components/ui/label';
 
 const Form = FormProvider;
 

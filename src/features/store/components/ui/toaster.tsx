@@ -5,8 +5,8 @@ import {
    ToastProvider,
    ToastTitle,
    ToastViewport,
-} from '@/features/kareem/components/ui/toast';
-import { useToast } from '@/features/kareem/hooks/use-toast';
+} from '@/features/store/components/ui/toast';
+import { useToast } from '@/features/store/hooks/use-toast';
 
 export function Toaster() {
    const { toasts } = useToast();

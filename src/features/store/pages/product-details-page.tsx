@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 import { Spin } from 'antd';
 import { useParams } from 'react-router-dom';
 
-import Footer from '@/features/kareem/components/footer';
-import Header from '@/features/kareem/components/header';
-import ProductDetail from '@/features/kareem/components/product-details';
-// import { getProductById } from "@/features/kareem/data/products";
-import { Product } from '@/features/kareem/types';
-import onAxios from '@/features/kareem/utils';
+import Footer from '@/features/store/components/footer';
+import Header from '@/features/store/components/header';
+import ProductDetail from '@/features/store/components/product-details';
+// import { getProductById } from "@/features/store/data/products";
+import { Product } from '@/features/store/types';
+import onAxios from '@/features/store/utils';
 
 const ProductDetailPage = () => {
    const { pid } = useParams();

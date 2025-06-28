@@ -5,14 +5,14 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 
 import { Button } from '@/shared/components/ui/button';
 
-// import { Product, getRelatedProducts } from "@/features/kareem/data/products";
-// import { useCart } from "@/features/kareem/hooks/useCart";
-// import { useComparison } from "@/features/kareem/hooks/useComparison";
+// import { Product, getRelatedProducts } from "@/features/store/data/products";
+// import { useCart } from "@/features/store/hooks/useCart";
+// import { useComparison } from "@/features/store/hooks/useComparison";
 // import ReviewCard from "./ReviewCard";
 // import ProductGrid from "./ProductGrid";
-import { AuthContext } from '@/features/kareem/context/auth-context';
-import { Product } from '@/features/kareem/types';
-import onAxios from '@/features/kareem/utils';
+import { AuthContext } from '@/features/store/context/auth-context';
+import { Product } from '@/features/store/types';
+import onAxios from '@/features/store/utils';
 
 interface ProductDetailProps {
    product: Product;

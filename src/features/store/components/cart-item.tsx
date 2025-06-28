@@ -5,8 +5,8 @@ import { ChevronDown, ChevronUp, X } from 'lucide-react';
 
 import { Button } from '@/shared/components/ui/button';
 
-import { AuthContext } from '@/features/kareem/context/auth-context';
-import onAxios from '@/features/kareem/utils';
+import { AuthContext } from '@/features/store/context/auth-context';
+import onAxios from '@/features/store/utils';
 
 // import { Product } from "@/data/products";
 // import { useCart } from '@/hooks/useCart';

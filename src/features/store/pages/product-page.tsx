@@ -2,26 +2,26 @@ import { useContext, useEffect } from 'react';
 
 import { Spin } from 'antd';
 
-// import FilterSidebar from "@/features/kareem/components/FilterSidebar";
+// import FilterSidebar from "@/features/store/components/FilterSidebar";
 // import { products } from "@/data/products";
 // import { useFilter, sortOptions } from "@/hooks/useFilter";
 
 // import onAxios from "../../Utils/HelperFunction.js";
-import Footer from '@/features/kareem/components/footer';
+import Footer from '@/features/store/components/footer';
 // import { useSearchParams } from "react-router-dom";
 // import { SlidersHorizontal } from "lucide-react";
-// import { Button } from "@/features/kareem/components/ui/button";
+// import { Button } from "@/features/store/components/ui/button";
 // import {
 //   Select,
 //   SelectContent,
 //   SelectItem,
 //   SelectTrigger,
 //   SelectValue,
-// } from "@/features/kareem/components/ui/select";
-import Header from '@/features/kareem/components/header';
-import ProductGrid from '@/features/kareem/components/product-grid';
-import { AuthContext } from '@/features/kareem/context/auth-context';
-import { Product } from '@/features/kareem/types';
+// } from "@/features/store/components/ui/select";
+import Header from '@/features/store/components/header';
+import ProductGrid from '@/features/store/components/product-grid';
+import { AuthContext } from '@/features/store/context/auth-context';
+import { Product } from '@/features/store/types';
 
 interface AuthContextType {
    dataProducts: Product[];

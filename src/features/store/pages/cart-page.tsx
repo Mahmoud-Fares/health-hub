@@ -1,6 +1,6 @@
-import Cart from '@/features/kareem/components/cart';
-import Footer from '@/features/kareem/components/footer';
-import Header from '@/features/kareem/components/header';
+import Cart from '@/features/store/components/cart';
+import Footer from '@/features/store/components/footer';
+import Header from '@/features/store/components/header';
 
 const CartPage = () => {
    return (

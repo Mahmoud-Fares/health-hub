@@ -1,6 +1,6 @@
 import { Star } from 'lucide-react';
 
-import { ProductReview } from '@/features/kareem/data/products';
+import { ProductReview } from '@/features/store/data/products';
 
 interface ReviewCardProps {
    review: ProductReview;

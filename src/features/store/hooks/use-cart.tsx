@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-import { Product } from '@/features/kareem/data/products';
+import { Product } from '@/features/store/data/products';
 
 interface CartItem {
    product: Product;

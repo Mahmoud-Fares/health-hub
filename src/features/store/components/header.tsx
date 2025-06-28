@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 
 import { Button } from '@/shared/components/ui/button';
 
-import { Input } from '@/features/kareem/components/ui/input';
-import { AuthContext } from '@/features/kareem/context/auth-context';
+import { Input } from '@/features/store/components/ui/input';
+import { AuthContext } from '@/features/store/context/auth-context';
 
 const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
    const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -35,7 +35,7 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
    };
 
    return (
-      <header className='sticky top-0 z-50 border-b border-gray-200 shadow-sm'>
+      <header className='sticky top-0 z-50 border-b border-gray-200 bg-white shadow-sm'>
          <div className='container mx-auto px-4'>
             <div className='flex items-center justify-between py-4'>
                {/* Logo */}
@@ -90,7 +90,7 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
                   <Link to='/store/cart' className='relative'>
                      <ShoppingCart className='h-6 w-6 text-gray-700' />
                      {dataCarts.length > 0 && (
-                        <span className='bg-brand-green absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full text-xs text-white'>
+                        <span className='absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-brand-green text-xs text-white'>
                            {dataCarts.length}
                         </span>
                      )}

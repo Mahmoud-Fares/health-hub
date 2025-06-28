@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
 
-// import { Product } from '@/features/kareem/data/products';
+// import { Product } from '@/features/store/data/products';
 // import { useCart } from '@/hooks/useCart';
 // import { useComparison } from '@/hooks/useComparison';
 import { message } from 'antd';
@@ -9,9 +9,9 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/shared/components/ui/button';
 
 // import { Star } from "lucide-react";
-import { AuthContext } from '@/features/kareem/context/auth-context';
-import { Product } from '@/features/kareem/types';
-import onAxios from '@/features/kareem/utils';
+import { AuthContext } from '@/features/store/context/auth-context';
+import { Product } from '@/features/store/types';
+import onAxios from '@/features/store/utils';
 
 interface ProductCardProps {
    product: Product;
@@ -83,7 +83,7 @@ const ProductCard = ({
    return (
       <div className='flex h-full flex-col overflow-hidden rounded-lg bg-white shadow-md transition-transform hover:scale-[1.02] hover:shadow-lg'>
          {/* Product Image */}
-         <Link to={`/product/${product.id}`} className='relative'>
+         <Link to={`/store/product/${product.id}`} className='relative'>
             <div className='flex h-48 items-center justify-center overflow-hidden bg-gray-100'>
                <img
                   src={product.image_url}
@@ -125,7 +125,7 @@ const ProductCard = ({
          <div className='flex flex-grow flex-col p-4'>
             <div className='mb-2'>
                {/* <span className="text-sm text-gray-500">{product.brand}</span> */}
-               <Link to={`/product/${product.id}`}>
+               <Link to={`/store/product/${product.id}`}>
                   <h3 className='text-lg font-semibold leading-tight transition-colors hover:text-brand-blue'>
                      {product.name}
                   </h3>

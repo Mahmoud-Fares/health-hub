@@ -7,9 +7,9 @@ import { Link } from 'react-router-dom';
 
 import { Button } from '@/shared/components/ui/button';
 
-import CartItem from '@/features/kareem/components/cart-item';
-import { AuthContext } from '@/features/kareem/context/auth-context';
-import onAxios from '@/features/kareem/utils';
+import CartItem from '@/features/store/components/cart-item';
+import { AuthContext } from '@/features/store/context/auth-context';
+import onAxios from '@/features/store/utils';
 
 const Cart = () => {
    // const { items, getTotalItems, getTotalPrice, clearCart } = useCart();
@@ -94,7 +94,7 @@ const Cart = () => {
                Looks like you haven't added any products to your cart yet.
             </p>
             <Button asChild>
-               <Link to='/products'>Start Shopping</Link>
+               <Link to='/store/products'>Start Shopping</Link>
             </Button>
          </div>
       );
@@ -159,7 +159,7 @@ const Cart = () => {
                </Button>
                <div className='mt-4 text-center'>
                   <Link
-                     to='/products'
+                     to='/store/products'
                      className='text-sm text-brand-blue hover:underline'
                   >
                      Continue Shopping

@@ -3,11 +3,11 @@ import { useEffect, useState } from 'react';
 import { Spin } from 'antd';
 import { useParams } from 'react-router-dom';
 
-import Footer from '@/features/kareem/components/footer';
-import Header from '@/features/kareem/components/header';
-import ProductGrid from '@/features/kareem/components/product-grid';
-import { Product } from '@/features/kareem/types';
-import onAxios from '@/features/kareem/utils';
+import Footer from '@/features/store/components/footer';
+import Header from '@/features/store/components/header';
+import ProductGrid from '@/features/store/components/product-grid';
+import { Product } from '@/features/store/types';
+import onAxios from '@/features/store/utils';
 
 interface Category {
    id: number;

@@ -1,4 +1,4 @@
-import { Product } from '@/features/kareem/types';
+import { Product } from '@/features/store/types';
 
 import ProductCard from './product-card';
 
