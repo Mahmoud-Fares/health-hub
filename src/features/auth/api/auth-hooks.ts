@@ -18,6 +18,10 @@ export const useRegister = () => {
 
       onSuccess: (response) => {
          if (response && response.userData) {
+            window.localStorage.setItem(
+               'token-healthUp',
+               response.userData.token
+            );
             setCurrentUser(response.userData);
             toast.success('Registration successful!');
             navigate('/');
@@ -45,6 +49,10 @@ export const useLogin = () => {
       onSuccess: (response) => {
          if (response && response.userData) {
             setCurrentUser(response.userData);
+            window.localStorage.setItem(
+               'token-healthUp',
+               response.userData.token
+            );
             toast.success('Login successful!');
             navigate('/');
          } else {
@@ -69,6 +77,7 @@ export const useLogout = () => {
       mutationFn: () => authService.logout(),
       onSuccess: () => {
          logout();
+         window.localStorage.removeItem('token-healthUp');
          toast.success('Logged out successfully');
       },
 
