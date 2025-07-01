@@ -7,7 +7,7 @@ type User = {
    email: string;
    image?: string;
    age?: number;
-   role: 'client' | 'doctor';
+   role: 'client' | 'doctor' | 'deactivated';
    gender?: string;
    token: string;
    phone?: string;

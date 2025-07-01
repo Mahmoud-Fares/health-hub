@@ -23,8 +23,11 @@ import { Input } from '@/shared/components/ui/input';
 import { PasswordField } from '@/shared/components/ui/password-field';
 
 import { useLogin } from '@/features/auth/api/auth-hooks';
+import { GoogleButton } from '@/features/auth/components/google-button';
 import { loginSchema } from '@/features/auth/schema';
 import { LoginPayload } from '@/features/auth/types';
+
+import { OrSeparator } from './or-separator';
 
 export default function LoginForm() {
    const { mutate: login, isPending } = useLogin();
@@ -77,9 +80,19 @@ export default function LoginForm() {
                      showPasswordLabel
                   />
 
-                  <Button type='submit' className='w-full' disabled={isPending}>
-                     {isPending ? 'Logging in...' : 'Login'}
-                  </Button>
+                  <div className='flex flex-col gap-3'>
+                     <Button
+                        type='submit'
+                        className='w-full'
+                        disabled={isPending}
+                     >
+                        {isPending ? 'Logging in...' : 'Login'}
+                     </Button>
+
+                     <OrSeparator />
+
+                     <GoogleButton />
+                  </div>
                </form>
             </Form>
          </CardContent>

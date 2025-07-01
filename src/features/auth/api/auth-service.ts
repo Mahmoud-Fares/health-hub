@@ -3,6 +3,7 @@ import { ApiResponse, AuthUser } from '@/shared/types';
 
 import {
    AuthResponse,
+   CompleteRegisterPayload,
    LoginPayload,
    RegisterPayload,
 } from '@/features/auth/types';
@@ -139,6 +140,37 @@ const authService = {
             appointments: doctorData.appointments,
          };
       }
+   },
+
+   completeRegistration: async (
+      completeRegisterData: CompleteRegisterPayload & {
+         token: string;
+         slug: string;
+      }
+   ): Promise<AuthUser> => {
+      const response = await api.post(
+         '/auth/google/CompleteRegister',
+         completeRegisterData,
+         {
+            headers: {
+               'Content-Type': 'application/json',
+               Authorization: `Bearer ${completeRegisterData.token}`,
+            },
+         }
+      );
+
+      if (!response || response.status !== 200)
+         throw new Error('Invalid registration response');
+
+      const { role } = response.data.data;
+
+      const userData = await authService.getCurrentUserData({
+         role,
+         slug: completeRegisterData.slug,
+         token: completeRegisterData.token,
+      });
+
+      return userData;
    },
 };
 

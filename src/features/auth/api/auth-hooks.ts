@@ -3,10 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
 import { getErrorMessage } from '@/shared/lib/utils';
+import { AuthUser } from '@/shared/types';
 
 import { useAuth } from '@/features/auth';
 import authService from '@/features/auth/api/auth-service';
-import { LoginPayload, RegisterPayload } from '@/features/auth/types';
+import {
+   CompleteRegisterPayload,
+   LoginPayload,
+   RegisterPayload,
+} from '@/features/auth/types';
 
 export const useRegister = () => {
    const navigate = useNavigate();
@@ -98,6 +103,60 @@ export const useDeleteAccount = () => {
          toast.error(
             getErrorMessage(error) ||
                'Failed to delete account. Please try again.'
+         );
+      },
+   });
+};
+
+export const useGetCurrentUser = () => {
+   const navigate = useNavigate();
+   const { setCurrentUser } = useAuth();
+
+   return useMutation({
+      mutationFn: (props: {
+         role: AuthUser['role'];
+         slug: string;
+         token: string;
+      }) => authService.getCurrentUserData(props),
+
+      onSuccess: (response) => {
+         if (response && response.slug) {
+            setCurrentUser(response);
+            toast.success('Login successful!');
+            navigate('/');
+         }
+      },
+
+      onError: (error: any) => {
+         console.error('Get current user error:', error);
+         navigate('/login');
+         toast.error(
+            getErrorMessage(error) ||
+               'Login failed. Please check your credentials.'
+         );
+      },
+   });
+};
+
+export const useCompleteRegister = () => {
+   const navigate = useNavigate();
+   const { setCurrentUser } = useAuth();
+
+   return useMutation({
+      mutationFn: (
+         userData: CompleteRegisterPayload & { token: string; slug: string }
+      ) => authService.completeRegistration(userData),
+
+      onSuccess: (response) => {
+         setCurrentUser(response);
+         toast.success('Logged in successfully!');
+         navigate('/');
+      },
+
+      onError: (error: any) => {
+         console.error('Registration completed error:', error);
+         toast.error(
+            getErrorMessage(error) || 'Registration failed. Please try again.'
          );
       },
    });
