@@ -34,6 +34,7 @@
       "clsx": "^2.1.1",
       "date-fns": "^4.1.0",
       "eslint-plugin-project-structure": "^3.13.3",
+      "input-otp": "^1.4.2",
       "lucide-react": "^0.479.0",
       "next-themes": "^0.4.6",
       "nuqs": "^2.4.3",

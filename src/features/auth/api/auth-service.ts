@@ -172,6 +172,21 @@ const authService = {
 
       return userData;
    },
+
+   verifyEmailOtp: async (payload: { email: string; otp: string }) => {
+      const response = await api.post(
+         '/otp/email/verification/verify',
+         payload
+      );
+      return response.data;
+   },
+
+   sendEmailVerification: async (email: string) => {
+      const response = await api.post('/otp/email/verification/send', {
+         email,
+      });
+      return response.data;
+   },
 };
 
 export default authService;

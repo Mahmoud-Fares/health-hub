@@ -14,6 +14,7 @@ const CallbackPage = lazy(() => import('@/app/pages/callback-page'));
 const CompleteRegisterPage = lazy(
    () => import('@/app/pages/complete-register-page')
 );
+const VerifyAccountPage = lazy(() => import('@/app/pages/verify-account-page'));
 
 const Home = lazy(() => import('@/app/pages/home'));
 const ClientProfilePage = lazy(() => import('@/app/pages/client-profile-page'));
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
          {
             path: '/api/auth/google/callback',
             element: <CallbackPage />,
+         },
+         {
+            path: 'verify-account',
+            element: <VerifyAccountPage />,
          },
          {
             path: '*',

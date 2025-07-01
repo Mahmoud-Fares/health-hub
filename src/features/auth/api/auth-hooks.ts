@@ -161,3 +161,27 @@ export const useCompleteRegister = () => {
       },
    });
 };
+
+export const useVerifyEmailOtp = () => {
+   return useMutation({
+      mutationFn: (payload: { email: string; otp: string }) =>
+         authService.verifyEmailOtp(payload),
+      onSuccess: () => {
+         toast.success('Account verified successfully!');
+      },
+      onError: (error: any) => {
+         toast.error(getErrorMessage(error) || 'Verification failed.');
+      },
+   });
+};
+
+export const useSendEmailVerification = () => {
+   return useMutation({
+      mutationFn: (email: string) => authService.sendEmailVerification(email),
+      onError: (error: any) => {
+         toast.error(
+            getErrorMessage(error) || 'Failed to send verification email.'
+         );
+      },
+   });
+};
