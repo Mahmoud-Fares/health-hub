@@ -35,6 +35,18 @@ const settingsService = {
       const response = await api.put('profile/update', payload);
       return response.data;
    },
+   deleteProfile: async (): Promise<any> => {
+      const response = await api.delete('auth/user/delete');
+      return response.data;
+   },
+   changePassword: async (payload: {
+      oldPassword: string;
+      newPassword: string;
+      newPassword_confirmation: string;
+   }): Promise<any> => {
+      const response = await api.put('profile/changePassword', payload);
+      return response.data;
+   },
 };
 
 export default settingsService;

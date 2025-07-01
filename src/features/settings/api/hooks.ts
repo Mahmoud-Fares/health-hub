@@ -33,3 +33,39 @@ export const useUpdateProfile = () => {
       },
    });
 };
+
+export const useDeleteProfile = () => {
+   const { setCurrentUser } = useAuth();
+   return useMutation({
+      mutationFn: () => settingsService.deleteProfile(),
+      onSuccess: () => {
+         setCurrentUser(null);
+         toast.success('Account deleted successfully');
+      },
+      onError: (error: any) => {
+         toast.error(
+            error.response?.data?.message ||
+               'Failed to delete account. Please try again.'
+         );
+      },
+   });
+};
+
+export const useChangePassword = () => {
+   return useMutation({
+      mutationFn: (payload: {
+         oldPassword: string;
+         newPassword: string;
+         newPassword_confirmation: string;
+      }) => settingsService.changePassword(payload),
+      onSuccess: () => {
+         toast.success('Password changed successfully');
+      },
+      onError: (error: any) => {
+         toast.error(
+            error.response?.data?.message ||
+               'Failed to change password. Please try again.'
+         );
+      },
+   });
+};

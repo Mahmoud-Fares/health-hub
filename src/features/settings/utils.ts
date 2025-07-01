@@ -1,6 +1,7 @@
 import {
    Building2,
    Heart,
+   Lock,
    LucideIcon,
    Settings,
    Stethoscope,
@@ -40,6 +41,11 @@ const DOCTOR_TABS: TabConfig[] = [
       label: 'Preferences',
       icon: Settings,
    },
+   {
+      value: 'security',
+      label: 'Security',
+      icon: Lock,
+   },
 ];
 
 const PATIENT_TABS: TabConfig[] = [
@@ -57,6 +63,11 @@ const PATIENT_TABS: TabConfig[] = [
       value: 'preferences',
       label: 'Preferences',
       icon: Settings,
+   },
+   {
+      value: 'security',
+      label: 'Security',
+      icon: Lock,
    },
 ];
 
