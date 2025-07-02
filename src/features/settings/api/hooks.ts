@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { authService, useAuth } from '@/features/auth';
@@ -10,6 +10,7 @@ import settingsService, {
 
 export const useUpdateProfile = () => {
    const { currentUser, setCurrentUser } = useAuth();
+   const queryClient = useQueryClient();
    return useMutation({
       mutationFn: (payload: DoctorUpdatePayload | ClientUpdatePayload) => {
          return settingsService.updateProfile(payload);
@@ -22,6 +23,16 @@ export const useUpdateProfile = () => {
          });
 
          setCurrentUser(res);
+
+         if (currentUser?.role === 'doctor') {
+            queryClient.invalidateQueries({
+               queryKey: ['doctor', currentUser.slug] as const,
+            });
+         } else if (currentUser?.role === 'client') {
+            queryClient.invalidateQueries({
+               queryKey: ['client', currentUser.slug] as const,
+            });
+         }
 
          toast.success('Profile updated successfully');
       },

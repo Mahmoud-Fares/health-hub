@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { useForm } from 'react-hook-form';
 
 import { Button } from '@/shared/components/ui/button';
@@ -25,10 +23,6 @@ export default function ProfessionalSettings() {
    const { currentUser } = useAuth();
    if (isPatient(currentUser!)) throw new Error('That is Doctor only settings');
 
-   const [specialties, setSpecialties] = useState<string[]>(
-      currentUser?.specialization || []
-   );
-
    const { mutate: updateProfile, isPending } = useUpdateProfile();
 
    const form = useForm<{
@@ -45,7 +39,6 @@ export default function ProfessionalSettings() {
       const payload: DoctorUpdatePayload = {
          bio: values.bio,
          fees: values.fees,
-         specialization: specialties,
       };
       updateProfile(payload);
    };
@@ -93,10 +86,7 @@ export default function ProfessionalSettings() {
                      )}
                   />
 
-                  <SpecialtySection
-                     specialties={specialties}
-                     onSpecialtiesChange={setSpecialties}
-                  />
+                  <SpecialtySection />
 
                   <Button type='submit' disabled={isPending}>
                      {isPending ? 'Saving...' : 'Save Professional Info'}

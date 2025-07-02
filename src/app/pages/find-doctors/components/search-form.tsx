@@ -1,5 +1,6 @@
 import { Filter, Search } from 'lucide-react';
 
+import { Specialty } from '@/shared/api/specialty-service';
 import { Input } from '@/shared/components/ui/input';
 import {
    Select,
@@ -9,8 +10,6 @@ import {
    SelectValue,
 } from '@/shared/components/ui/select';
 import { cn } from '@/shared/lib/utils';
-
-import { Specialty } from '@/features/specialty/api/specialty-service';
 
 interface SearchFormProps {
    searchTerm: string;

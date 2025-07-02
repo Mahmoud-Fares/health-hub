@@ -11,7 +11,7 @@ export interface DoctorUpdatePayload {
    phone?: string;
    age?: number | null;
    gender?: string;
-   specialization?: string[];
+   specialty?: string;
 }
 
 export interface ClientUpdatePayload {
