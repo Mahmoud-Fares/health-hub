@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import * as z from 'zod';
 
 import { Button } from '@/shared/components/ui/button';
@@ -43,6 +44,7 @@ function EmailForm({
 }: {
    onEmailSubmitted: (email: string) => void;
 }) {
+   const navigate = useNavigate();
    const form = useForm<z.infer<typeof emailSchema>>({
       resolver: zodResolver(emailSchema),
       defaultValues: { email: '' },
@@ -54,6 +56,7 @@ function EmailForm({
       sendOtpMutation.mutate(values.email, {
          onSuccess: () => {
             onEmailSubmitted(values.email);
+            navigate('/login');
          },
       });
    }
