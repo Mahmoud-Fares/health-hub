@@ -78,6 +78,7 @@ export default function LoginForm() {
                      name='password'
                      label='Password'
                      showPasswordLabel
+                     isLoginForm
                   />
 
                   <div className='flex flex-col gap-3'>

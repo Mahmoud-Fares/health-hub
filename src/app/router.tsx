@@ -15,6 +15,7 @@ const CompleteRegisterPage = lazy(
    () => import('@/app/pages/complete-register-page')
 );
 const VerifyAccountPage = lazy(() => import('@/app/pages/verify-account-page'));
+const ForgotPasswordPage = lazy(() => import('@/app/pages/forgot-password'));
 
 const Home = lazy(() => import('@/app/pages/home'));
 const ClientProfilePage = lazy(() => import('@/app/pages/client-profile-page'));
@@ -128,6 +129,10 @@ export const router = createBrowserRouter([
          {
             path: 'login',
             element: <LoginPage />,
+         },
+         {
+            path: 'forgot-password',
+            element: <ForgotPasswordPage />,
          },
       ],
    },

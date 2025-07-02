@@ -185,3 +185,32 @@ export const useSendEmailVerification = () => {
       },
    });
 };
+
+export const useSendPasswordResetOtp = () => {
+   return useMutation({
+      mutationFn: (email: string) => authService.sendPasswordResetOtp(email),
+      onSuccess: () => {
+         toast.success('OTP sent to your email.');
+      },
+      onError: (error: any) => {
+         toast.error(getErrorMessage(error) || 'Failed to send OTP.');
+      },
+   });
+};
+
+export const useVerifyPasswordResetOtp = () => {
+   return useMutation({
+      mutationFn: (payload: {
+         email: string;
+         otp: string;
+         password: string;
+         password_confirmation: string;
+      }) => authService.verifyPasswordResetOtp(payload),
+      onSuccess: () => {
+         toast.success('Password reset successfully! You can now log in.');
+      },
+      onError: (error: any) => {
+         toast.error(getErrorMessage(error) || 'Failed to reset password.');
+      },
+   });
+};

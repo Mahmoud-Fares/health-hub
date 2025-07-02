@@ -187,6 +187,23 @@ const authService = {
       });
       return response.data;
    },
+
+   sendPasswordResetOtp: async (email: string) => {
+      const response = await api.post('/otp/password/reset/send-otp', {
+         email,
+      });
+      return response.data;
+   },
+
+   verifyPasswordResetOtp: async (payload: {
+      email: string;
+      otp: string;
+      password: string;
+      password_confirmation: string;
+   }) => {
+      const response = await api.post('/otp/password/reset/verify', payload);
+      return response.data;
+   },
 };
 
 export default authService;
