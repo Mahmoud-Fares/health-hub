@@ -108,6 +108,7 @@ const authService = {
             weight: user.weight,
             height: user.height,
             notes: user.notes,
+            email_verified_at: user.email_verified_at,
          };
       } else {
          response = await api.get(`Doctor/showDoctorInfo/${slug}`, {
@@ -138,6 +139,7 @@ const authService = {
             clinicname: doctorData.clinicname,
             specialization: doctorData.specialization,
             appointments: doctorData.appointments,
+            email_verified_at: doctorData.email_verified_at,
          };
       }
    },

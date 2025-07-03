@@ -54,6 +54,7 @@ export default function PersonalSettings() {
    return (
       <Card className='w-full'>
          <CardContent className='pt-6'>
+            {/* {isDoctor(currentUser!) && <DoctorProfileImageUpload />} */}
             <Form {...form}>
                <form
                   onSubmit={form.handleSubmit(onSubmit)}

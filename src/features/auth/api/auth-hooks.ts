@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
@@ -163,10 +163,30 @@ export const useCompleteRegister = () => {
 };
 
 export const useVerifyEmailOtp = () => {
+   const { currentUser, setCurrentUser } = useAuth();
+   const queryClient = useQueryClient();
+
    return useMutation({
       mutationFn: (payload: { email: string; otp: string }) =>
          authService.verifyEmailOtp(payload),
-      onSuccess: () => {
+      onSuccess: async () => {
+         const res = await authService.getCurrentUserData({
+            role: currentUser!.role,
+            slug: currentUser!.slug,
+            token: currentUser!.token,
+         });
+         setCurrentUser(res);
+
+         if (currentUser?.role === 'doctor') {
+            queryClient.invalidateQueries({
+               queryKey: ['doctor', currentUser.slug] as const,
+            });
+         } else if (currentUser?.role === 'client') {
+            queryClient.invalidateQueries({
+               queryKey: ['client', currentUser.slug] as const,
+            });
+         }
+
          toast.success('Account verified successfully!');
       },
       onError: (error: any) => {

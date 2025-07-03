@@ -11,6 +11,7 @@ type User = {
    gender?: string;
    token: string;
    phone?: string;
+   email_verified_at?: string;
 };
 
 export type Patient = User & {

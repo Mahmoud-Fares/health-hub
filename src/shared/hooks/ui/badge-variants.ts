@@ -12,6 +12,10 @@ export const badgeVariants = cva(
             destructive:
                'border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80',
             outline: 'text-foreground',
+            warning:
+               'border-transparent bg-amber-200/80 text-amber-800 shadow dark:bg-amber-900/30 dark:text-amber-200',
+            success:
+               'border-transparent bg-green-100 text-green-800 shadow hover:bg-green-200 dark:bg-green-900/20 dark:text-green-200 dark:hover:bg-green-900/30',
          },
       },
       defaultVariants: {

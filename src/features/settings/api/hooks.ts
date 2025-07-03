@@ -80,3 +80,36 @@ export const useChangePassword = () => {
       },
    });
 };
+
+export const useUploadProfileImage = () => {
+   const { currentUser, setCurrentUser } = useAuth();
+   const queryClient = useQueryClient();
+   return useMutation({
+      mutationFn: (formData: FormData) =>
+         settingsService.uploadProfileImage(formData),
+      onSuccess: async () => {
+         const res = await authService.getCurrentUserData({
+            role: currentUser!.role,
+            slug: currentUser!.slug,
+            token: currentUser!.token,
+         });
+         setCurrentUser(res);
+         if (currentUser?.role === 'doctor') {
+            queryClient.invalidateQueries({
+               queryKey: ['doctor', currentUser.slug] as const,
+            });
+         } else if (currentUser?.role === 'client') {
+            queryClient.invalidateQueries({
+               queryKey: ['client', currentUser.slug] as const,
+            });
+         }
+         toast.success('Profile image updated successfully');
+      },
+      onError: (error: any) => {
+         toast.error(
+            error.response?.data?.message ||
+               'Failed to update profile image. Please try again.'
+         );
+      },
+   });
+};

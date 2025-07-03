@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+import { Navigate } from 'react-router-dom';
+
 import { Button } from '@/shared/components/ui/button';
 
 import { useSendEmailVerification } from '@/features/auth/api/auth-hooks';
@@ -8,6 +10,18 @@ import { useAuth } from '@/features/auth/hooks/use-auth';
 
 export default function VerifyAccountPage() {
    const [step, setStep] = useState<'prompt' | 'verify'>('prompt');
+
+   const { currentUser } = useAuth();
+
+   const isVerified = !currentUser || !!currentUser.email_verified_at;
+
+   if (isVerified) {
+      if (currentUser?.role === 'doctor')
+         return <Navigate to={`/doctor/${currentUser.slug}`} />;
+
+      if (currentUser?.role === 'client')
+         return <Navigate to={`/client/${currentUser.slug}`} />;
+   }
 
    if (step === 'prompt') return <VerifyAccountPrompt setStep={setStep} />;
 
