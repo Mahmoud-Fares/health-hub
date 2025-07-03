@@ -91,3 +91,32 @@ export const useConfirmPayment = () => {
       },
    });
 };
+
+export const useBookingFees = (bookingId: string | undefined) => {
+   return useQuery({
+      queryKey: ['booking-fees', bookingId],
+      queryFn: () => {
+         if (!bookingId) throw new Error('Booking ID is required');
+         return bookingService.getBookingFees(Number(bookingId));
+      },
+      enabled: !!bookingId,
+      meta: {
+         onError: (error: Error) => {
+            toast.error(error.message || 'Failed to load booking fees');
+         },
+      },
+   });
+};
+
+export const useStripePayment = () => {
+   return useMutation({
+      mutationFn: async ({ amount }: { amount: number }) => {
+         return bookingService.payWithStripe(amount, 'USD');
+      },
+      onError: (error: any) => {
+         toast.error(
+            error.response?.data?.message || 'Failed to initiate Stripe payment'
+         );
+      },
+   });
+};

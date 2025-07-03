@@ -22,7 +22,7 @@ interface DoctorCardProps {
 
 const DoctorCard: React.FC<DoctorCardProps> = ({ doctor }) => {
    return (
-      <Card className='overflow-hidden transition-all hover:shadow-lg dark:bg-accent/75'>
+      <Card className='flex flex-col overflow-hidden transition-all hover:shadow-lg dark:bg-accent/75'>
          <AspectRatio ratio={16 / 9} className='bg-muted'>
             <div className='flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-100 to-indigo-200'>
                {doctor.image ? (
@@ -75,7 +75,7 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ doctor }) => {
                </div>
             )}
          </CardContent>
-         <CardFooter className='p-4 pt-0'>
+         <CardFooter className='flex flex-1 items-end p-4 pt-0'>
             <Button asChild variant='default' className='w-full'>
                <Link to={`/doctor/${doctor.slug}`}>View Profile</Link>
             </Button>
