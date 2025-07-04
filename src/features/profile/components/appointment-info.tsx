@@ -20,7 +20,7 @@ export default function AppointmentInfo({ doctor }: Props) {
 
             <ViewToOthersOnly profile={doctor}>
                <Link
-                  to={`/book-appointment/${doctor.slug}`}
+                  to={`/find-doctors/${doctor.slug}`}
                   aria-label={`Book appointment with Dr. ${doctor.name}`}
                >
                   <Button className='w-full sm:w-auto'>Book Appointment</Button>

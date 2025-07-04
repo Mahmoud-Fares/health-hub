@@ -1,5 +1,7 @@
 import { StrictMode } from 'react';
 
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'keen-slider/keen-slider.min.css';
 import { createRoot } from 'react-dom/client';
 
 import App from './app/app';

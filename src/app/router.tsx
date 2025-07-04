@@ -1,10 +1,8 @@
 import { lazy } from 'react';
 
-import { createBrowserRouter } from 'react-router-dom';
+import { Outlet, createBrowserRouter } from 'react-router-dom';
 
 import ErrorBoundary from '@/shared/components/error-boundary';
-
-import StoreProvider from '@/features/store/provider';
 
 const MainLayout = lazy(() => import('@/app/layouts/main-layout'));
 const ProtectedLayout = lazy(() => import('@/app/layouts/protected-layout'));
@@ -13,7 +11,7 @@ const AuthLayout = lazy(() => import('@/app/layouts/auth-layout'));
 const LoginPage = lazy(() => import('@/app/pages/login'));
 const SignUpPage = lazy(() => import('@/app/pages/signup'));
 
-const Home = lazy(() => import('@/app/pages/home'));
+const Home = lazy(() => import('@/features/landing/pages/home-page'));
 const Store = lazy(() => import('@/features/store/pages/store'));
 const ProductsPage = lazy(() => import('@/features/store/pages/product-page'));
 const ProductDetailPage = lazy(
@@ -39,6 +37,30 @@ const AppointmentBookingsPage = lazy(
 
 const NotFound = lazy(() => import('@/app/pages/not-found'));
 
+const AboutPage = lazy(() => import('@/features/landing/pages/about-page'));
+const ArticleDetailPage = lazy(
+   () => import('@/features/landing/pages/article-detail-page')
+);
+const ArticlesPage = lazy(
+   () => import('@/features/landing/pages/articles-page')
+);
+const CalculatorsPage = lazy(
+   () => import('@/features/landing/pages/calculator-page')
+);
+const ContactUs = lazy(() => import('@/features/landing/pages/contact-us'));
+const FoodScannerPage = lazy(
+   () => import('@/features/landing/pages/food-scanner-page')
+);
+const ServicesPage = lazy(
+   () => import('@/features/landing/pages/services-page')
+);
+const TestimonialsPage = lazy(
+   () => import('@/features/landing/pages/testimonials-page')
+);
+const WorkoutVideosPage = lazy(
+   () => import('@/features/landing/pages/workout-videos-page')
+);
+
 export const router = createBrowserRouter([
    {
       path: '/',
@@ -49,6 +71,24 @@ export const router = createBrowserRouter([
             index: true,
             element: <Home />,
          },
+         {
+            path: 'articles',
+            element: <ArticlesPage />,
+         },
+         {
+            path: 'articles/:id',
+            element: <ArticleDetailPage />,
+         },
+         {
+            path: 'workout-videos',
+            element: <WorkoutVideosPage />,
+         },
+         { path: 'about', element: <AboutPage /> },
+         { path: 'services', element: <ServicesPage /> },
+         { path: 'testimonials', element: <TestimonialsPage /> },
+         { path: 'calculators', element: <CalculatorsPage /> },
+         { path: 'food-scanner', element: <FoodScannerPage /> },
+         { path: 'contact', element: <ContactUs /> },
          {
             path: '*',
             element: <NotFound />,
@@ -67,7 +107,7 @@ export const router = createBrowserRouter([
          },
          {
             path: '/store',
-            element: <StoreProvider />,
+            element: <Outlet />,
             children: [
                {
                   index: true,

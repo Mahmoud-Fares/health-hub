@@ -1,7 +1,8 @@
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 
-import { Footer } from '@/app/layouts/components/footer';
-import Header from '@/app/layouts/components/header';
+import Footer from '@/features/landing/components/layout/footer';
+
+import Header from '@/app/layouts/components/header-mariam';
 import { MainContent } from '@/app/layouts/components/main-content';
 import Sidebar from '@/app/layouts/components/sidebar';
 

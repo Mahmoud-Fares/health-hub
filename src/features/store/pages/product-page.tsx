@@ -7,7 +7,6 @@ import { Spin } from 'antd';
 // import { useFilter, sortOptions } from "@/hooks/useFilter";
 
 // import onAxios from "../../Utils/HelperFunction.js";
-import Footer from '@/features/store/components/footer';
 // import { useSearchParams } from "react-router-dom";
 // import { SlidersHorizontal } from "lucide-react";
 // import { Button } from "@/features/store/components/ui/button";
@@ -18,7 +17,6 @@ import Footer from '@/features/store/components/footer';
 //   SelectTrigger,
 //   SelectValue,
 // } from "@/features/store/components/ui/select";
-import Header from '@/features/store/components/header';
 import ProductGrid from '@/features/store/components/product-grid';
 import { AuthContext } from '@/features/store/context/auth-context';
 import { Product } from '@/features/store/types';
@@ -108,8 +106,6 @@ const ProductsPage = () => {
 
    return (
       <div className='flex min-h-screen flex-col'>
-         <Header />
-
          {/* Page content */}
          <div className='container mx-auto flex-grow px-4 py-8'>
             <div className='mb-6 flex items-center justify-between'>
@@ -189,8 +185,6 @@ const ProductsPage = () => {
                </div>
             </div>
          </div>
-
-         <Footer />
       </div>
    );
 };

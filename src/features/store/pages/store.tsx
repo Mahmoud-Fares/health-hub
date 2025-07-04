@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 
 import { Button } from '@/shared/components/ui/button';
 
-import Header from '@/features/store/components/header';
 import ProductGrid from '@/features/store/components/product-grid';
 import { Input } from '@/features/store/components/ui/input';
 import { AuthContext } from '@/features/store/context/auth-context';
@@ -61,8 +60,6 @@ const Index = () => {
 
    return (
       <div className='flex min-h-screen flex-col'>
-         <Header />
-
          {/* Hero Section */}
          <section className='bg-gradient-to-r from-brand-blue to-brand-green py-16 text-white'>
             <div className='container mx-auto px-4'>
@@ -189,83 +186,6 @@ const Index = () => {
                </div>
             </div>
          </section>
-
-         {/* Footer */}
-         <footer className='bg-gray-100 py-8'>
-            <div className='container mx-auto px-4'>
-               <div className='flex flex-col justify-between md:flex-row'>
-                  <div className='mb-6 md:mb-0'>
-                     <h3 className='mb-2 text-lg font-bold'>HealthUp</h3>
-                     <p className='max-w-xs text-gray-600'>
-                        Your one-stop shop for fitness and health electronics.
-                     </p>
-                  </div>
-                  <div className='grid grid-cols-2 gap-8 md:grid-cols-3'>
-                     <div>
-                        <h4 className='mb-2 font-medium'>Shop</h4>
-                        <ul className='space-y-2 text-sm text-gray-600'>
-                           {dataCategories.map((cat) => (
-                              <li key={cat.id}>
-                                 <Link
-                                    to={`category/${cat.id}`}
-                                    className='hover:text-brand-blue'
-                                 >
-                                    {cat.name}
-                                 </Link>
-                              </li>
-                           ))}
-                        </ul>
-                     </div>
-                     <div>
-                        <h4 className='mb-2 font-medium'>Company</h4>
-                        <ul className='space-y-2 text-sm text-gray-600'>
-                           <li>
-                              <a href='#' className='hover:text-brand-blue'>
-                                 About Us
-                              </a>
-                           </li>
-                           <li>
-                              <a href='#' className='hover:text-brand-blue'>
-                                 Contact
-                              </a>
-                           </li>
-                           <li>
-                              <a href='#' className='hover:text-brand-blue'>
-                                 Blog
-                              </a>
-                           </li>
-                        </ul>
-                     </div>
-                     <div>
-                        <h4 className='mb-2 font-medium'>Support</h4>
-                        <ul className='space-y-2 text-sm text-gray-600'>
-                           <li>
-                              <a href='#' className='hover:text-brand-blue'>
-                                 FAQ
-                              </a>
-                           </li>
-                           <li>
-                              <a href='#' className='hover:text-brand-blue'>
-                                 Shipping
-                              </a>
-                           </li>
-                           <li>
-                              <a href='#' className='hover:text-brand-blue'>
-                                 Returns
-                              </a>
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-               </div>
-               <div className='mt-8 border-t border-gray-200 pt-8 text-center text-sm text-gray-500'>
-                  <p>
-                     &copy; {new Date().getFullYear()} HealthUp. All rights
-                     reserved.
-                  </p>
-               </div>
-            </div>
-         </footer>
       </div>
    );
 };

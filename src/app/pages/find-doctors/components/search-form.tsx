@@ -36,7 +36,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
    return (
       <div
          className={cn(
-            'sticky top-0 z-50 bg-gradient-to-r from-blue-800/90 to-blue-800 py-6 shadow-lg backdrop-blur-sm',
+            'bg-gradient-to-r from-blue-800/90 to-blue-800 py-6 shadow-lg backdrop-blur-sm',
             'dark:from-blue-900 dark:to-gray-900 dark:text-blue-100',
             className
          )}

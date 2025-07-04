@@ -3,8 +3,6 @@ import { useEffect, useState } from 'react';
 import { Spin } from 'antd';
 import { useParams } from 'react-router-dom';
 
-import Footer from '@/features/store/components/footer';
-import Header from '@/features/store/components/header';
 import ProductDetail from '@/features/store/components/product-details';
 // import { getProductById } from "@/features/store/data/products";
 import { Product } from '@/features/store/types';
@@ -54,8 +52,6 @@ const ProductDetailPage = () => {
 
    return (
       <div className='flex min-h-screen flex-col'>
-         <Header />
-
          <main className='flex-grow'>
             {dataProduct ? (
                <ProductDetail product={dataProduct} />
@@ -65,8 +61,6 @@ const ProductDetailPage = () => {
                </div>
             )}
          </main>
-
-         <Footer />
       </div>
    );
 };

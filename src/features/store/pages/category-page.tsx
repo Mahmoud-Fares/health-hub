@@ -3,8 +3,6 @@ import { useEffect, useState } from 'react';
 import { Spin } from 'antd';
 import { useParams } from 'react-router-dom';
 
-import Footer from '@/features/store/components/footer';
-import Header from '@/features/store/components/header';
 import ProductGrid from '@/features/store/components/product-grid';
 import { Product } from '@/features/store/types';
 import onAxios from '@/features/store/utils';
@@ -50,8 +48,6 @@ const CategoryPage = () => {
 
    return (
       <div className='flex min-h-screen flex-col'>
-         <Header onSearch={() => {}} />
-
          <div className='flex-grow'>
             <div className='container mx-auto px-4 py-8'>
                <h2 className='mb-7 text-2xl font-semibold'>
@@ -68,8 +64,6 @@ const CategoryPage = () => {
                )}
             </div>
          </div>
-
-         <Footer />
       </div>
    );
 };
