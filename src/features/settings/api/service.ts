@@ -36,7 +36,12 @@ const settingsService = {
       return response.data;
    },
    uploadProfileImage: async (formData: FormData): Promise<any> => {
-      const response = await api.put('/profile/update', formData);
+      const response = await api.post('/profile/update', formData, {
+         headers: {
+            'Content-Type': 'multipart/form-data',
+         },
+      });
+
       return response.data;
    },
    deleteProfile: async (): Promise<any> => {

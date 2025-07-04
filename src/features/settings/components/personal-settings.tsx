@@ -13,12 +13,14 @@ import {
 import { Input } from '@/shared/components/ui/input';
 import { RadioGroup, RadioGroupItem } from '@/shared/components/ui/radio-group';
 
-import { useAuth } from '@/features/auth';
+import { isDoctor, useAuth } from '@/features/auth';
 import { useUpdateProfile } from '@/features/settings/api/hooks';
 import {
    ClientUpdatePayload,
    DoctorUpdatePayload,
 } from '@/features/settings/api/service';
+
+import DoctorProfileImageUpload from './doctor-profile-image-upload';
 
 export default function PersonalSettings() {
    const { currentUser } = useAuth();
@@ -54,7 +56,7 @@ export default function PersonalSettings() {
    return (
       <Card className='w-full'>
          <CardContent className='pt-6'>
-            {/* {isDoctor(currentUser!) && <DoctorProfileImageUpload />} */}
+            {isDoctor(currentUser!) && <DoctorProfileImageUpload />}
             <Form {...form}>
                <form
                   onSubmit={form.handleSubmit(onSubmit)}
