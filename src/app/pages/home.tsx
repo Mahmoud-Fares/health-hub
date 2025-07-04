@@ -1,13 +1,23 @@
 import { Calendar, CheckCircle2, Clock, Users } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 import { Button } from '@/shared/components/ui/button';
 import { Card, CardContent } from '@/shared/components/ui/card';
 
 import { useAuth } from '@/features/auth';
+import { useGoogleCallback } from '@/features/auth/hooks/use-google-callback';
 
 export default function Home() {
    const { isAuthenticated } = useAuth();
+
+   const { isCallback, token, slug, role } = useGoogleCallback();
+
+   if (isCallback)
+      return (
+         <Navigate
+            to={`/api/auth/google/callback?token=${token}&slug=${slug}&role=${role}`}
+         />
+      );
 
    return (
       <>

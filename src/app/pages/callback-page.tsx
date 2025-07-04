@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -7,23 +7,25 @@ import Spinner from '@/shared/components/spinner';
 import { AuthUser } from '@/shared/types';
 
 import { useGetCurrentUser } from '@/features/auth/api/auth-hooks';
+import { useGoogleCallback } from '@/features/auth/hooks/use-google-callback';
 
 export default function CallbackPage() {
    const { mutate: getCurrentUser } = useGetCurrentUser();
    const navigate = useNavigate();
+   const hasAttemptedAuth = useRef(false);
 
-   const params = new URLSearchParams(window.location.search);
-
-   const token = params.get('token');
-   const slug = params.get('slug');
-   const role = params.get('role');
+   const { token, slug, role } = useGoogleCallback();
 
    useEffect(() => {
+      if (hasAttemptedAuth.current) return;
+
       if (!token || !slug || !role) {
          toast.error('Invalid Authentication, please try again');
          navigate('/login');
          return;
       }
+
+      hasAttemptedAuth.current = true;
 
       if (role === 'deactivated') {
          navigate(`/complete/register?token=${token}&slug=${slug}`);
@@ -32,7 +34,6 @@ export default function CallbackPage() {
 
       const args = { role, slug, token } as {
          role: AuthUser['role'];
-
          slug: string;
          token: string;
       };
