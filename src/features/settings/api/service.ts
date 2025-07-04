@@ -32,7 +32,7 @@ const settingsService = {
    updateProfile: async (
       payload: DoctorUpdatePayload | ClientUpdatePayload
    ): Promise<any> => {
-      const response = await api.put('profile/update', payload);
+      const response = await api.post('profile/update', payload);
       return response.data;
    },
    uploadProfileImage: async (formData: FormData): Promise<any> => {
@@ -53,7 +53,7 @@ const settingsService = {
       newPassword: string;
       newPassword_confirmation: string;
    }): Promise<any> => {
-      const response = await api.put('profile/changePassword', payload);
+      const response = await api.post('profile/changePassword', payload);
       return response.data;
    },
 };
