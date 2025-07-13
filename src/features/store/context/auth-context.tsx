@@ -1,4 +1,3 @@
-//  todo : to be renamed
 import React, { createContext, useEffect, useState } from 'react';
 
 import type { CartProduct, Product } from '../types';
@@ -45,17 +44,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
          .then((res) => {
             setDataCarts(res.data.data);
             setCartMeta(res.data.meta);
-            // console.log("Cart fetched:", res.data);
          })
          .catch((err) => {
             console.error('Error fetching cart:', err);
          });
    };
 
-   const getProducts = () => {
+   const getProducts = (query: string = '') => {
       setProductsLoading(true);
       onAxios
-         .get('/api/e-commerce/products')
+         .get(`/api/e-commerce/products${query ? `?${query}` : ''}`)
          .then((res) => {
             setDataProducts(res.data.data);
          })

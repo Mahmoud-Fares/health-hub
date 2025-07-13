@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/shared/components/ui/button';
 
 import ProductGrid from '@/features/store/components/product-grid';
-import { Input } from '@/features/store/components/ui/input';
 import { AuthContext } from '@/features/store/context/auth-context';
 import { Category, Product } from '@/features/store/types/index';
 import onAxios from '@/features/store/utils';
@@ -38,8 +37,6 @@ const getCategories = ({ setDataCategories, setLoading, setError }: Props) => {
 };
 
 const Index = () => {
-   const [searchQuery, setSearchQuery] = useState('');
-
    const [dataCategories, setDataCategories] = useState<Category[]>([]);
    const [loading, setLoading] = useState(true);
    const [_error, setError] = useState<any>(null);
@@ -82,28 +79,6 @@ const Index = () => {
                      </Link>
                   </div>
                </div>
-            </div>
-         </section>
-
-         {/* Search Bar */}
-         <section className='bg-white py-8 shadow-md'>
-            <div className='container mx-auto px-4'>
-               <form
-                  // onSubmit={handleSearch}
-                  className='mx-auto flex max-w-3xl gap-2'
-               >
-                  <Input
-                     type='text'
-                     placeholder='Search for fitness trackers, smart watches, and more...'
-                     value={searchQuery}
-                     onChange={(e) => setSearchQuery(e.target.value)}
-                     className='flex-1'
-                  />
-                  <Button type='submit'>
-                     <Search className='mr-2 h-4 w-4' />
-                     Search
-                  </Button>
-               </form>
             </div>
          </section>
 

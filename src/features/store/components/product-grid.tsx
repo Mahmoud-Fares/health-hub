@@ -2,8 +2,6 @@ import { Product } from '@/features/store/types';
 
 import ProductCard from './product-card';
 
-// import { Product } from '@/data/products';
-
 interface ProductGridProps {
    products: Product[];
    showCompareButton?: boolean;
@@ -23,9 +21,8 @@ const ProductGrid = ({
       );
    }
 
-   // console.log(products);
    return (
-      <div className='product-grid'>
+      <div className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
          {products.map((product) => (
             <ProductCard
                key={product.id}

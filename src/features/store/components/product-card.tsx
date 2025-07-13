@@ -57,6 +57,7 @@ const ProductCard = ({
 
    const { getCarts } = useContext(AuthContext) as { getCarts: () => void };
    const [loading, setLoading] = useState(false);
+   const [imageError, setImageError] = useState(false);
 
    const addCart = () => {
       setLoading(true);
@@ -68,8 +69,6 @@ const ProductCard = ({
          })
          .then(() => {
             getCarts();
-            // setDataCarts(res.data.data);
-            // console.log(res.data.data);
             message.success('The Product Added To Cart');
          })
          .catch((err) => {
@@ -85,11 +84,18 @@ const ProductCard = ({
          {/* Product Image */}
          <Link to={`/store/product/${product.id}`} className='relative'>
             <div className='flex h-48 items-center justify-center overflow-hidden bg-gray-100'>
-               <img
-                  src={product.image_url}
-                  alt={product.name}
-                  className='h-full w-full object-cover'
-               />
+               {!imageError ? (
+                  <img
+                     src={product.image_url}
+                     alt={product.name}
+                     className='h-full w-full object-cover'
+                     onError={() => setImageError(true)} // ✅ هنا الشرط
+                  />
+               ) : (
+                  <div className='flex h-full w-full items-center justify-center bg-gray-200 text-4xl font-bold text-gray-500'>
+                     {product.name?.charAt(0).toUpperCase() || '?'}
+                  </div>
+               )}
 
                {/* Badges */}
                {/* <div className="absolute top-2 left-2 flex flex-col gap-2">

@@ -1,6 +1,6 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
-import { Spin } from 'antd';
+import { Input, Select, Spin } from 'antd';
 
 // import FilterSidebar from "@/features/store/components/FilterSidebar";
 // import { products } from "@/data/products";
@@ -21,9 +21,13 @@ import ProductGrid from '@/features/store/components/product-grid';
 import { AuthContext } from '@/features/store/context/auth-context';
 import { Product } from '@/features/store/types';
 
+import onAxios from '../utils';
+
+const { Option } = Select;
+
 interface AuthContextType {
    dataProducts: Product[];
-   getProducts: () => void;
+   getProducts: (query?: string) => void;
    productsLoading: boolean;
 }
 
@@ -34,6 +38,15 @@ const ProductsPage = () => {
    const { dataProducts, getProducts, productsLoading } = useContext(
       AuthContext
    ) as AuthContextType;
+   const [categories, setCategories] = useState<{ id: number; name: string }[]>(
+      []
+   );
+   const [search, setSearch] = useState<string>('');
+   const [minPrice, setMinPrice] = useState<number | null>(null);
+   const [maxPrice, setMaxPrice] = useState<number | null>(null);
+   const [categoryId, setCategoryId] = useState<number | null>(null);
+   const [sortBy, setSortBy] = useState<string>('price');
+   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
 
    // Get filter values from URL parameters
    // const initialCategory = searchParams.get("category");
@@ -101,8 +114,28 @@ const ProductsPage = () => {
    // };
 
    useEffect(() => {
-      getProducts();
-   }, [getProducts]);
+      onAxios
+         .get('/api/e-commerce/categories')
+         .then((res) => {
+            setCategories(res.data?.data || []);
+         })
+         .catch((err) => {
+            console.error('Failed to fetch categories', err);
+         });
+   }, []);
+
+   useEffect(() => {
+      const params = new URLSearchParams();
+
+      if (search) params.set('search', search);
+      if (minPrice) params.set('min_price', String(minPrice));
+      if (maxPrice) params.set('max_price', String(maxPrice));
+      if (categoryId) params.set('category_id', String(categoryId));
+      if (sortBy) params.set('sort_by', sortBy);
+      if (sortDir) params.set('sort_dir', sortDir);
+
+      getProducts(params.toString());
+   }, [search, minPrice, maxPrice, categoryId, sortBy, sortDir, getProducts]);
 
    return (
       <div className='flex min-h-screen flex-col'>
@@ -166,13 +199,70 @@ const ProductsPage = () => {
                 </Button>
               </div>
             )} */}
+                  <div className='mb-6 flex flex-wrap items-center gap-4'>
+                     {/* Search */}
+                     <Input.Search
+                        placeholder='Search products...'
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        onSearch={(value) => setSearch(value)}
+                        allowClear
+                        style={{ maxWidth: 200 }}
+                     />
 
-                  <div className='mb-4 flex items-center justify-between'>
-                     <p className='text-gray-600'>
-                        {dataProducts.length}{' '}
-                        {dataProducts.length === 1 ? 'product' : 'products'}{' '}
-                        found
-                     </p>
+                     {/* Category Select */}
+                     <Select
+                        placeholder='Select Category'
+                        style={{ width: 200 }}
+                        onChange={(value) => setCategoryId(value)}
+                        allowClear
+                        value={categoryId ?? undefined}
+                     >
+                        {categories.map((cat) => (
+                           <Select.Option key={cat.id} value={cat.id}>
+                              {cat.name}
+                           </Select.Option>
+                        ))}
+                     </Select>
+
+                     {/* Price Range */}
+                     <Input
+                        type='number'
+                        placeholder='Min Price'
+                        style={{ width: 120 }}
+                        value={minPrice ?? ''}
+                        onChange={(e) => setMinPrice(Number(e.target.value))}
+                     />
+                     <Input
+                        type='number'
+                        placeholder='Max Price'
+                        style={{ width: 120 }}
+                        value={maxPrice ?? ''}
+                        onChange={(e) => setMaxPrice(Number(e.target.value))}
+                     />
+
+                     {/* Sort By */}
+                     <Select
+                        defaultValue='price'
+                        style={{ width: 180 }}
+                        onChange={(value) => setSortBy(value)}
+                     >
+                        <Option value='price'>Sort by Price</Option>
+                        {/* <Option value='name'>Sort by Name</Option>
+                        <Option value='created_at'>Newest</Option> */}
+                     </Select>
+
+                     {/* Sort Direction */}
+                     <Select
+                        defaultValue='desc'
+                        style={{ width: 180 }}
+                        onChange={(value) =>
+                           setSortDir(value as 'asc' | 'desc')
+                        }
+                     >
+                        <Option value='desc'>High to Low</Option>
+                        <Option value='asc'>Low to High</Option>
+                     </Select>
                   </div>
 
                   {productsLoading ? (

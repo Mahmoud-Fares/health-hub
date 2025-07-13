@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LogOut, LucideProps, Settings, User } from 'lucide-react';
+import { LogOut, LucideProps, Package, Settings, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 import ProfileAvatar from '@/shared/components/profile-avatar';
@@ -33,6 +33,11 @@ export function UserNav() {
             label: 'Profile',
             icon: User,
             action: () => navigate(profileLink),
+         },
+         {
+            label: 'Orders',
+            icon: Package,
+            action: () => navigate('/store/orders'),
          },
          {
             label: 'Settings',
