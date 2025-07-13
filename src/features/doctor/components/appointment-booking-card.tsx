@@ -1,4 +1,7 @@
+import React from 'react';
+
 import { Check, Clock, User } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
 import Spinner from '@/shared/components/spinner';
@@ -17,14 +20,17 @@ interface Props {
    slot: BookingSlot;
    appointmentDate: string;
    isServed?: boolean;
+   refreshBookings?: () => void;
 }
 
 export const AppointmentBookingCard = ({
    slot,
    appointmentDate,
    isServed = false,
+   refreshBookings,
 }: Props) => {
    const { mutate: markAsServed, isPending } = useMarkBookingAsServed();
+   const navigate = useNavigate();
 
    const handleMarkAsServed = () => {
       markAsServed(slot.booking_id, {
@@ -35,6 +41,8 @@ export const AppointmentBookingCard = ({
                   5
                )} has been marked as served.`,
             });
+
+            if (refreshBookings) refreshBookings();
          },
       });
    };
@@ -111,35 +119,43 @@ export const AppointmentBookingCard = ({
                         </h4>
                         <div className='space-y-3'>
                            {slot.clients.map((client, index) => (
-                              <div
-                                 key={index}
-                                 className='rounded-lg border border-border/50 bg-accent/25 p-4 transition-colors hover:bg-accent/50'
-                              >
-                                 <div className='mb-3 flex items-center gap-3'>
-                                    <div className='flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary'>
-                                       <User className='h-4 w-4' />
+                              <React.Fragment key={index}>
+                                 <div className='rounded-lg border border-border/50 bg-accent/25 p-4 transition-colors hover:bg-accent/50'>
+                                    <div className='mb-3 flex items-center gap-3'>
+                                       <div className='flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-primary'>
+                                          <User className='h-4 w-4' />
+                                       </div>
+                                       <span className='font-semibold text-foreground'>
+                                          {client.name}
+                                       </span>
                                     </div>
-                                    <span className='font-semibold text-foreground'>
-                                       {client.name}
-                                    </span>
-                                 </div>
-                                 <div className='space-y-2 pl-11'>
-                                    <div className='flex flex-col sm:flex-row sm:items-center sm:gap-4'>
-                                       <p className='text-sm text-muted-foreground'>
-                                          <span className='font-medium'>
-                                             Email:
-                                          </span>{' '}
-                                          {client.email}
-                                       </p>
-                                       <p className='text-sm text-muted-foreground'>
-                                          <span className='font-medium'>
-                                             Phone:
-                                          </span>{' '}
-                                          {client.phone}
-                                       </p>
+                                    <div className='space-y-2 pl-11'>
+                                       <div className='flex flex-col sm:flex-row sm:items-center sm:gap-4'>
+                                          <p className='text-sm text-muted-foreground'>
+                                             <span className='font-medium'>
+                                                Email:
+                                             </span>{' '}
+                                             {client.email}
+                                          </p>
+                                          <p className='text-sm text-muted-foreground'>
+                                             <span className='font-medium'>
+                                                Phone:
+                                             </span>{' '}
+                                             {client.phone}
+                                          </p>
+                                       </div>
                                     </div>
                                  </div>
-                              </div>
+
+                                 <Button
+                                    className='w-full'
+                                    onClick={() =>
+                                       navigate(`/client/${client.slug}`)
+                                    }
+                                 >
+                                    View Client profile
+                                 </Button>
+                              </React.Fragment>
                            ))}
                         </div>
                      </div>

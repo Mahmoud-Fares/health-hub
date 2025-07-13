@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Eye, EyeOff } from 'lucide-react';
 import { Control, FieldPath, FieldValues } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 
 import { Button } from '@/shared/components/ui/button';
 import {
@@ -22,6 +23,7 @@ interface PasswordFieldProps<
    label: string;
    placeholder?: string;
    showPasswordLabel?: boolean;
+   isLoginForm?: boolean;
 }
 
 export const PasswordField = <
@@ -33,6 +35,7 @@ export const PasswordField = <
    label,
    placeholder = '••••••••',
    showPasswordLabel = false,
+   isLoginForm = false,
 }: PasswordFieldProps<TFieldValues, TFieldName>) => {
    const [showPassword, setShowPassword] = React.useState(false);
 
@@ -46,7 +49,21 @@ export const PasswordField = <
          name={name}
          render={({ field }) => (
             <FormItem>
-               {showPasswordLabel && <FormLabel>{label}</FormLabel>}
+               {isLoginForm && (
+                  <div className='flex items-center justify-between'>
+                     <FormLabel htmlFor='password'>{label}</FormLabel>
+                     <Link
+                        to='/forgot-password'
+                        className='ml-auto inline-block text-sm underline'
+                     >
+                        Forgot your password?
+                     </Link>
+                  </div>
+               )}
+
+               {showPasswordLabel && !isLoginForm && (
+                  <FormLabel>{label}</FormLabel>
+               )}
                <FormControl>
                   <div className='relative'>
                      <Input

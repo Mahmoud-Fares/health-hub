@@ -14,7 +14,11 @@ import {
 } from '@/shared/components/ui/card';
 import { Separator } from '@/shared/components/ui/separator';
 
-import { useConfirmBooking } from '@/features/booking/api/booking-hooks';
+import {
+   useBookingFees,
+   useConfirmBooking,
+   useStripePayment,
+} from '@/features/booking/api/booking-hooks';
 import { useAppointments } from '@/features/booking/hooks/use-appointments';
 
 const PaymentPage = () => {
@@ -23,6 +27,11 @@ const PaymentPage = () => {
    const { mutate: confirmBooking, isPending } = useConfirmBooking();
 
    const { handleRefreshAllBookings } = useAppointments();
+
+   const { data: feesData, isLoading: isFeesLoading } =
+      useBookingFees(bookingId);
+   const { mutate: payWithStripe, isPending: isStripePending } =
+      useStripePayment();
 
    const handleConfirmPayment = () => {
       if (bookingId) {
@@ -114,13 +123,28 @@ const PaymentPage = () => {
                   </div>
                </CardContent>
 
-               <CardFooter className='flex flex-col space-y-3 p-6 sm:flex-row sm:justify-between sm:space-y-0'>
+               <CardFooter className='flex flex-col gap-3 p-6 sm:flex-row sm:justify-between sm:space-y-0'>
                   <Button
                      variant='outline'
                      onClick={handlePayLater}
                      className='w-full sm:w-auto'
                   >
                      Pay Later
+                  </Button>
+
+                  <Button
+                     onClick={() => {
+                        if (!bookingId || !feesData) return;
+                        payWithStripe({ amount: Number(feesData.data.fees) });
+                     }}
+                     disabled={!feesData || isFeesLoading || isStripePending}
+                     className='w-full sm:w-auto'
+                  >
+                     {isStripePending ? (
+                        <Spinner className='border-white' />
+                     ) : (
+                        'Pay with strip'
+                     )}
                   </Button>
 
                   <Button

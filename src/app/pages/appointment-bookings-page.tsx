@@ -35,17 +35,28 @@ const AppointmentBookingsPage = () => {
    const appointmentIdNum = appointmentId ? parseInt(appointmentId) : undefined;
    const appointmentDate = date || 'Unknown date';
 
-   const { data: confirmedResponse, isLoading: isLoadingConfirmed } =
-      useConfirmedAppointmentBookings(appointmentIdNum);
+   const {
+      data: confirmedResponse,
+      isLoading: isLoadingConfirmed,
+      refetch: refetchConfirmed,
+   } = useConfirmedAppointmentBookings(appointmentIdNum);
 
-   const { data: servedResponse, isLoading: isLoadingServed } =
-      useServedAppointmentBookings(appointmentIdNum);
+   const {
+      data: servedResponse,
+      isLoading: isLoadingServed,
+      refetch: refetchServed,
+   } = useServedAppointmentBookings(appointmentIdNum);
 
    const confirmedBookings = confirmedResponse?.data?.data || [];
    const servedBookings = servedResponse?.data?.data || [];
 
    const handleTabChange = (value: string) => {
       setActiveTab(value);
+   };
+
+   const handleBookingsRefresh = () => {
+      refetchConfirmed();
+      refetchServed();
    };
 
    const renderLoadingState = () => (
@@ -126,6 +137,9 @@ const AppointmentBookingsPage = () => {
                                           key={slot.booking_id}
                                           slot={slot}
                                           appointmentDate={appointmentDate}
+                                          refreshBookings={
+                                             handleBookingsRefresh
+                                          }
                                        />
                                     ))}
                                  </div>

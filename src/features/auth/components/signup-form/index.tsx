@@ -19,11 +19,12 @@ import { Form } from '@/shared/components/ui/form';
 import { PasswordField } from '@/shared/components/ui/password-field';
 
 import { useRegister } from '@/features/auth/api/auth-hooks';
+import { GoogleButton } from '@/features/auth/components/google-button';
+import { OrSeparator } from '@/features/auth/components/or-separator';
+import { RoleSelection } from '@/features/auth/components/role-selection';
+import { PersonalInfoFields } from '@/features/auth/components/signup-form/personal-info-fields';
 import { registerSchema } from '@/features/auth/schema';
 import { RegisterPayload } from '@/features/auth/types';
-
-import { PersonalInfoFields } from './personal-info-fields';
-import { RoleSelection } from './role-selection';
 
 const RegisterForm: React.FC = () => {
    const { mutate: register, isPending } = useRegister();
@@ -71,13 +72,19 @@ const RegisterForm: React.FC = () => {
                      showPasswordLabel
                   />
 
-                  <Button
-                     type='submit'
-                     className='mt-6 w-full'
-                     disabled={isPending}
-                  >
-                     {isPending ? 'Creating account...' : 'Register'}
-                  </Button>
+                  <div className='flex flex-col gap-3'>
+                     <Button
+                        type='submit'
+                        className='mt-6 w-full'
+                        disabled={isPending}
+                     >
+                        {isPending ? 'Creating account...' : 'Register'}
+                     </Button>
+
+                     <OrSeparator />
+
+                     <GoogleButton />
+                  </div>
                </form>
             </Form>
          </CardContent>

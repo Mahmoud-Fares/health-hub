@@ -10,6 +10,10 @@ import { DoctorAppointment } from '@/shared/types';
 
 import { useGetAvailableSlots } from '@/features/booking/api/booking-hooks';
 import AppointmentSelector from '@/features/booking/components/appointment-selector';
+import {
+   SessionType,
+   SessionTypeSelector,
+} from '@/features/booking/components/session-type-selector';
 import TimeSlotSelector from '@/features/booking/components/time-slot-selector';
 
 interface AppointmentBookingSectionProps {
@@ -30,6 +34,7 @@ export const AppointmentBookingSection = ({
    const [selectedTimeSlot, setSelectedTimeSlot] = useState<string | null>(
       null
    );
+   const [sessionType, setSessionType] = useState<SessionType>('online');
 
    const { data: slotsResponse, isLoading: isLoadingSlots } =
       useGetAvailableSlots(selectedAppointment?.id?.toString());
@@ -43,6 +48,10 @@ export const AppointmentBookingSection = ({
 
    const handleTimeSlotSelect = (slot: string) => {
       setSelectedTimeSlot(slot);
+   };
+
+   const handleSessionTypeChange = (type: SessionType) => {
+      setSessionType(type);
    };
 
    const handleBookAppointment = () => {
@@ -80,6 +89,16 @@ export const AppointmentBookingSection = ({
                         />
                      )}
                   </div>
+
+                  {selectedTimeSlot && (
+                     <>
+                        <Separator />
+                        <SessionTypeSelector
+                           sessionType={sessionType}
+                           handleSessionTypeChange={handleSessionTypeChange}
+                        />
+                     </>
+                  )}
                </>
             )}
          </CardContent>

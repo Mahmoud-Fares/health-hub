@@ -36,6 +36,26 @@ const bookingService = {
       );
       return response.data;
    },
+
+   getBookingFees: async (
+      bookingId: number
+   ): Promise<ApiResponse<{ fees: string }>> => {
+      const response = await api.get(
+         `/Booking/bookingFeesByBookingId/${bookingId}`
+      );
+      return response.data;
+   },
+
+   payWithStripe: async (
+      amount: number,
+      currency: string = 'USD'
+   ): Promise<{ success: boolean; url: string }> => {
+      const response = await api.post('/payment/process', {
+         amount,
+         currency,
+      });
+      return response.data;
+   },
 };
 
 export default bookingService;

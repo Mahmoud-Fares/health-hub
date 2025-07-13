@@ -31,3 +31,9 @@ export const registerSchema = z
       message: "Passwords don't match",
       path: ['password_confirmation'],
    });
+
+export const completeRegisterSchema = z.object({
+   role: roleValidation,
+   phone: phoneValidation,
+   gender: genderValidation,
+});

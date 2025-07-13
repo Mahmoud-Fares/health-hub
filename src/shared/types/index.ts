@@ -96,6 +96,7 @@ export interface BookingClient {
    name: string;
    email: string;
    phone: string;
+   slug: string;
 }
 
 export interface BookingSlot {

@@ -3,6 +3,7 @@ import { ApiResponse, AuthUser } from '@/shared/types';
 
 import {
    AuthResponse,
+   CompleteRegisterPayload,
    LoginPayload,
    RegisterPayload,
 } from '@/features/auth/types';
@@ -107,6 +108,7 @@ const authService = {
             weight: user.weight,
             height: user.height,
             notes: user.notes,
+            email_verified_at: user.email_verified_at,
          };
       } else {
          response = await api.get(`Doctor/showDoctorInfo/${slug}`, {
@@ -137,8 +139,72 @@ const authService = {
             clinicname: doctorData.clinicname,
             specialization: doctorData.specialization,
             appointments: doctorData.appointments,
+            email_verified_at: doctorData.email_verified_at,
          };
       }
+   },
+
+   completeRegistration: async (
+      completeRegisterData: CompleteRegisterPayload & {
+         token: string;
+         slug: string;
+      }
+   ): Promise<AuthUser> => {
+      const response = await api.post(
+         '/auth/google/CompleteRegister',
+         completeRegisterData,
+         {
+            headers: {
+               'Content-Type': 'application/json',
+               Authorization: `Bearer ${completeRegisterData.token}`,
+            },
+         }
+      );
+
+      if (!response || response.status !== 200)
+         throw new Error('Invalid registration response');
+
+      const { role } = response.data.data;
+
+      const userData = await authService.getCurrentUserData({
+         role,
+         slug: completeRegisterData.slug,
+         token: completeRegisterData.token,
+      });
+
+      return userData;
+   },
+
+   verifyEmailOtp: async (payload: { email: string; otp: string }) => {
+      const response = await api.post(
+         '/otp/email/verification/verify',
+         payload
+      );
+      return response.data;
+   },
+
+   sendEmailVerification: async (email: string) => {
+      const response = await api.post('/otp/email/verification/send', {
+         email,
+      });
+      return response.data;
+   },
+
+   sendPasswordResetOtp: async (email: string) => {
+      const response = await api.post('/otp/password/reset/send-otp', {
+         email,
+      });
+      return response.data;
+   },
+
+   verifyPasswordResetOtp: async (payload: {
+      email: string;
+      otp: string;
+      password: string;
+      password_confirmation: string;
+   }) => {
+      const response = await api.post('/otp/password/reset/verify', payload);
+      return response.data;
    },
 };
 

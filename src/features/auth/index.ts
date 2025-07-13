@@ -1,5 +1,6 @@
 import authService from './api/auth-service';
 
+export { useSendEmailVerification } from './api/auth-hooks';
 export { useAuth } from './hooks/use-auth';
 export { isDoctor, isPatient } from './utils';
 export { authService };

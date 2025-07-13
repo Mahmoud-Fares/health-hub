@@ -7,10 +7,11 @@ type User = {
    email: string;
    image?: string;
    age?: number;
-   role: 'client' | 'doctor';
+   role: 'client' | 'doctor' | 'deactivated';
    gender?: string;
    token: string;
    phone?: string;
+   email_verified_at?: string;
 };
 
 export type Patient = User & {

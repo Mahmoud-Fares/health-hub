@@ -1,4 +1,4 @@
-import { Specialty } from '@/features/specialty/api/specialty-service';
+import { Specialty } from '@/shared/api/specialty-service';
 
 interface ActiveFiltersProps {
    searchTerm: string;

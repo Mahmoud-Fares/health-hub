@@ -11,7 +11,7 @@ export interface DoctorUpdatePayload {
    phone?: string;
    age?: number | null;
    gender?: string;
-   specialization?: string[];
+   specialty?: string;
 }
 
 export interface ClientUpdatePayload {
@@ -32,7 +32,28 @@ const settingsService = {
    updateProfile: async (
       payload: DoctorUpdatePayload | ClientUpdatePayload
    ): Promise<any> => {
-      const response = await api.put('profile/update', payload);
+      const response = await api.post('profile/update', payload);
+      return response.data;
+   },
+   uploadProfileImage: async (formData: FormData): Promise<any> => {
+      const response = await api.post('/profile/update', formData, {
+         headers: {
+            'Content-Type': 'multipart/form-data',
+         },
+      });
+
+      return response.data;
+   },
+   deleteProfile: async (): Promise<any> => {
+      const response = await api.delete('auth/user/delete');
+      return response.data;
+   },
+   changePassword: async (payload: {
+      oldPassword: string;
+      newPassword: string;
+      newPassword_confirmation: string;
+   }): Promise<any> => {
+      const response = await api.post('profile/changePassword', payload);
       return response.data;
    },
 };

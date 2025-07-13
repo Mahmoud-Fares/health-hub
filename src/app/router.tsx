@@ -10,6 +10,12 @@ const AuthLayout = lazy(() => import('@/app/layouts/auth-layout'));
 
 const LoginPage = lazy(() => import('@/app/pages/login'));
 const SignUpPage = lazy(() => import('@/app/pages/signup'));
+const CallbackPage = lazy(() => import('@/app/pages/callback-page'));
+const CompleteRegisterPage = lazy(
+   () => import('@/app/pages/complete-register-page')
+);
+const VerifyAccountPage = lazy(() => import('@/app/pages/verify-account-page'));
+const ForgotPasswordPage = lazy(() => import('@/app/pages/forgot-password'));
 
 const Home = lazy(() => import('@/features/landing/pages/home-page'));
 const Store = lazy(() => import('@/features/store/pages/store'));
@@ -90,6 +96,19 @@ export const router = createBrowserRouter([
          { path: 'calculators', element: <CalculatorsPage /> },
          { path: 'food-scanner', element: <FoodScannerPage /> },
          { path: 'contact', element: <ContactUs /> },
+
+         {
+            path: 'complete/register',
+            element: <CompleteRegisterPage />,
+         },
+         {
+            path: '/api/auth/google/callback',
+            element: <CallbackPage />,
+         },
+         {
+            path: 'verify-account',
+            element: <VerifyAccountPage />,
+         },
          {
             path: '*',
             element: <NotFound />,
@@ -190,6 +209,10 @@ export const router = createBrowserRouter([
          {
             path: 'login',
             element: <LoginPage />,
+         },
+         {
+            path: 'forgot-password',
+            element: <ForgotPasswordPage />,
          },
       ],
    },

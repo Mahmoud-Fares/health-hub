@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 
 import { useDebounce } from 'use-debounce';
 
+import { useSpecialties } from '@/shared/api/specialty-hooks';
+import { Specialty } from '@/shared/api/specialty-service';
+
 import {
    useDoctors,
    useFilterDoctorsBySpecialty,
    useSearchDoctors,
 } from '@/features/doctor/api/doctor-hooks';
-import { useSpecialties } from '@/features/specialty/api/specialty-hooks';
-import { Specialty } from '@/features/specialty/api/specialty-service';
 
 export const useDoctorsData = () => {
    const [searchTerm, setSearchTerm] = useState('');
