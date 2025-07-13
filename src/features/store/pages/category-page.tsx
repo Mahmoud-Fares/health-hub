@@ -15,9 +15,10 @@ interface Category {
 
 const CategoryPage = () => {
    const { id } = useParams();
-   const [dataCategory, setDataCategory] = useState<{ category?: Category }>(
-      {}
-   );
+   const [dataCategory, setDataCategory] = useState<{
+      category?: Category;
+      products?: Product[];
+   }>({});
    const [loading, setLoading] = useState<boolean>(true);
 
    const getCategory = (id: string | undefined) => {
@@ -54,9 +55,8 @@ const CategoryPage = () => {
                   Category: {dataCategory.category?.name}
                </h2>
 
-               {dataCategory.category?.products?.length &&
-               dataCategory.category?.products?.length > 0 ? (
-                  <ProductGrid products={dataCategory.category.products} />
+               {dataCategory.products && dataCategory.products.length > 0 ? (
+                  <ProductGrid products={dataCategory.products} />
                ) : (
                   <div className='py-16 text-center text-gray-500'>
                      No products found in this category.
