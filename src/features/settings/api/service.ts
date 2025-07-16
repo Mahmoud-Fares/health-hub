@@ -53,7 +53,7 @@ const settingsService = {
       newPassword: string;
       newPassword_confirmation: string;
    }): Promise<any> => {
-      const response = await api.post('profile/changePassword', payload);
+      const response = await api.put('profile/changePassword', payload);
       return response.data;
    },
 };
