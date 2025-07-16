@@ -1,4 +1,6 @@
-import { useAuth } from '@/features/auth';
+import { Navigate } from 'react-router-dom';
+
+import { isDoctor, useAuth } from '@/features/auth';
 import DoctorScheduleAppointments from '@/features/doctor/components/doctor-schedule/doctor-schedule-appointments';
 import DoctorScheduleDateSelector from '@/features/doctor/components/doctor-schedule/doctor-schedule-date-selector';
 import SheetDrawerTriggers from '@/features/doctor/components/doctor-schedule/sheet-drawer-triggers';
@@ -15,6 +17,9 @@ export default function DoctorSchedulePage() {
          </div>
       );
    }
+
+   if (isDoctor(currentUser) && !currentUser.role_activation)
+      return <Navigate to='/settings?tab=role_verification' />;
 
    return (
       <Providers>

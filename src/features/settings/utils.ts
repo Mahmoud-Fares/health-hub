@@ -6,6 +6,7 @@ import {
    Settings,
    Stethoscope,
    User,
+   Verified,
 } from 'lucide-react';
 
 import { AuthUser } from '@/shared/types';
@@ -46,6 +47,11 @@ const DOCTOR_TABS: TabConfig[] = [
       label: 'Security',
       icon: Lock,
    },
+   {
+      value: 'role_verification',
+      label: 'Verify',
+      icon: Verified,
+   },
 ];
 
 const PATIENT_TABS: TabConfig[] = [
@@ -72,7 +78,12 @@ const PATIENT_TABS: TabConfig[] = [
 ];
 
 export const getSettingsTabs = (currentUser: AuthUser) => {
-   if (isDoctor(currentUser!)) return DOCTOR_TABS;
+   if (isDoctor(currentUser!)) {
+      if (!currentUser.role_activation) return DOCTOR_TABS;
+
+      // Hide 'role_verification' tab if user is already verified
+      return DOCTOR_TABS.filter((tab) => tab.value !== 'role_verification');
+   }
 
    if (isPatient(currentUser!)) return PATIENT_TABS;
 
