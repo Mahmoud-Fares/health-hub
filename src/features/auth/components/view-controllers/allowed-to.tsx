@@ -1,25 +1,26 @@
 import { ReactNode } from 'react';
 
+import { AccessDenied } from '@/shared/components';
 import { AuthUser } from '@/shared/types';
 
 import { useAuth } from '@/features/auth';
 
-type ViewOnlyToProps = {
+type Props = {
    allowedRoles: AuthUser['role'][];
    children: ReactNode;
    fallback?: ReactNode;
 };
 
-export const ViewOnlyTo = ({
+export const AllowedTo = ({
    allowedRoles,
    children,
    fallback = null,
-}: ViewOnlyToProps) => {
+}: Props) => {
    const { currentUser } = useAuth();
 
-   if (!currentUser) return fallback;
+   if (!currentUser) return fallback ?? <AccessDenied />;
 
    const hasPermission = allowedRoles.includes(currentUser.role);
 
-   return hasPermission ? <>{children}</> : <>{fallback}</>;
+   return hasPermission ? <>{children}</> : <>{fallback ?? <AccessDenied />}</>;
 };

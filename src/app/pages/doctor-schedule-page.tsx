@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 
-import { isDoctor, useAuth } from '@/features/auth';
+import { AllowedTo, isDoctor, useAuth } from '@/features/auth';
 import DoctorScheduleAppointments from '@/features/doctor/components/doctor-schedule/doctor-schedule-appointments';
 import DoctorScheduleDateSelector from '@/features/doctor/components/doctor-schedule/doctor-schedule-date-selector';
 import SheetDrawerTriggers from '@/features/doctor/components/doctor-schedule/sheet-drawer-triggers';
@@ -9,31 +9,24 @@ import Providers from '@/features/doctor/context';
 export default function DoctorSchedulePage() {
    const { currentUser } = useAuth();
 
-   if (currentUser?.role !== 'doctor') {
-      return (
-         <div className='container mx-auto px-4 py-16 text-center'>
-            <h1 className='mb-4 text-2xl font-bold'>Access Denied</h1>
-            <p>You must be logged in as a doctor to manage schedules.</p>
-         </div>
-      );
-   }
-
-   if (isDoctor(currentUser) && !currentUser.role_activation)
+   if (isDoctor(currentUser!) && !currentUser.role_activation)
       return <Navigate to='/settings?tab=role_verification' />;
 
    return (
       <Providers>
-         <section className='animate-fade-in'>
-            <DoctorScheduleHeader />
+         <AllowedTo allowedRoles={['doctor']}>
+            <section className='animate-fade-in'>
+               <DoctorScheduleHeader />
 
-            <div className='mb-8 flex flex-col gap-6 lg:flex-row'>
-               <DoctorScheduleDateSelector />
-               <div className='rounded-lg lg:flex-1'>
-                  <DoctorScheduleAppointments />
+               <div className='mb-8 flex flex-col gap-6 lg:flex-row'>
+                  <DoctorScheduleDateSelector />
+                  <div className='rounded-lg lg:flex-1'>
+                     <DoctorScheduleAppointments />
+                  </div>
                </div>
-            </div>
-            <SheetDrawerTriggers />
-         </section>
+               <SheetDrawerTriggers />
+            </section>
+         </AllowedTo>
       </Providers>
    );
 }

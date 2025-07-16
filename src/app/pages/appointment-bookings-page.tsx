@@ -18,6 +18,7 @@ import {
    TabsTrigger,
 } from '@/shared/components/ui/tabs';
 
+import { AllowedTo } from '@/features/auth';
 import {
    useConfirmedAppointmentBookings,
    useServedAppointmentBookings,
@@ -60,24 +61,28 @@ const AppointmentBookingsPage = () => {
    };
 
    const renderLoadingState = () => (
-      <div className='flex h-48 items-center justify-center'>
-         <Spinner className='size-8' />
-      </div>
+      <AllowedTo allowedRoles={['doctor']}>
+         <div className='flex h-48 items-center justify-center'>
+            <Spinner className='size-8' />
+         </div>
+      </AllowedTo>
    );
 
    const renderEmptyState = (type: 'confirmed' | 'served') => (
-      <div className='flex h-48 flex-col items-center justify-center space-y-2 text-center'>
-         <p className='text-lg font-medium text-muted-foreground'>
-            No {type} bookings found
-         </p>
-         <p className='text-sm text-muted-foreground'>
-            There are no {type} bookings for this appointment.
-         </p>
-      </div>
+      <AllowedTo allowedRoles={['doctor']}>
+         <div className='flex h-48 flex-col items-center justify-center space-y-2 text-center'>
+            <p className='text-lg font-medium text-muted-foreground'>
+               No {type} bookings found
+            </p>
+            <p className='text-sm text-muted-foreground'>
+               There are no {type} bookings for this appointment.
+            </p>
+         </div>
+      </AllowedTo>
    );
 
    return (
-      <>
+      <AllowedTo allowedRoles={['doctor']}>
          <div className='min-h-screen animate-fade-in p-4 md:p-8'>
             <Card className='shadow-md'>
                <CardHeader className='bg-gradient-to-r from-primary/10 to-primary/5 pb-6'>
@@ -179,7 +184,7 @@ const AppointmentBookingsPage = () => {
                </CardContent>
             </Card>
          </div>
-      </>
+      </AllowedTo>
    );
 };
 
