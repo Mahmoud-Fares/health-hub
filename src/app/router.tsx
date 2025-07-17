@@ -17,7 +17,7 @@ const CompleteRegisterPage = lazy(
 const VerifyAccountPage = lazy(() => import('@/app/pages/verify-account-page'));
 const ForgotPasswordPage = lazy(() => import('@/app/pages/forgot-password'));
 
-const Home = lazy(() => import('@/features/landing/pages/home-page'));
+const Home = lazy(() => import('@/app/pages/home-page-mariam'));
 const Store = lazy(() => import('@/features/store/pages/store'));
 const ProductsPage = lazy(() => import('@/features/store/pages/product-page'));
 const ProductDetailPage = lazy(
@@ -26,6 +26,9 @@ const ProductDetailPage = lazy(
 const CategoryPage = lazy(() => import('@/features/store/pages/category-page'));
 const CartPage = lazy(() => import('@/features/store/pages/cart-page'));
 const OrdersPage = lazy(() => import('@/features/store/pages/orders-page'));
+const OrderDetailsPage = lazy(
+   () => import('@/features/store/pages/order-details')
+);
 const ClientProfilePage = lazy(() => import('@/app/pages/client-profile-page'));
 const DoctorProfilePage = lazy(() => import('@/app/pages/doctor-profile-page'));
 const SettingsPage = lazy(() => import('@/app/pages/settings'));
@@ -151,6 +154,10 @@ export const router = createBrowserRouter([
                {
                   path: 'orders',
                   element: <OrdersPage />,
+               },
+               {
+                  path: 'orders/:orderId',
+                  element: <OrderDetailsPage />,
                },
             ],
          },

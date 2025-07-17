@@ -47,7 +47,7 @@ const FindDoctorsPage: React.FC = () => {
             />
 
             <div className='bg-background'>
-               <div className='container mx-auto px-4 pt-8'>
+               <div className='container mx-auto px-4 py-8'>
                   {/* Status and count */}
                   <div className='mb-6 flex items-center justify-between'>
                      <h2 className='text-xl font-semibold'>

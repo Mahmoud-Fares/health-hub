@@ -10,8 +10,9 @@ import {
    ShoppingBag,
    Video,
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
+import { useGoogleCallback } from '@/features/auth/hooks/use-google-callback';
 import CalculatorsPreview from '@/features/landing/components/calculators-preview';
 import AboutSection from '@/features/landing/components/home/about-section';
 import Appointment from '@/features/landing/components/home/appointment';
@@ -24,6 +25,15 @@ import TestimonialSlider from '@/features/landing/components/testimonials/testim
 import HeroSection from '@/features/landing/pages/hero';
 
 const HomePage = () => {
+   const { isCallback, token, slug, role } = useGoogleCallback();
+
+   if (isCallback)
+      return (
+         <Navigate
+            to={`/api/auth/google/callback?token=${token}&slug=${slug}&role=${role}`}
+         />
+      );
+
    return (
       <div className='flex flex-col'>
          <HeroSection />

@@ -5,49 +5,24 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 
 import { Button } from '@/shared/components/ui/button';
 
-// import { Product, getRelatedProducts } from "@/features/store/data/products";
-// import { useCart } from "@/features/store/hooks/useCart";
-// import { useComparison } from "@/features/store/hooks/useComparison";
-// import ReviewCard from "./ReviewCard";
-// import ProductGrid from "./ProductGrid";
+import { OrderNow } from '@/features/store/components/order-now';
 import { AuthContext } from '@/features/store/context/auth-context';
 import { Product } from '@/features/store/types';
 import onAxios from '@/features/store/utils';
 
-interface ProductDetailProps {
+type ProductDetailProps = {
    product: Product;
-}
+};
 
 const ProductDetail = ({ product }: ProductDetailProps) => {
-   // const { addItem } = useCart();
-   // const { addProduct, isInComparison } = useComparison();
    const [quantity, setQuantity] = useState(1);
    const { getCarts } = useContext(AuthContext) as { getCarts: () => void };
 
    const [loading, setLoading] = useState(false);
 
-   // const [activeTab, setActiveTab] = useState("description");
-   // const relatedProducts = getRelatedProducts(product);
-   // const alreadyInComparison = isInComparison(product.id);
-
-   // Calculate discounted price if applicable
-   // const discountedPrice = product.discountPercentage
-   //   ? product.price * (1 - product.discountPercentage / 100)
-   //   : null;
-
    const handleQuantityChange = (delta: number) => {
       setQuantity(Math.max(1, quantity + delta));
    };
-
-   // const handleAddToCart = () => {
-   //   if (product.inStock) {
-   //     addItem(product, quantity);
-   //   }
-   // };
-
-   // const handleAddToComparison = () => {
-   //   addProduct(product);
-   // };
 
    const addCart = () => {
       setLoading(true);
@@ -59,8 +34,6 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
          })
          .then(() => {
             getCarts();
-            // setDataCarts(res.data.data);
-            // setCartMeta(res.data.meta);
             message.success('The Product Added To Cart');
          })
          .catch(() => {
@@ -70,8 +43,6 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
             setLoading(false);
          });
    };
-
-   // console.log(product);
 
    return (
       <div className='container mx-auto px-4 py-8'>
@@ -212,14 +183,14 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
                           ? 'Loading...'
                           : 'Add to Cart'}
                   </Button>
-                  {/* <Button
-              onClick={handleAddToComparison}
-              variant="outline"
-              size="lg"
-              disabled={alreadyInComparison}
-            >
-              {alreadyInComparison ? "Added to Compare" : "Add to Compare"}
-            </Button> */}
+
+                  {product.stock > 0 && (
+                     <OrderNow
+                        product={product}
+                        productName={product.name}
+                        className='flex-1 md:flex-none'
+                     />
+                  )}
                </div>
             </div>
          </div>

@@ -198,16 +198,6 @@ const ProductCard = ({
                           ? 'Loading...'
                           : 'Add to Cart'}
                   </Button>
-
-                  {/* {showCompareButton && (
-              <Button
-                onClick={handleAddToComparison}
-                variant="outline"
-                disabled={alreadyInComparison}
-              >
-                {alreadyInComparison ? "In Compare" : "Compare"}
-              </Button>
-            )} */}
                </div>
             </div>
          </div>

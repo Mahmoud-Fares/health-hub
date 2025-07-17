@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import type { TabsProps } from 'antd';
 import { Pagination, Spin, Tabs, Tag } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 import onAxios from '../utils';
 
@@ -55,6 +56,7 @@ const PER_PAGE = 5;
 
 /* ---------- Component ---------- */
 const OrdersPage = () => {
+   const navigate = useNavigate();
    const [orders, setOrders] = useState<Order[]>([]);
    const [loading, setLoading] = useState<boolean>(false);
    const [meta, setMeta] = useState<Meta>({ current: 1, last: 1 });
@@ -131,7 +133,8 @@ const OrdersPage = () => {
                      {orders.map((order) => (
                         <div
                            key={order.id}
-                           className='rounded-xl border bg-white p-4 shadow-sm'
+                           onClick={() => navigate(`/store/orders/${order.id}`)}
+                           className='cursor-pointer rounded-xl border bg-white p-4 shadow-sm'
                         >
                            <div className='mb-2 flex items-center justify-between'>
                               <div>
