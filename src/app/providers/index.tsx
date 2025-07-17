@@ -12,7 +12,7 @@ type Props = {
 export default function Providers({ children }: Props) {
    return (
       <TanstackProvider>
-         <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
+         <ThemeProvider defaultTheme='light' storageKey='vite-ui-theme'>
             <StoreProvider>
                <NuqsAdapter>{children}</NuqsAdapter>
             </StoreProvider>
