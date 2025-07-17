@@ -1,6 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { api } from '@/shared/lib';
+
+import { useAuth } from '@/features/auth';
 
 import type { CartProduct, Product } from '../types';
 
@@ -17,6 +19,13 @@ export const useStoreManagement = () => {
    });
    const [dataProducts, setDataProducts] = useState<Product[]>([]);
    const [productsLoading, setProductsLoading] = useState<boolean>(false);
+
+   const { isAuthenticated } = useAuth();
+   useEffect(() => {
+      if (!isAuthenticated) return;
+
+      getCarts();
+   }, [isAuthenticated]);
 
    const getCarts = () => {
       api.get('e-commerce/cart/')
