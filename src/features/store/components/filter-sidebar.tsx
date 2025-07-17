@@ -60,11 +60,6 @@ const FilterSidebar = ({
       updateFilter('brand', updatedBrands);
    };
 
-   // Handle rating filter
-   const handleRatingChange = (rating: number) => {
-      updateFilter('rating', filters.rating === rating ? null : rating);
-   };
-
    // Handle in-stock filter
    const handleInStockChange = () => {
       updateFilter('inStock', !filters.inStock);

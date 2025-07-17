@@ -1,21 +1,20 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 import { Menu, Search, ShoppingCart, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { Button } from '@/shared/components/ui/button';
 
+import { useAuth } from '@/features/auth';
 import { Input } from '@/features/store/components/ui/input';
-import { AuthContext } from '@/features/store/context/auth-context';
+import { useStore } from '@/features/store/hooks/use-store';
 
 const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
    const [isMenuOpen, setIsMenuOpen] = useState(false);
    const [searchQuery, setSearchQuery] = useState('');
-   const context = useContext(AuthContext);
-   if (!context) throw new Error('AuthContext not found');
-   const { dataCarts, setDataCarts, setCartMeta, isLoggedIn, setIsLoggedIn } =
-      context;
 
+   const { dataCarts, setDataCarts, setCartMeta } = useStore();
+   const { isAuthenticated, logout } = useAuth();
    const handleSearch = (e: React.FormEvent) => {
       e.preventDefault();
       if (onSearch) {
@@ -29,7 +28,7 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
 
    const handleLogout = () => {
       window.localStorage.clear();
-      setIsLoggedIn(false);
+      logout();
       setDataCarts([]);
       setCartMeta({ total_items: 0, total_price: 0 });
    };
@@ -97,7 +96,7 @@ const Header = ({ onSearch }: { onSearch?: (query: string) => void }) => {
                   </Link>
 
                   <div className='flex items-center justify-center space-x-2'>
-                     {isLoggedIn ? (
+                     {isAuthenticated ? (
                         <button
                            className='rounded-lg bg-primary px-4 py-1 text-white'
                            onClick={handleLogout}

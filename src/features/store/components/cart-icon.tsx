@@ -1,14 +1,10 @@
-import { useContext } from 'react';
-
 import { ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-import { AuthContext } from '@/features/store/context/auth-context';
+import { useStore } from '@/features/store/hooks/use-store';
 
 export const CartIcon = () => {
-   const context = useContext(AuthContext);
-   if (!context) throw new Error('AuthContext not found');
-   const { dataCarts } = context;
+   const { dataCarts } = useStore();
    return (
       <Link to='/store/cart' className='relative'>
          <ShoppingCart className='h-6 w-6 text-gray-700' />

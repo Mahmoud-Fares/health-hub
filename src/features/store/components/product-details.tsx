@@ -1,14 +1,14 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 import { message } from 'antd';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 import { Button } from '@/shared/components/ui/button';
+import { api } from '@/shared/lib';
 
 import { OrderNow } from '@/features/store/components/order-now';
-import { AuthContext } from '@/features/store/context/auth-context';
+import { useStore } from '@/features/store/hooks/use-store';
 import { Product } from '@/features/store/types';
-import onAxios from '@/features/store/utils';
 
 type ProductDetailProps = {
    product: Product;
@@ -16,7 +16,7 @@ type ProductDetailProps = {
 
 const ProductDetail = ({ product }: ProductDetailProps) => {
    const [quantity, setQuantity] = useState(1);
-   const { getCarts } = useContext(AuthContext) as { getCarts: () => void };
+   const { getCarts } = useStore();
 
    const [loading, setLoading] = useState(false);
 
@@ -27,11 +27,10 @@ const ProductDetail = ({ product }: ProductDetailProps) => {
    const addCart = () => {
       setLoading(true);
 
-      onAxios
-         .post('/api/e-commerce/cart/add', {
-            product_id: product.id,
-            quantity: quantity,
-         })
+      api.post('e-commerce/cart/add', {
+         product_id: product.id,
+         quantity: quantity,
+      })
          .then(() => {
             getCarts();
             message.success('The Product Added To Cart');

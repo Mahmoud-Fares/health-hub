@@ -4,7 +4,7 @@ import type { TabsProps } from 'antd';
 import { Pagination, Spin, Tabs, Tag } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
-import onAxios from '../utils';
+import { api } from '@/shared/lib';
 
 // import onAxios from '../utils/axiosIntstance';
 
@@ -65,11 +65,10 @@ const OrdersPage = () => {
    /* ----- API call (Fetch Orders With Status Filterion) ----- */
    const fetchOrders = (status: StatusFilter = 'all', page: number = 1) => {
       setLoading(true);
-      let url = `/api/e-commerce/orders/history?page=${page}&per_page=${PER_PAGE}`;
+      let url = `e-commerce/orders/history?page=${page}&per_page=${PER_PAGE}`;
       if (status !== 'all') url += `&status=${status}`;
 
-      onAxios
-         .get<OrderHistoryResponse>(url)
+      api.get<OrderHistoryResponse>(url)
          .then((res) => {
             setOrders(res.data.data);
             setMeta({

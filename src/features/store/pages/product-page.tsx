@@ -1,6 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Input, Select, Spin } from 'antd';
+
+import { api } from '@/shared/lib';
 
 // import FilterSidebar from "@/features/store/components/FilterSidebar";
 // import { products } from "@/data/products";
@@ -18,26 +20,15 @@ import { Input, Select, Spin } from 'antd';
 //   SelectValue,
 // } from "@/features/store/components/ui/select";
 import ProductGrid from '@/features/store/components/product-grid';
-import { AuthContext } from '@/features/store/context/auth-context';
-import { Product } from '@/features/store/types';
-
-import onAxios from '../utils';
+import { useStore } from '@/features/store/hooks/use-store';
 
 const { Option } = Select;
-
-interface AuthContextType {
-   dataProducts: Product[];
-   getProducts: (query?: string) => void;
-   productsLoading: boolean;
-}
 
 const ProductsPage = () => {
    // const [searchParams, setSearchParams] = useSearchParams();
    // const [showFilters, setShowFilters] = useState(false);
    // const [dataProducts, setDataProducts] = useState([]);
-   const { dataProducts, getProducts, productsLoading } = useContext(
-      AuthContext
-   ) as AuthContextType;
+   const { dataProducts, getProducts, productsLoading } = useStore();
    const [categories, setCategories] = useState<{ id: number; name: string }[]>(
       []
    );
@@ -114,8 +105,7 @@ const ProductsPage = () => {
    // };
 
    useEffect(() => {
-      onAxios
-         .get('/api/e-commerce/categories')
+      api.get('e-commerce/categories')
          .then((res) => {
             setCategories(res.data?.data || []);
          })

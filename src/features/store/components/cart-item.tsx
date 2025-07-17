@@ -1,26 +1,20 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 import { Spin, message } from 'antd';
 import { ChevronDown, ChevronUp, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 import { Button } from '@/shared/components/ui/button';
+import { api } from '@/shared/lib';
 
-import { AuthContext } from '@/features/store/context/auth-context';
-import onAxios from '@/features/store/utils';
+import { useStore } from '@/features/store/hooks/use-store';
+import { CartProduct } from '@/features/store/types';
 
 // import { Product } from "@/data/products";
 // import { useCart } from '@/hooks/useCart';
 
-interface Product {
-   id: number;
-   imageSrc?: string;
-   name: string;
-   price: number;
-   subTotal?: number;
-}
-
 interface CartItemProps {
-   product: Product;
+   product: CartProduct;
    quantity: number;
 }
 
@@ -30,8 +24,7 @@ const CartItem = ({ product, quantity }: CartItemProps) => {
    const [currentQuantity, setCurrentQuantity] = useState<number>(quantity);
    const [deleting, setDeleting] = useState<boolean>(false);
 
-   const { getCarts } = useContext(AuthContext) as { getCarts: () => void };
-
+   const { getCarts } = useStore();
    // const handleQuantityChange = (delta: number) => {
    //   const newQuantity = quantity + delta;
    //   if (newQuantity > 0) {
@@ -51,8 +44,7 @@ const CartItem = ({ product, quantity }: CartItemProps) => {
    // Delete Cart
    const deleteCart = (id: number) => {
       setDeleting(true); // يبدأ التحميل
-      onAxios
-         .delete(`/api/e-commerce/cart/destroy/${id}`)
+      api.delete(`e-commerce/cart/destroy/${id}`)
          .then(() => {
             getCarts();
             message.success(
@@ -80,10 +72,9 @@ const CartItem = ({ product, quantity }: CartItemProps) => {
    // Update Cart
 
    const updateCart = (id: number, newQuantity: number) => {
-      onAxios
-         .put(`/api/e-commerce/cart/update/${id}`, {
-            quantity: newQuantity,
-         })
+      api.put(`e-commerce/cart/update/${id}`, {
+         quantity: newQuantity,
+      })
          .then(() => {
             getCarts();
             message.success(
@@ -109,8 +100,8 @@ const CartItem = ({ product, quantity }: CartItemProps) => {
          {/* Product image */}
          <div className='h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border'>
             <img
-               src={product.imageSrc}
-               alt={product.name}
+               src={product.product_image}
+               alt={product.product_name}
                className='h-full w-full object-contain object-center'
             />
          </div>
@@ -120,12 +111,12 @@ const CartItem = ({ product, quantity }: CartItemProps) => {
             <div>
                <div className='flex justify-between'>
                   <h3>
-                     <a
-                        href={`/product/${product.id}`}
+                     <Link
+                        to={`/store/product/${product.product_id}`}
                         className='font-medium text-gray-700 hover:text-brand-blue'
                      >
-                        {product.name}
-                     </a>
+                        {product.product_name}
+                     </Link>
                   </h3>
                   <Button
                      variant='ghost'
@@ -166,7 +157,7 @@ const CartItem = ({ product, quantity }: CartItemProps) => {
 
                <div className='text-right'>
                   <p className='font-medium text-gray-900'>
-                     EGP {(product.price * currentQuantity).toFixed(2)}
+                     EGP {(product.product_price * currentQuantity).toFixed(2)}
                   </p>
                   {/* {product.discountPercentage && (
               <p className="text-xs text-gray-500">

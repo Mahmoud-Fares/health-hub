@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react';
 import { Spin } from 'antd';
 import { useParams } from 'react-router-dom';
 
+import { api } from '@/shared/lib';
+
 import ProductGrid from '@/features/store/components/product-grid';
 import { Product } from '@/features/store/types';
-import onAxios from '@/features/store/utils';
 
 interface Category {
    id: number;
@@ -23,8 +24,7 @@ const CategoryPage = () => {
 
    const getCategory = (id: string | undefined) => {
       setLoading(true); // Start loading
-      onAxios
-         .get(`/api/e-commerce/categories/${id}`)
+      api.get(`e-commerce/categories/${id}`)
          .then((res) => {
             setDataCategory(res.data);
             setLoading(false); // Stop loading on success

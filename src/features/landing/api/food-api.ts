@@ -1,6 +1,6 @@
 // lcp --proxyUrl https://api.clarifai.com --port 8010  شغل السيرفر الاول
 import axios from 'axios';
-import { stringSimilarity } from 'string-similarity';
+import stringSimilarity from 'string-similarity';
 
 const CLARIFAI_KEY = 'dca177d70c1e4357a1b45dbd6c8122e8';
 const CLARIFAI_USER_ID = 'mrym';

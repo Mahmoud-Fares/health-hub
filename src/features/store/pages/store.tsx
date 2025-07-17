@@ -1,21 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Spin } from 'antd';
 import { BarChart3, ChevronRight, Search, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { Button } from '@/shared/components/ui/button';
+import { api } from '@/shared/lib';
 
 import ProductGrid from '@/features/store/components/product-grid';
-import { AuthContext } from '@/features/store/context/auth-context';
-import { Category, Product } from '@/features/store/types/index';
-import onAxios from '@/features/store/utils';
-
-interface AuthContextType {
-   dataProducts: Product[];
-   getProducts: () => void;
-   productsLoading: boolean;
-}
+import { useStore } from '@/features/store/hooks/use-store';
+import { Category } from '@/features/store/types/index';
 
 type Props = {
    setDataCategories: React.Dispatch<React.SetStateAction<Category[]>>;
@@ -24,8 +18,7 @@ type Props = {
 };
 const getCategories = ({ setDataCategories, setLoading, setError }: Props) => {
    setLoading(true);
-   onAxios
-      .get('/api/e-commerce/categories')
+   api.get('e-commerce/categories')
       .then((res) => {
          setDataCategories(res.data.data);
          setLoading(false);
@@ -41,9 +34,7 @@ const Index = () => {
    const [loading, setLoading] = useState(true);
    const [_error, setError] = useState<any>(null);
 
-   const { dataProducts, getProducts } = useContext(
-      AuthContext
-   ) as AuthContextType;
+   const { dataProducts, getProducts } = useStore();
 
    useEffect(() => {
       getCategories({ setDataCategories, setLoading, setError });

@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react';
 import { Spin } from 'antd';
 import { useParams } from 'react-router-dom';
 
+import { api } from '@/shared/lib';
+
 import ProductDetail from '@/features/store/components/product-details';
 // import { getProductById } from "@/features/store/data/products";
 import { Product } from '@/features/store/types';
-import onAxios from '@/features/store/utils';
 
 const ProductDetailPage = () => {
    const { pid } = useParams();
@@ -27,8 +28,7 @@ const ProductDetailPage = () => {
    // }
 
    const getProduct = (id: any) => {
-      onAxios
-         .get(`/api/e-commerce/products/${id}`)
+      api.get(`e-commerce/products/${id}`)
          .then((res) => {
             setDataProduct(res.data.data);
          })

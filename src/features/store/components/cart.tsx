@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 // import { useCart } from '@/hooks/useCart';
 
@@ -7,10 +7,10 @@ import { CheckCircle, ShoppingCart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { Button } from '@/shared/components/ui/button';
+import { api } from '@/shared/lib';
 
 import CartItem from '@/features/store/components/cart-item';
-import { AuthContext } from '@/features/store/context/auth-context';
-import onAxios from '@/features/store/utils';
+import { useStore } from '@/features/store/hooks/use-store';
 
 const Cart = () => {
    // const { items, getTotalItems, getTotalPrice, clearCart } = useCart();
@@ -26,36 +26,8 @@ const Cart = () => {
    const [phoneError, setPhoneError] = useState<string>('');
    const [orderSuccess, setOrderSuccess] = useState<boolean>(false);
 
-   interface CartData {
-      id: number;
-      product_id: number;
-      product_name: string;
-      product_price: number;
-      quantity: number;
-      product_image?: string;
-      added_at?: string;
-      subtotal?: number;
-   }
-
-   interface CartMeta {
-      total_items: number;
-      total_price: number;
-   }
-
-   interface CartType {
-      dataCarts: CartData[];
-      setDataCarts: React.Dispatch<React.SetStateAction<CartData[]>>;
-
-      cartMeta: CartMeta;
-      setCartMeta: React.Dispatch<React.SetStateAction<CartMeta>>;
-
-      getCarts: () => void;
-   }
-
    // استخدام البيانات من السياق
-   const { dataCarts, cartMeta, getCarts } = useContext(
-      AuthContext
-   ) as CartType;
+   const { dataCarts, cartMeta, getCarts } = useStore();
 
    // const getCarts = () => {
    //   onAxios
@@ -75,8 +47,7 @@ const Cart = () => {
    // Clear Cart
    const clearCart = () => {
       setClearing(true);
-      onAxios
-         .delete(`/api/e-commerce/cart/clear`)
+      api.delete(`e-commerce/cart/clear`)
          .then(() => {
             message.success('Your shopping cart has been emptied.');
             getCarts();
@@ -150,8 +121,7 @@ const Cart = () => {
       };
 
       setOrderLoading(true);
-      onAxios
-         .post('/api/e-commerce/orders/store', payload)
+      api.post('e-commerce/orders/store', payload)
          .then(() => {
             setOrderSuccess(true);
             clearCart();
@@ -207,13 +177,7 @@ const Cart = () => {
                {dataCarts.map((item) => (
                   <CartItem
                      key={item.id}
-                     product={{
-                        id: item.id,
-                        imageSrc: item.product_image,
-                        name: item.product_name,
-                        price: item.product_price,
-                        subTotal: item.subtotal,
-                     }}
+                     product={item}
                      quantity={item.quantity}
                   />
                ))}
