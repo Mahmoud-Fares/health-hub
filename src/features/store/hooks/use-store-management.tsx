@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { api } from '@/shared/lib';
 
@@ -44,11 +44,6 @@ export const useStoreManagement = () => {
             setProductsLoading(false);
          });
    };
-
-   useEffect(() => {
-      getCarts();
-      getProducts();
-   }, []);
 
    return {
       dataCarts,
