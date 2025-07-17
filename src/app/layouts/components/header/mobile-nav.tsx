@@ -37,7 +37,7 @@ export const MobileNav = ({ onClose }: MobileNavProps) => {
                      Sign In
                   </Button>
                </Link>
-               <Link to='/register' onClick={onClose}>
+               <Link to='/signup' onClick={onClose}>
                   <Button className='w-full justify-start'>Sign Up</Button>
                </Link>
             </div>

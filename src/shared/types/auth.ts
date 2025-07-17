@@ -29,6 +29,7 @@ export type Doctor = User & {
    clinicgovernate?: string;
    clinicname?: string;
    specialization: string[];
+   role_activation: boolean;
 };
 
 export type DoctorProfile = Doctor & {

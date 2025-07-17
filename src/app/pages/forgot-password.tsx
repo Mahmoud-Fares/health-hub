@@ -44,7 +44,6 @@ function EmailForm({
 }: {
    onEmailSubmitted: (email: string) => void;
 }) {
-   const navigate = useNavigate();
    const form = useForm<z.infer<typeof emailSchema>>({
       resolver: zodResolver(emailSchema),
       defaultValues: { email: '' },
@@ -56,7 +55,6 @@ function EmailForm({
       sendOtpMutation.mutate(values.email, {
          onSuccess: () => {
             onEmailSubmitted(values.email);
-            navigate('/login');
          },
       });
    }
@@ -94,6 +92,7 @@ function EmailForm({
 }
 
 function ResetPasswordForm({ email }: { email: string }) {
+   const navigate = useNavigate();
    const form = useForm<z.infer<typeof resetSchema>>({
       resolver: zodResolver(
          resetSchema.refine(
@@ -120,6 +119,7 @@ function ResetPasswordForm({ email }: { email: string }) {
          {
             onSuccess: () => {
                form.reset();
+               navigate('/login');
             },
          }
       );

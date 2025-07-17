@@ -134,19 +134,19 @@ export default function PersonalSettings() {
                                  defaultValue={field.value}
                                  className='flex flex-row space-x-4'
                               >
-                                 <FormItem className='flex items-center space-x-2 space-y-0'>
+                                 <FormItem className='flex items-center gap-2 space-y-0'>
                                     <FormControl>
                                        <RadioGroupItem value='male' />
                                     </FormControl>
-                                    <FormLabel className='font-normal'>
+                                    <FormLabel className='cursor-pointer font-normal'>
                                        Male
                                     </FormLabel>
                                  </FormItem>
-                                 <FormItem className='flex items-center space-x-2 space-y-0'>
+                                 <FormItem className='flex items-center gap-2 space-y-0'>
                                     <FormControl>
                                        <RadioGroupItem value='female' />
                                     </FormControl>
-                                    <FormLabel className='font-normal'>
+                                    <FormLabel className='cursor-pointer font-normal'>
                                        Female
                                     </FormLabel>
                                  </FormItem>

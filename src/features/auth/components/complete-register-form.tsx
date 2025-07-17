@@ -104,19 +104,19 @@ export const CompleteRegisterForm = ({ token, slug }: Props) => {
                                  defaultValue={field.value}
                                  className='flex space-x-4'
                               >
-                                 <FormItem className='flex items-center space-x-2'>
+                                 <FormItem className='flex items-center gap-2'>
                                     <FormControl>
                                        <RadioGroupItem value='male' />
                                     </FormControl>
-                                    <FormLabel className='font-normal'>
+                                    <FormLabel className='cursor-pointer font-normal'>
                                        Male
                                     </FormLabel>
                                  </FormItem>
-                                 <FormItem className='flex items-center space-x-2'>
+                                 <FormItem className='flex items-center gap-2'>
                                     <FormControl>
                                        <RadioGroupItem value='female' />
                                     </FormControl>
-                                    <FormLabel className='font-normal'>
+                                    <FormLabel className='cursor-pointer font-normal'>
                                        Female
                                     </FormLabel>
                                  </FormItem>

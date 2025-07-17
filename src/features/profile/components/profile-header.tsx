@@ -1,4 +1,4 @@
-import { AlertCircle, CheckCircle } from 'lucide-react';
+import { AlertCircle, CheckCircle, Edit } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import { PatientData } from '@/shared/components';
@@ -10,7 +10,7 @@ import { DoctorData } from '@/shared/components/view-controllers/doctor-data';
 import { cn } from '@/shared/lib/utils';
 import { AuthUser } from '@/shared/types';
 
-import { isDoctor, useAuth } from '@/features/auth';
+import { ViewToCurrentUser, isDoctor, useAuth } from '@/features/auth';
 
 interface ProfileHeaderProps {
    user: AuthUser;
@@ -54,8 +54,9 @@ export default function ProfileHeader({ user }: ProfileHeaderProps) {
          <div className='flex flex-col gap-2 md:flex-row md:items-center md:justify-between'>
             <div
                className={cn(
-                  'flex items-center gap-4',
-                  user.role === 'doctor' && 'flex-col md:flex-row'
+                  'flex flex-col items-center gap-4',
+                  user.role === 'client' && 'sm:flex-row',
+                  user.role === 'doctor' && 'md:flex-row'
                )}
             >
                <ProfileAvatar
@@ -63,7 +64,7 @@ export default function ProfileHeader({ user }: ProfileHeaderProps) {
                   className='h-20 w-20 bg-primary text-lg text-primary-foreground'
                />
 
-               <div>
+               <div className='flex flex-col gap-2'>
                   <CardTitle className='text-2xl' id='doctor-name'>
                      {user.name}
                   </CardTitle>
@@ -85,13 +86,28 @@ export default function ProfileHeader({ user }: ProfileHeaderProps) {
                   </p>
 
                   <VerificationBadge user={user} />
+
+                  <ViewToCurrentUser profile={user!}>
+                     <Link to='/settings'>
+                        <Button size='sm' variant='outline'>
+                           <Edit className='size-4 stroke-foreground' />
+                           Edit Profile
+                        </Button>
+                     </Link>
+                  </ViewToCurrentUser>
                </div>
             </div>
 
             {isDoctor(user) && (
-               <DoctorData user={user}>
-                  <ConsultationFee fees={user.fees} />
-               </DoctorData>
+               <div className='flex flex-col gap-2'>
+                  <DoctorData user={user}>
+                     <ConsultationFee fees={user.fees} />
+                  </DoctorData>
+
+                  <ViewToCurrentUser profile={user!}>
+                     <RoleVerificationButton />
+                  </ViewToCurrentUser>
+               </div>
             )}
          </div>
       </CardHeader>
@@ -100,10 +116,9 @@ export default function ProfileHeader({ user }: ProfileHeaderProps) {
 
 export const VerificationBadge = ({ user }: { user: AuthUser }) => {
    const { currentUser } = useAuth();
-   console.log('user', user);
 
    return (
-      <div className='mt-2 flex items-center gap-2'>
+      <div className='flex flex-wrap items-center gap-2'>
          {user.email_verified_at ? (
             <Badge
                variant='success'
@@ -123,7 +138,7 @@ export const VerificationBadge = ({ user }: { user: AuthUser }) => {
                </Badge>
                {currentUser?.slug === user.slug && (
                   <Link to='/verify-account'>
-                     <Button size='sm' variant='outline' className='ml-2'>
+                     <Button size='sm' variant='outline'>
                         Verify Now
                      </Button>
                   </Link>
@@ -131,5 +146,20 @@ export const VerificationBadge = ({ user }: { user: AuthUser }) => {
             </>
          )}
       </div>
+   );
+};
+
+const RoleVerificationButton = () => {
+   const { currentUser } = useAuth();
+   const isRoleVerified = isDoctor(currentUser!) && currentUser.role_activation;
+
+   if (isRoleVerified) return null;
+
+   return (
+      <Link to='/settings?tab=role_verification'>
+         <Button size='sm' variant='outline'>
+            Doctor Verification
+         </Button>
+      </Link>
    );
 };

@@ -67,7 +67,7 @@ export default function DoctorProfileImageUpload() {
                   ref={fileInputRef}
                   type='file'
                   accept='image/*'
-                  className='w-48'
+                  className='max-w-52 cursor-pointer'
                   onChange={handleFileChange}
                   disabled={isPending}
                />

@@ -52,7 +52,7 @@ export default function Home() {
                      </>
                   ) : (
                      <>
-                        <Link to='/register'>
+                        <Link to='/signup'>
                            <Button size='lg' className='font-medium'>
                               Get Started
                            </Button>
@@ -190,7 +190,7 @@ export default function Home() {
                         </Link>
                      ) : (
                         <>
-                           <Link to='/register'>
+                           <Link to='/signup'>
                               <Button variant='secondary' size='lg'>
                                  Create Account
                               </Button>

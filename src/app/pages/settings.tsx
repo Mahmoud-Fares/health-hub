@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import {
    Tabs,
    TabsContent,
@@ -11,6 +9,7 @@ import { useAuth } from '@/features/auth';
 import { isDoctor, isPatient } from '@/features/auth/utils';
 import { ClientProfileSettings } from '@/features/settings/components/client-profile-settings';
 import { DoctorProfileSettings } from '@/features/settings/components/doctor-profile-settings';
+import { useSettingsTab } from '@/features/settings/hooks/use-settings-tabs';
 import {
    DoctorSettingsTabs,
    PatientSettingsTabs,
@@ -20,7 +19,7 @@ import { getSettingsTabs } from '@/features/settings/utils';
 
 export default function SettingsPage() {
    const { currentUser } = useAuth();
-   const [activeTab, setActiveTab] = useState<SettingsTabs>('personal');
+   const [activeTab, setActiveTab] = useSettingsTab('personal');
 
    const TABS = getSettingsTabs(currentUser!);
 

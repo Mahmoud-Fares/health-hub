@@ -86,17 +86,21 @@ export const PersonalInfoFields = ({ control }: PersonalInfoFieldsProps) => {
                         defaultValue={field.value}
                         className='flex space-x-4'
                      >
-                        <FormItem className='flex items-center space-x-2'>
+                        <FormItem className='flex items-center gap-2'>
                            <FormControl>
                               <RadioGroupItem value='male' />
                            </FormControl>
-                           <FormLabel className='font-normal'>Male</FormLabel>
+                           <FormLabel className='cursor-pointer font-normal'>
+                              Male
+                           </FormLabel>
                         </FormItem>
-                        <FormItem className='flex items-center space-x-2'>
+                        <FormItem className='flex items-center gap-2'>
                            <FormControl>
                               <RadioGroupItem value='female' />
                            </FormControl>
-                           <FormLabel className='font-normal'>Female</FormLabel>
+                           <FormLabel className='cursor-pointer font-normal'>
+                              Female
+                           </FormLabel>
                         </FormItem>
                      </RadioGroup>
                   </FormControl>

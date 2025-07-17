@@ -140,6 +140,7 @@ const authService = {
             specialization: doctorData.specialization,
             appointments: doctorData.appointments,
             email_verified_at: doctorData.email_verified_at,
+            role_activation: doctorData.role_activation === 'true',
          };
       }
    },

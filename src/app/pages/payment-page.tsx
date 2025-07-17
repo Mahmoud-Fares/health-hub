@@ -135,7 +135,14 @@ const PaymentPage = () => {
                   <Button
                      onClick={() => {
                         if (!bookingId || !feesData) return;
-                        payWithStripe({ amount: Number(feesData.data.fees) });
+                        payWithStripe(
+                           { amount: Number(feesData.data.fees) },
+                           {
+                              onSuccess: (data) => {
+                                 window.location.assign(data.url);
+                              },
+                           }
+                        );
                      }}
                      disabled={!feesData || isFeesLoading || isStripePending}
                      className='w-full sm:w-auto'
@@ -143,7 +150,7 @@ const PaymentPage = () => {
                      {isStripePending ? (
                         <Spinner className='border-white' />
                      ) : (
-                        'Pay with strip'
+                        'Pay with stripe'
                      )}
                   </Button>
 
