@@ -51,15 +51,20 @@ const Header = () => {
                         <Button
                            variant='ghost'
                            size='sm'
-                           className='transition-colors'
+                           className='transition-colors bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium px-5 py-2 rounded-full transition duration-300'
                         >
                            Sign In
                         </Button>
                      </Link>
                      <Link to='/signup'>
-                        <Button size='sm' className='animate-scale-in'>
+                        <Button size='sm' className='animate-scale-in bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-5 py-2 rounded-full'>
                            Sign Up
                         </Button>
+                     </Link>
+                     <Link to="/contact">
+                        <span className="bg-teal-500 hover:bg-teal-700 text-white text-sm font-medium px-5 py-2 rounded-full transition duration-300">
+                        Contact Us
+                        </span>
                      </Link>
                   </div>
                </SignedOut>
@@ -69,7 +74,7 @@ const Header = () => {
          {/*       
 ----------------------------------------------- */}
 
-         <div className='w-full bg-blue-500 p-4 px-4'>
+         <div className='w-full bg-blue-500 p-3 px-4'>
             <div className='flex items-center justify-between'>
                {/* Desktop Navigation */}
                <nav className='hidden flex-1 justify-center gap-4 lg:flex lg:gap-8'>
@@ -149,7 +154,7 @@ const Header = () => {
                      <MobileNavLink to='/about' label='About' />
                      <MobileNavLink to='/food-scanner' label='Food Scanner' />
                      <MobileNavLink to='/calculators' label='Calculators' />
-                     <MobileNavLink to='/store' label='E-commerce' />
+                     <MobileNavLink to='/store' label='shop' />
                      <Link
                         to='/find-doctors'
                         className='rounded-full bg-white px-6 py-2 text-center text-black hover:bg-blue-700'
@@ -207,9 +212,9 @@ const Logo = () => (
 
       <Link to='/' className='flex flex-shrink-0 items-center py-2 md:hidden'>
          <img
-            src='/images/icon-logo.png'
+            src='/images/health hub removed TRY.png' //ظبطي دا
             alt='Logo'
-            className='max-w-10 object-fill'
+            className=' object-fill'
          />
       </Link>
    </>
