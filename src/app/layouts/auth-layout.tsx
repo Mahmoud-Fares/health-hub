@@ -18,7 +18,7 @@ export default function AuthLayout() {
                <BackToHomeButton className='mb-6' />
 
                <h2 className='gradient-text mt-6 animate-fade-in text-center text-3xl font-extrabold'>
-                  Healthcare
+                  HealthHub
                </h2>
             </div>
 
