@@ -214,7 +214,7 @@ const Logo = () => (
          <img
             src='/images/health hub removed TRY.png' //ظبطي دا
             alt='Logo'
-            className='max-w-10 object-fill'
+            className=' object-fill'
          />
       </Link>
    </>

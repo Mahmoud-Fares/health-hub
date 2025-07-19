@@ -5,7 +5,7 @@ import { FaRobot } from 'react-icons/fa';
 const englishRoutes = [
   {
     keywords: ['calculator', 'bmi', 'calories', 'fat', 'tools', 'analysis','TDEE','Water intake'],
-    reply: `🧮 Want to check your BMI or daily needs? <a href="/nutrition-tools" class="text-blue-600 underline">Explore our smart health tools here</a>.`,
+    reply: `🧮 Want to check your BMI or daily needs? <a href="/calculators" class="text-blue-600 underline">Explore our smart health tools here</a>.`,
   },
   {
     keywords: ['articles', 'blog', 'tips', 'reading', 'nutrition info'],
@@ -13,11 +13,11 @@ const englishRoutes = [
   },
   {
     keywords: ['book', 'appointment', 'consultation', 'doctor'],
-    reply: `👩‍⚕️ Need expert advice? <a href="/book-appointment" class="text-blue-600 underline">Book a session with a certified nutritionist here</a>.`,
+    reply: `👩‍⚕️ Need expert advice? <a href="/find-doctors" class="text-blue-600 underline">Book a session with a certified nutritionist here</a>.`,
   },
   {
     keywords: ['exercise', 'workout', 'fitness', 'training','coach'],
-    reply: `💪 Ready to move? <a href="/workouts" class="text-blue-600 underline">Explore workout videos and fitness routines</a>.`,
+    reply: `💪 Ready to move? <a href="/workout-videos" class="text-blue-600 underline">Explore workout videos and fitness routines</a>.`,
   },
   {
     keywords: ['shop', 'store', 'products', 'ecommerce','Buy'],
@@ -43,36 +43,36 @@ const englishRoutes = [
 
 const arabicRoutes = [
   {
-    keywords: ['حاسبة', 'مؤشر', 'تحليل', 'اداة', 'السعرات', 'الدهون'],
-    reply: `🧮 تقدر تحلل جسمك وتستخدم الأدوات الذكية من <a href="/nutrition-tools" class="text-blue-600 underline">هنا</a>.`,
+    keywords: ['حاسبة', 'مؤشر', 'تحليل', 'اداة', 'السعرات', 'الدهون','تحليل الوزن'],
+    reply: `🧮 تقدر تحلل جسمك وتستخدم الأدوات الذكية من <a href="/calculators" class="text-blue-600 underline">هنا</a>.`,
   },
   {
-    keywords: ['مقالات', 'معلومة', 'نصائح', 'بلوج', 'قراءة'],
+    keywords: ['مقالة','مقالات', 'معلومة', 'نصائح', 'بلوج', 'قراءة'],
     reply: `📚 مهتم بالتغذية؟ <a href="/articles" class="text-blue-600 underline">اقرأ أحدث مقالاتنا من هنا</a>.`,
   },
   {
-    keywords: ['احجز', 'استشارة', 'دكتور', 'خبير'],
-    reply: `👩‍⚕️ محتاج مساعدة؟ <a href="/book-appointment" class="text-blue-600 underline">احجز مع أخصائي تغذية من هنا</a>.`,
+    keywords: ['دكاترة','احجز', 'استشارة', 'دكتور', 'خبير','اتخن','اخس','اخسس'],
+    reply: `👩‍⚕️ محتاج مساعدة؟ <a href="/find-doctors" class="text-blue-600 underline">احجز مع أخصائي تغذية من هنا</a>.`,
   },
  {
   keywords: ['رياضة', 'تمارين', 'لياقة', 'كارديو', 'جدول', 'فيديوهات', 'تدريب', 'تمرين'],
-  reply: `💪 جاهز تتحرك؟ تقدر تلاقي فيديوهات رياضية وتمارين متنوعة <a href="/workouts" class="text-blue-600 underline">من هنا</a>.`,
+  reply: `💪 جاهز تتحرك؟ تقدر تلاقي فيديوهات رياضية وتمارين متنوعة <a href="/workout-videos" class="text-blue-600 underline">من هنا</a>.`,
 },
 
   {
-    keywords: ['متجر', 'منتجات', 'تسوق', 'صحي'],
+    keywords: ['شراء','متجر', 'منتجات', 'تسوق', 'صحي','اشتري'],
     reply: `🛍️ محتاج تشتري منتجات صحية؟ <a href="/store" class="text-blue-600 underline">زور متجرنا الصحي من هنا</a>.`,
   },
   {
-    keywords: ['سكان', 'ذكاء', 'سكانر', 'تحليل أكل'],
+    keywords: ['سكان', 'ذكاء', 'سكانر', 'تحليل أكل','نسبة الدهون','أكلي'],
     reply: `🤖 عايز تحلل أكلك؟ <a href="/food-scanner" class="text-blue-600 underline">جرب سكانر الأكل الذكي من هنا</a>.`,
   },
   {
-    keywords: ['انضم', 'تواصل', 'فريق', 'كاتب', 'شراكة'],
+    keywords: ['انضم', 'تواصل', 'فريق', 'كاتب', 'شراكة','شكوي','اعلان','اتعاون','نتعاون'],
     reply: `👋 حابب تنضم لفريق HealthHub كدكتور أو كاتب أو بائع؟ <a href="/contact" class="text-blue-600 underline">كلمنا من هنا</a>.`,
   },
   {
-    keywords: ['خدمات', 'مميزات', 'العرض'],
+    keywords: ['خدمات', 'مميزات', 'العرض','عروض','اوفرز','خصومات'],
     reply: `🌟 عايز تعرف بنقدم إيه؟ <a href="/services" class="text-blue-600 underline">شوف كل خدماتنا من هنا</a>.`,
   },
   {
@@ -106,14 +106,30 @@ export default function ChatBot() {
       content: `👋 <strong>Welcome to HealthHub!</strong><br />
 I'm your assistant here to help you explore our platform.<br />
 Feel free to ask about:<br />
-• Nutrition consultations<br />
-• Healthy product store<br />
-• AI food scanner<br />
-• Workout videos<br />
-• Nutrition tools & articles<br />
-• Joining our team<br /><br />
-Type your question, and I’ll guide you to the right place! 😊`,
-    },
+• Nutrition consultations
+• Healthy product store
+• AI food scanner
+• Workout videos
+• Nutrition tools & articles
+• Joining our team
+
+Type your question, and I’ll guide you to the right place! 😊
+
+`,
+
+    },{
+    role: 'assistant',
+    content: `👋 أهلا بيك في <strong>HealthHub</strong>!<br />
+انا هنا عشان اساعدك تتحرك بسهولة في الموقع.<br />
+تقدر تسألني عن:<br />
+• استشارات التغذية
+• متجر المنتجات الصحية
+• سكانر الأكل بالذكاء الصناعي
+• فيديوهات التمارين
+• أدوات ومقالات التغذية
+• الانضمام لفريقنا
+كل المطلوب هتقولي عايز خدمة اي بالظبط وانا هوصلك بيه😊ها تحب نبدأ بـ إيه؟`,
+  },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
