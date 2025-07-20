@@ -93,7 +93,7 @@ const CalculatorsPreview = () => {
                      <motion.div
                         animate={{ opacity: [1, 0.6, 1] }}
                         transition={{ duration: 1.6, repeat: Infinity }}
-                        className='absolute left-full top-[calc(50%-12px)] h-0.5 w-[98px] -translate-y-1/2 transform bg-blue-400'
+                        className='hidden md:block absolute left-full top-[calc(50%-12px)] h-0.5 w-[98px] -translate-y-1/2 transform bg-blue-400'
                      >
                         <div className='absolute -right-2 h-0 w-0 -translate-y-[3px] border-b-4 border-l-8 border-t-4 border-b-transparent border-l-blue-400 border-t-transparent' />
                      </motion.div>
@@ -101,7 +101,7 @@ const CalculatorsPreview = () => {
                      <motion.div
                         animate={{ opacity: [1, 0.6, 1] }}
                         transition={{ duration: 1.6, repeat: Infinity }}
-                        className='absolute left-[calc(100%+6.5rem)] top-[calc(50%-225px)] h-[430px] w-0.5 bg-blue-400'
+                        className='hidden md:block absolute left-[calc(100%+6.5rem)] top-[calc(50%-225px)] h-[430px] w-0.5 bg-blue-400'
                      />
 
                      {[-223, -80, 60, 205].map((offset, i) => (
@@ -113,10 +113,10 @@ const CalculatorsPreview = () => {
                               repeat: Infinity,
                               delay: i * 0.2,
                            }}
-                           className={`absolute left-[calc(100%+6.5rem)] h-0.5 w-[100px] bg-blue-400`}
+                           className={`hidden md:block absolute left-[calc(100%+6.5rem)] h-0.5 w-[100px] bg-blue-400`}
                            style={{ top: `calc(50% - 2px + ${offset}px)` }}
                         >
-                           <div className='absolute -right-1 top-[calc(50%-4px)] h-0 w-0 border-b-4 border-l-8 border-t-4 border-b-transparent border-l-blue-400 border-t-transparent' />
+                           <div className='hidden md:block absolute -right-1 top-[calc(50%-4px)] h-0 w-0 border-b-4 border-l-8 border-t-4 border-b-transparent border-l-blue-400 border-t-transparent' />
                         </motion.div>
                      ))}
                   </motion.div>

@@ -19,7 +19,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
    isMiddle = false,
 }) => {
    return (
-      <div className='relative w-full px-0 lg:w-1/3'>
+      <div className='w-full lg:w-1/3 px-0 relative'>
          {isMiddle && (
             <>
                <span
@@ -145,7 +145,7 @@ const HeroSection: React.FC = () => {
    ];
 
    return (
-      <div className="font-[\\'Poppins\\']">
+      <div className="font-serif">
          {/* Hero Section */}
          <div
             id='home'
@@ -189,7 +189,7 @@ const HeroSection: React.FC = () => {
          </div>
 
          {/* Time Table Section */}
-         <div id='time-table' className='time-table-section'>
+         <div id='time-table' className='hidden lg:block time-table-section'>
             <div className='container mx-auto px-4'>
                <div className='-mx-4 flex flex-wrap items-start'>
                   {services.map((service, index) => (

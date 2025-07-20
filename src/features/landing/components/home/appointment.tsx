@@ -16,7 +16,7 @@ const Appointment = () => {
                   and real results.
                </p>
                <Link
-                  to='/FindDR'
+                  to='/find-doctors'
                   className='mt-6 inline-block rounded-full bg-white px-8 py-3 font-semibold text-blue-600 shadow-md transition hover:opacity-90'
                >
                   Meet Our Doctors

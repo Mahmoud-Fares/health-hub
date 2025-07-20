@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
+import ChatBot from '@/features/landing/components/chat-bot';
 import ScrollToTopButton from '@/features/landing/components/scroll-to-top-button';
 
 const Footer = () => {
@@ -65,7 +66,7 @@ const Footer = () => {
                      <FooterLink to='/food-scanner' label='Food Scanner' />
                      <FooterLink to='/store' label='E-Commerce' />
                      <FooterLink to='/find-doctors' label='Book Appointment' />
-                     <FooterLink to='/findDr' label='Find Doctors' />
+                     <FooterLink to='/find-doctors' label='Find Doctors' />
                   </ul>
                </div>
 
@@ -160,6 +161,7 @@ const Footer = () => {
             </div>
          </div>
          <ScrollToTopButton />
+         <ChatBot/>
       </footer>
    );
 };
