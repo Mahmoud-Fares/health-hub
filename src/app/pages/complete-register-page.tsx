@@ -2,18 +2,19 @@ import { Navigate } from 'react-router-dom';
 
 import { useAuth } from '@/features/auth';
 import { CompleteRegisterForm } from '@/features/auth/components/complete-register-form';
+import { useGoogleCallback } from '@/features/auth/hooks/use-google-callback';
 
 export default function CompleteRegisterPage() {
-   const searchParams = new URLSearchParams(window.location.search);
-   const token = searchParams.get('token') || '';
-   const slug = searchParams.get('slug') || '';
+   const { token, slug } = useGoogleCallback();
 
    const { currentUser } = useAuth();
-   if (currentUser?.role !== 'deactivated') return <Navigate to='/' />;
+   const shouldRedirect = currentUser && currentUser.role !== 'deactivated';
+
+   if (shouldRedirect) return <Navigate to='/' />;
 
    return (
       <div className='flex min-h-screen animate-fade-in flex-col items-center justify-center'>
-         <CompleteRegisterForm token={token} slug={slug} />
+         <CompleteRegisterForm token={token || ''} slug={slug || ''} />
       </div>
    );
 }
