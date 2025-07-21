@@ -113,3 +113,35 @@ export const useUploadProfileImage = () => {
       },
    });
 };
+
+export const useDeleteProfileImage = () => {
+   const { currentUser, setCurrentUser } = useAuth();
+   const queryClient = useQueryClient();
+   return useMutation({
+      mutationFn: () => settingsService.deleteProfileImage(),
+      onSuccess: async () => {
+         const res = await authService.getCurrentUserData({
+            role: currentUser!.role,
+            slug: currentUser!.slug,
+            token: currentUser!.token,
+         });
+         setCurrentUser(res);
+         if (currentUser?.role === 'doctor') {
+            queryClient.invalidateQueries({
+               queryKey: ['doctor', currentUser.slug] as const,
+            });
+         } else if (currentUser?.role === 'client') {
+            queryClient.invalidateQueries({
+               queryKey: ['client', currentUser.slug] as const,
+            });
+         }
+         toast.success('Profile image deleted successfully');
+      },
+      onError: (error: any) => {
+         toast.error(
+            error.response?.data?.message ||
+               'Failed to delete profile image. Please try again.'
+         );
+      },
+   });
+};

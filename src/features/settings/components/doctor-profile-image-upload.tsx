@@ -1,5 +1,8 @@
 import React, { useRef, useState } from 'react';
 
+import { Trash } from 'lucide-react';
+
+import Spinner from '@/shared/components/spinner';
 import {
    Avatar,
    AvatarFallback,
@@ -8,9 +11,13 @@ import {
 import { Button } from '@/shared/components/ui/button';
 import { Card, CardContent } from '@/shared/components/ui/card';
 import { Input } from '@/shared/components/ui/input';
+import { cn } from '@/shared/lib/utils';
 
 import { useAuth } from '@/features/auth';
-import { useUploadProfileImage } from '@/features/settings/api/hooks';
+import {
+   useDeleteProfileImage,
+   useUploadProfileImage,
+} from '@/features/settings/api/hooks';
 
 export default function DoctorProfileImageUpload() {
    const { currentUser } = useAuth();
@@ -45,6 +52,9 @@ export default function DoctorProfileImageUpload() {
       uploadImage(formData, {
          onSuccess: () => {
             setTouched(false);
+            setFile(null);
+            setPreview(null);
+            if (fileInputRef.current) fileInputRef.current.value = '';
          },
       });
    };
@@ -58,10 +68,16 @@ export default function DoctorProfileImageUpload() {
    return (
       <Card className='mb-6'>
          <CardContent className='flex flex-col items-center gap-4 pt-6'>
-            <Avatar className='h-24 w-24'>
-               <AvatarImage src={currentImage} alt={currentUser.name} />
-               <AvatarFallback>{fallback}</AvatarFallback>
-            </Avatar>
+            <div className='relative'>
+               <Avatar className='relative h-24 w-24'>
+                  <AvatarImage src={currentImage} alt={currentUser.name} />
+                  <AvatarFallback>{fallback}</AvatarFallback>
+               </Avatar>
+               {currentUser.image && !preview && (
+                  <DeleteCurrentProfileImage className='absolute -bottom-2 -right-2' />
+               )}
+            </div>
+
             <div className='flex gap-2'>
                <Input
                   ref={fileInputRef}
@@ -95,3 +111,22 @@ export default function DoctorProfileImageUpload() {
       </Card>
    );
 }
+
+const DeleteCurrentProfileImage = ({ className }: { className?: string }) => {
+   const { mutate: deleteProfileImage, isPending } = useDeleteProfileImage();
+
+   return (
+      <Button
+         variant='destructive'
+         type='button'
+         size='icon'
+         className={cn('rounded-full', className)}
+         onClick={() => deleteProfileImage()}
+      >
+         {!isPending && <Trash />}
+         {isPending && (
+            <Spinner className='h-4 w-4 border-destructive-foreground' />
+         )}
+      </Button>
+   );
+};

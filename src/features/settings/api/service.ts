@@ -44,6 +44,11 @@ const settingsService = {
 
       return response.data;
    },
+   deleteProfileImage: async (): Promise<any> => {
+      const response = await api.delete('profile/delete-picture');
+
+      return response.data;
+   },
    deleteProfile: async (): Promise<any> => {
       const response = await api.delete('auth/user/delete');
       return response.data;
